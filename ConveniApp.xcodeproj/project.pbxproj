@@ -1,0 +1,662 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1BA92CA02697BC1A00EE5467 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA92C9F2697BC1A00EE5467 /* Constants.swift */; };
+		1BB3117B2699890A00BD4C48 /* LocationFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB3117A2699890A00BD4C48 /* LocationFetcher.swift */; };
+		1BB5AB902687503F00CB6C1A /* ConveniAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB5AB8F2687503F00CB6C1A /* ConveniAppApp.swift */; };
+		1BB5AB922687503F00CB6C1A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB5AB912687503F00CB6C1A /* ContentView.swift */; };
+		1BB5AB942687504000CB6C1A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BB5AB932687504000CB6C1A /* Assets.xcassets */; };
+		1BB5AB972687504000CB6C1A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BB5AB962687504000CB6C1A /* Preview Assets.xcassets */; };
+		1BB5ABA12687504000CB6C1A /* ConveniAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB5ABA02687504000CB6C1A /* ConveniAppTests.swift */; };
+		1BB5ABAB2687504000CB6C1A /* ConveniAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB5ABAA2687504000CB6C1A /* ConveniAppUITests.swift */; };
+		1BB5ABB8268750A900CB6C1A /* ConveniHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB5ABB7268750A900CB6C1A /* ConveniHeaderView.swift */; };
+		1BC25D73268BE2C0006AF8F2 /* WeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC25D72268BE2C0006AF8F2 /* WeatherManager.swift */; };
+		1BC25D78268C216C006AF8F2 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC25D77268C216C006AF8F2 /* Weather.swift */; };
+		1BC25D7A268C2451006AF8F2 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC25D79268C2451006AF8F2 /* APIError.swift */; };
+		1BF9F2222697C7A000260273 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF9F2212697C79F00260273 /* NetworkMonitor.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1BB5AB9D2687504000CB6C1A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1BB5AB842687503F00CB6C1A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1BB5AB8B2687503F00CB6C1A;
+			remoteInfo = ConveniApp;
+		};
+		1BB5ABA72687504000CB6C1A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1BB5AB842687503F00CB6C1A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1BB5AB8B2687503F00CB6C1A;
+			remoteInfo = ConveniApp;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1BA92C9F2697BC1A00EE5467 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		1BB3117A2699890A00BD4C48 /* LocationFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationFetcher.swift; sourceTree = "<group>"; };
+		1BB5AB8C2687503F00CB6C1A /* ConveniApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ConveniApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1BB5AB8F2687503F00CB6C1A /* ConveniAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConveniAppApp.swift; sourceTree = "<group>"; };
+		1BB5AB912687503F00CB6C1A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		1BB5AB932687504000CB6C1A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1BB5AB962687504000CB6C1A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		1BB5AB9C2687504000CB6C1A /* ConveniAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ConveniAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1BB5ABA02687504000CB6C1A /* ConveniAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConveniAppTests.swift; sourceTree = "<group>"; };
+		1BB5ABA62687504000CB6C1A /* ConveniAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ConveniAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1BB5ABAA2687504000CB6C1A /* ConveniAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConveniAppUITests.swift; sourceTree = "<group>"; };
+		1BB5ABB7268750A900CB6C1A /* ConveniHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConveniHeaderView.swift; sourceTree = "<group>"; };
+		1BC25D72268BE2C0006AF8F2 /* WeatherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherManager.swift; sourceTree = "<group>"; };
+		1BC25D76268BEA20006AF8F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		1BC25D77268C216C006AF8F2 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
+		1BC25D79268C2451006AF8F2 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
+		1BF9F2212697C79F00260273 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1BB5AB892687503F00CB6C1A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1BB5AB992687504000CB6C1A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1BB5ABA32687504000CB6C1A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1BB5AB832687503F00CB6C1A = {
+			isa = PBXGroup;
+			children = (
+				1BB5AB8E2687503F00CB6C1A /* ConveniApp */,
+				1BB5AB9F2687504000CB6C1A /* ConveniAppTests */,
+				1BB5ABA92687504000CB6C1A /* ConveniAppUITests */,
+				1BB5AB8D2687503F00CB6C1A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1BB5AB8D2687503F00CB6C1A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1BB5AB8C2687503F00CB6C1A /* ConveniApp.app */,
+				1BB5AB9C2687504000CB6C1A /* ConveniAppTests.xctest */,
+				1BB5ABA62687504000CB6C1A /* ConveniAppUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1BB5AB8E2687503F00CB6C1A /* ConveniApp */ = {
+			isa = PBXGroup;
+			children = (
+				1BC25D76268BEA20006AF8F2 /* Info.plist */,
+				1BB5AB8F2687503F00CB6C1A /* ConveniAppApp.swift */,
+				1BC25D71268BE290006AF8F2 /* Views */,
+				1BC25D70268BE28A006AF8F2 /* Models */,
+				1BB5AB932687504000CB6C1A /* Assets.xcassets */,
+				1BB5AB952687504000CB6C1A /* Preview Content */,
+			);
+			path = ConveniApp;
+			sourceTree = "<group>";
+		};
+		1BB5AB952687504000CB6C1A /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				1BB5AB962687504000CB6C1A /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		1BB5AB9F2687504000CB6C1A /* ConveniAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				1BB5ABA02687504000CB6C1A /* ConveniAppTests.swift */,
+			);
+			path = ConveniAppTests;
+			sourceTree = "<group>";
+		};
+		1BB5ABA92687504000CB6C1A /* ConveniAppUITests */ = {
+			isa = PBXGroup;
+			children = (
+				1BB5ABAA2687504000CB6C1A /* ConveniAppUITests.swift */,
+			);
+			path = ConveniAppUITests;
+			sourceTree = "<group>";
+		};
+		1BC25D70268BE28A006AF8F2 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				1BC25D72268BE2C0006AF8F2 /* WeatherManager.swift */,
+				1BC25D77268C216C006AF8F2 /* Weather.swift */,
+				1BC25D79268C2451006AF8F2 /* APIError.swift */,
+				1BA92C9F2697BC1A00EE5467 /* Constants.swift */,
+				1BF9F2212697C79F00260273 /* NetworkMonitor.swift */,
+				1BB3117A2699890A00BD4C48 /* LocationFetcher.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		1BC25D71268BE290006AF8F2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1BB5AB912687503F00CB6C1A /* ContentView.swift */,
+				1BB5ABB7268750A900CB6C1A /* ConveniHeaderView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1BB5AB8B2687503F00CB6C1A /* ConveniApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1BB5ABAE2687504000CB6C1A /* Build configuration list for PBXNativeTarget "ConveniApp" */;
+			buildPhases = (
+				1BB5AB882687503F00CB6C1A /* Sources */,
+				1BB5AB892687503F00CB6C1A /* Frameworks */,
+				1BB5AB8A2687503F00CB6C1A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ConveniApp;
+			productName = ConveniApp;
+			productReference = 1BB5AB8C2687503F00CB6C1A /* ConveniApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+		1BB5AB9B2687504000CB6C1A /* ConveniAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1BB5ABB12687504000CB6C1A /* Build configuration list for PBXNativeTarget "ConveniAppTests" */;
+			buildPhases = (
+				1BB5AB982687504000CB6C1A /* Sources */,
+				1BB5AB992687504000CB6C1A /* Frameworks */,
+				1BB5AB9A2687504000CB6C1A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1BB5AB9E2687504000CB6C1A /* PBXTargetDependency */,
+			);
+			name = ConveniAppTests;
+			productName = ConveniAppTests;
+			productReference = 1BB5AB9C2687504000CB6C1A /* ConveniAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		1BB5ABA52687504000CB6C1A /* ConveniAppUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1BB5ABB42687504000CB6C1A /* Build configuration list for PBXNativeTarget "ConveniAppUITests" */;
+			buildPhases = (
+				1BB5ABA22687504000CB6C1A /* Sources */,
+				1BB5ABA32687504000CB6C1A /* Frameworks */,
+				1BB5ABA42687504000CB6C1A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1BB5ABA82687504000CB6C1A /* PBXTargetDependency */,
+			);
+			name = ConveniAppUITests;
+			productName = ConveniAppUITests;
+			productReference = 1BB5ABA62687504000CB6C1A /* ConveniAppUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1BB5AB842687503F00CB6C1A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1300;
+				LastUpgradeCheck = 1300;
+				TargetAttributes = {
+					1BB5AB8B2687503F00CB6C1A = {
+						CreatedOnToolsVersion = 13.0;
+					};
+					1BB5AB9B2687504000CB6C1A = {
+						CreatedOnToolsVersion = 13.0;
+						TestTargetID = 1BB5AB8B2687503F00CB6C1A;
+					};
+					1BB5ABA52687504000CB6C1A = {
+						CreatedOnToolsVersion = 13.0;
+						TestTargetID = 1BB5AB8B2687503F00CB6C1A;
+					};
+				};
+			};
+			buildConfigurationList = 1BB5AB872687503F00CB6C1A /* Build configuration list for PBXProject "ConveniApp" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1BB5AB832687503F00CB6C1A;
+			productRefGroup = 1BB5AB8D2687503F00CB6C1A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1BB5AB8B2687503F00CB6C1A /* ConveniApp */,
+				1BB5AB9B2687504000CB6C1A /* ConveniAppTests */,
+				1BB5ABA52687504000CB6C1A /* ConveniAppUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1BB5AB8A2687503F00CB6C1A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1BB5AB972687504000CB6C1A /* Preview Assets.xcassets in Resources */,
+				1BB5AB942687504000CB6C1A /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1BB5AB9A2687504000CB6C1A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1BB5ABA42687504000CB6C1A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1BB5AB882687503F00CB6C1A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1BB5AB922687503F00CB6C1A /* ContentView.swift in Sources */,
+				1BF9F2222697C7A000260273 /* NetworkMonitor.swift in Sources */,
+				1BB5AB902687503F00CB6C1A /* ConveniAppApp.swift in Sources */,
+				1BC25D73268BE2C0006AF8F2 /* WeatherManager.swift in Sources */,
+				1BC25D7A268C2451006AF8F2 /* APIError.swift in Sources */,
+				1BA92CA02697BC1A00EE5467 /* Constants.swift in Sources */,
+				1BB5ABB8268750A900CB6C1A /* ConveniHeaderView.swift in Sources */,
+				1BC25D78268C216C006AF8F2 /* Weather.swift in Sources */,
+				1BB3117B2699890A00BD4C48 /* LocationFetcher.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1BB5AB982687504000CB6C1A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1BB5ABA12687504000CB6C1A /* ConveniAppTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1BB5ABA22687504000CB6C1A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1BB5ABAB2687504000CB6C1A /* ConveniAppUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1BB5AB9E2687504000CB6C1A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1BB5AB8B2687503F00CB6C1A /* ConveniApp */;
+			targetProxy = 1BB5AB9D2687504000CB6C1A /* PBXContainerItemProxy */;
+		};
+		1BB5ABA82687504000CB6C1A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1BB5AB8B2687503F00CB6C1A /* ConveniApp */;
+			targetProxy = 1BB5ABA72687504000CB6C1A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1BB5ABAC2687504000CB6C1A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		1BB5ABAD2687504000CB6C1A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1BB5ABAF2687504000CB6C1A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"ConveniApp/Preview Content\"";
+				DEVELOPMENT_TEAM = N9L2U78Y64;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ConveniApp/Info.plist;
+				INFOPLIST_KEY_CFBundleExecutable = ConveniApp;
+				INFOPLIST_KEY_CFBundleName = ConveniApp;
+				INFOPLIST_KEY_CFBundleVersion = 1;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.headspinnerd.ConveniApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1BB5ABB02687504000CB6C1A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"ConveniApp/Preview Content\"";
+				DEVELOPMENT_TEAM = N9L2U78Y64;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ConveniApp/Info.plist;
+				INFOPLIST_KEY_CFBundleExecutable = ConveniApp;
+				INFOPLIST_KEY_CFBundleName = ConveniApp;
+				INFOPLIST_KEY_CFBundleVersion = 1;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.headspinnerd.ConveniApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		1BB5ABB22687504000CB6C1A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = N9L2U78Y64;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.headspinnerd.ConveniAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ConveniApp.app/ConveniApp";
+			};
+			name = Debug;
+		};
+		1BB5ABB32687504000CB6C1A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = N9L2U78Y64;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.headspinnerd.ConveniAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ConveniApp.app/ConveniApp";
+			};
+			name = Release;
+		};
+		1BB5ABB52687504000CB6C1A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = N9L2U78Y64;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.headspinnerd.ConveniAppUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = ConveniApp;
+			};
+			name = Debug;
+		};
+		1BB5ABB62687504000CB6C1A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = N9L2U78Y64;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.headspinnerd.ConveniAppUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = ConveniApp;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1BB5AB872687503F00CB6C1A /* Build configuration list for PBXProject "ConveniApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1BB5ABAC2687504000CB6C1A /* Debug */,
+				1BB5ABAD2687504000CB6C1A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1BB5ABAE2687504000CB6C1A /* Build configuration list for PBXNativeTarget "ConveniApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1BB5ABAF2687504000CB6C1A /* Debug */,
+				1BB5ABB02687504000CB6C1A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1BB5ABB12687504000CB6C1A /* Build configuration list for PBXNativeTarget "ConveniAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1BB5ABB22687504000CB6C1A /* Debug */,
+				1BB5ABB32687504000CB6C1A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1BB5ABB42687504000CB6C1A /* Build configuration list for PBXNativeTarget "ConveniAppUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1BB5ABB52687504000CB6C1A /* Debug */,
+				1BB5ABB62687504000CB6C1A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1BB5AB842687503F00CB6C1A /* Project object */;
+}
