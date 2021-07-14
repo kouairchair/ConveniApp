@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B3254C2269F243100929F01 /* URLSession+Get.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3254C1269F243100929F01 /* URLSession+Get.swift */; };
 		1BA92CA02697BC1A00EE5467 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA92C9F2697BC1A00EE5467 /* Constants.swift */; };
 		1BB3117B2699890A00BD4C48 /* LocationFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB3117A2699890A00BD4C48 /* LocationFetcher.swift */; };
 		1BB5AB902687503F00CB6C1A /* ConveniAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB5AB8F2687503F00CB6C1A /* ConveniAppApp.swift */; };
@@ -40,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1B3254C1269F243100929F01 /* URLSession+Get.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Get.swift"; sourceTree = "<group>"; };
 		1BA92C9F2697BC1A00EE5467 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		1BB3117A2699890A00BD4C48 /* LocationFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationFetcher.swift; sourceTree = "<group>"; };
 		1BB5AB8C2687503F00CB6C1A /* ConveniApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ConveniApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -84,6 +86,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1B3254BE269F1E0100929F01 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				1B3254C1269F243100929F01 /* URLSession+Get.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		1BB5AB832687503F00CB6C1A = {
 			isa = PBXGroup;
 			children = (
@@ -150,6 +160,7 @@
 				1BA92C9F2697BC1A00EE5467 /* Constants.swift */,
 				1BF9F2212697C79F00260273 /* NetworkMonitor.swift */,
 				1BB3117A2699890A00BD4C48 /* LocationFetcher.swift */,
+				1B3254BE269F1E0100929F01 /* Extension */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -296,6 +307,7 @@
 				1BB5AB922687503F00CB6C1A /* ContentView.swift in Sources */,
 				1BF9F2222697C7A000260273 /* NetworkMonitor.swift in Sources */,
 				1BB5AB902687503F00CB6C1A /* ConveniAppApp.swift in Sources */,
+				1B3254C2269F243100929F01 /* URLSession+Get.swift in Sources */,
 				1BC25D73268BE2C0006AF8F2 /* WeatherManager.swift in Sources */,
 				1BC25D7A268C2451006AF8F2 /* APIError.swift in Sources */,
 				1BA92CA02697BC1A00EE5467 /* Constants.swift in Sources */,

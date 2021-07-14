@@ -28,52 +28,38 @@ public class WeatherManager {
         self.locationFetcher.start()
     }
     
-    func fetchWeather() async throws -> Weather? {
+    func fetchWeather() async throws -> Weather {
         if !NetworkMonitor.shared.isReachable {
             throw APIError.offlineError
         }
         
-        var url: URL?
+        var urlString = ""
         if let location = self.locationFetcher.lastKnownLocation {
-            url = URL(string: String(format: Constants.openWeatherMapUrlByCooridnates, arguments: [location.latitude, location.longitude]))
+            urlString = String(format: Constants.openWeatherMapUrlByCooridnatesUrl, arguments: [location.latitude, location.longitude])
         } else {
-            url = URL(string: String(format: Constants.openWeatherMapUrlByLocationId, arguments: [specifiedPlace]))
+            urlString = String(format: Constants.openWeatherMapUrlByLocationIdUrl, arguments: [specifiedPlace])
         }
         
-        guard let requestUrl = url else {
-            throw APIError.urlError
-        }
-        print("testtest \(requestUrl)")
-        let request = URLRequest(url: requestUrl)
-        let (data, response) = try await URLSession.shared.data(for: request)
-        guard let statusCode = (response as? HTTPURLResponse)?.statusCode else {
-            throw APIError.noStatusCodeError
-        }
-        
-        switch statusCode {
+        let weatherResponse: Weather = try await URLSession.shared.getDecodedData(urlString: urlString)
             
-        case 100..<200:
-            throw APIError.informationalError
-            
-        case 200..<300:
-            guard let decodedResponse = try? JSONDecoder().decode(Weather.self, from: data) else {
-                throw APIError.decodeError
-            }
-            
-            return decodedResponse
-            
-        case 300..<400:
-            throw APIError.redirectionError
-            
-        case 400..<500:
-            throw APIError.clientError
-            
-        case 500..<600:
-            throw APIError.serverError
-            
-        default:
-            throw APIError.undefinedError
-            
-        }
+        return weatherResponse
     }
+    
+    func fetchWeatherIcon() async throws -> UIImage? {
+        let weatherResponse: Weather = try await fetchWeather()
+            
+        guard let weatherIconStr = weatherResponse.weather.first?.icon else {
+            throw WeatherError.noImageName
+        }
+        
+        let urlString = String(format: Constants.openWeatherMapImageUrl, arguments: [weatherIconStr])
+        let imageData = try await URLSession.shared.getData(urlString: urlString)
+        
+        return try UIImage(data: imageData) ?? throwError(WeatherError.imageConvertError)
+    }
+}
+
+enum WeatherError: Error {
+    case noImageName
+    case imageConvertError
 }

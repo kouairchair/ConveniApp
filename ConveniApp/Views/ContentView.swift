@@ -8,21 +8,27 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var image: UIImage?
+    
     var body: some View {
         VStack {
             ConveniHeaderView()
-            Button(action: {
-                async {
-                    do {
-                        if let weather = try await WeatherManager.shared.fetchWeather() {
-                            print("testtest weather:\(String(describing: weather.main.temp))")
-                        }
-                    } catch {
-                        print("testtest fetchWeather failed:\(error)")
+            if let _image = image {
+                Image(uiImage: _image)
+            }
+//            Button(action: {
+//            }){
+//                Text("get Weather")
+//            }
+        }.onAppear {
+            async {
+                do {
+                    if let weatherImage = try await WeatherManager.shared.fetchWeatherIcon() {
+                        image = weatherImage
                     }
+                } catch {
+                    print("testtest fetchWeather failed:\(error)")
                 }
-            }){
-                Text("get Weather")
             }
         }
     }
