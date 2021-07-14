@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		1B3254C2269F243100929F01 /* URLSession+Get.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3254C1269F243100929F01 /* URLSession+Get.swift */; };
+		1B3254C6269FA2FC00929F01 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1B3254C8269FA2FC00929F01 /* Localizable.strings */; };
+		1B3254CB269FA44600929F01 /* LcliConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3254CA269FA44600929F01 /* LcliConstants.swift */; };
+		1B3254D0269FAC6B00929F01 /* LoggingOSLog in Frameworks */ = {isa = PBXBuildFile; productRef = 1B3254CF269FAC6B00929F01 /* LoggingOSLog */; };
+		1B3254D2269FACB700929F01 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3254D1269FACB700929F01 /* Logger.swift */; };
 		1BA92CA02697BC1A00EE5467 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA92C9F2697BC1A00EE5467 /* Constants.swift */; };
 		1BB3117B2699890A00BD4C48 /* LocationFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB3117A2699890A00BD4C48 /* LocationFetcher.swift */; };
 		1BB5AB902687503F00CB6C1A /* ConveniAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB5AB8F2687503F00CB6C1A /* ConveniAppApp.swift */; };
@@ -42,6 +46,10 @@
 
 /* Begin PBXFileReference section */
 		1B3254C1269F243100929F01 /* URLSession+Get.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Get.swift"; sourceTree = "<group>"; };
+		1B3254C7269FA2FC00929F01 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1B3254C9269FA32000929F01 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1B3254CA269FA44600929F01 /* LcliConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LcliConstants.swift; sourceTree = "<group>"; };
+		1B3254D1269FACB700929F01 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		1BA92C9F2697BC1A00EE5467 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		1BB3117A2699890A00BD4C48 /* LocationFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationFetcher.swift; sourceTree = "<group>"; };
 		1BB5AB8C2687503F00CB6C1A /* ConveniApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ConveniApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -66,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B3254D0269FAC6B00929F01 /* LoggingOSLog in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -123,6 +132,7 @@
 				1BC25D70268BE28A006AF8F2 /* Models */,
 				1BB5AB932687504000CB6C1A /* Assets.xcassets */,
 				1BB5AB952687504000CB6C1A /* Preview Content */,
+				1B3254C8269FA2FC00929F01 /* Localizable.strings */,
 			);
 			path = ConveniApp;
 			sourceTree = "<group>";
@@ -160,6 +170,8 @@
 				1BA92C9F2697BC1A00EE5467 /* Constants.swift */,
 				1BF9F2212697C79F00260273 /* NetworkMonitor.swift */,
 				1BB3117A2699890A00BD4C48 /* LocationFetcher.swift */,
+				1B3254CA269FA44600929F01 /* LcliConstants.swift */,
+				1B3254D1269FACB700929F01 /* Logger.swift */,
 				1B3254BE269F1E0100929F01 /* Extension */,
 			);
 			path = Models;
@@ -190,6 +202,9 @@
 			dependencies = (
 			);
 			name = ConveniApp;
+			packageProductDependencies = (
+				1B3254CF269FAC6B00929F01 /* LoggingOSLog */,
+			);
 			productName = ConveniApp;
 			productReference = 1BB5AB8C2687503F00CB6C1A /* ConveniApp.app */;
 			productType = "com.apple.product-type.application";
@@ -260,8 +275,12 @@
 			knownRegions = (
 				en,
 				Base,
+				ja,
 			);
 			mainGroup = 1BB5AB832687503F00CB6C1A;
+			packageReferences = (
+				1B3254CE269FAC6A00929F01 /* XCRemoteSwiftPackageReference "swift-log-oslog" */,
+			);
 			productRefGroup = 1BB5AB8D2687503F00CB6C1A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -279,6 +298,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1BB5AB972687504000CB6C1A /* Preview Assets.xcassets in Resources */,
+				1B3254C6269FA2FC00929F01 /* Localizable.strings in Resources */,
 				1BB5AB942687504000CB6C1A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -311,6 +331,8 @@
 				1BC25D73268BE2C0006AF8F2 /* WeatherManager.swift in Sources */,
 				1BC25D7A268C2451006AF8F2 /* APIError.swift in Sources */,
 				1BA92CA02697BC1A00EE5467 /* Constants.swift in Sources */,
+				1B3254D2269FACB700929F01 /* Logger.swift in Sources */,
+				1B3254CB269FA44600929F01 /* LcliConstants.swift in Sources */,
 				1BB5ABB8268750A900CB6C1A /* ConveniHeaderView.swift in Sources */,
 				1BC25D78268C216C006AF8F2 /* Weather.swift in Sources */,
 				1BB3117B2699890A00BD4C48 /* LocationFetcher.swift in Sources */,
@@ -348,11 +370,24 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		1B3254C8269FA2FC00929F01 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1B3254C7269FA2FC00929F01 /* en */,
+				1B3254C9269FA32000929F01 /* ja */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		1BB5ABAC2687504000CB6C1A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -414,6 +449,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -669,6 +705,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1B3254CE269FAC6A00929F01 /* XCRemoteSwiftPackageReference "swift-log-oslog" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/inmotionsoftware/swift-log-oslog.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1B3254CF269FAC6B00929F01 /* LoggingOSLog */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1B3254CE269FAC6A00929F01 /* XCRemoteSwiftPackageReference "swift-log-oslog" */;
+			productName = LoggingOSLog;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1BB5AB842687503F00CB6C1A /* Project object */;
 }

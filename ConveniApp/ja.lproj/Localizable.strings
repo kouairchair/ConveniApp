@@ -1,0 +1,10 @@
+/* 
+  Localizable.strings
+  ConveniApp
+
+  Created by headspinnerd on 2021/07/15.
+  
+*/
+
+"Error" = "エラー";
+"Fetch.Weather.Failed" = "天気情報取得失敗しました。error:%@";

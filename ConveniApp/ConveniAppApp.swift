@@ -6,11 +6,21 @@
 //
 
 import SwiftUI
+import Logging
+import LoggingOSLog
 
 @main
 struct ConveniAppApp: App {
     init() {
         setupModels()
+        
+        LoggingSystem.bootstrap {
+            #if DEBUG
+                OSLogHandler(label: $0, metadataContentType: .public)
+            #else
+                OSLogHandler(label: $0, metadataContentType: .private)
+            #endif
+        }
     }
     
     var body: some Scene {
