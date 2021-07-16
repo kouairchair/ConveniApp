@@ -10,17 +10,10 @@ import SwiftUI
 struct Home: View {
     
     @State var currentTab: TabItem = .Weather
-    
+
     var body: some View {
         VStack {
-            HStack {
-                Text("Conveni App")
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .foregroundColor(Color("TextColor"))
-                
-                Spacer(minLength: 0)
-            }
+            ConveniHeaderView()
             .padding(.horizontal)
             
             // Tab View...
@@ -28,11 +21,8 @@ struct Home: View {
                 HStack(spacing: 0) {
                     // Weather, Browser, Message...
                     Group {
-                        Text(TabItem.Weather.rawValue)
+                        WeatherTabView()
                             .foregroundColor(self.currentTab == .Weather ? .white : Color("TextColor").opacity(0.7))
-                            .fontWeight(.bold)
-                            .padding(.vertical, 10)
-                            .padding(.horizontal, 10)
                             .background(Color("BackgroundColor").opacity(self.currentTab == .Weather ? 1 : 0))
                             .clipShape(Capsule())
                             .onTapGesture {
@@ -162,6 +152,7 @@ struct Home: View {
             Spacer(minLength: 0)
         }
         .padding(.top)
+        
     }
 }
 

@@ -9,9 +9,14 @@ import SwiftUI
 
 struct ConveniHeaderView: View {
     var body: some View {
-        
-        Text("Conveni App")
-            .background(Color.pink)
+        HStack {
+            Text("Conveni App")
+                .font(.title)
+                .fontWeight(.bold)
+                .foregroundColor(Color("TextColor"))
+            
+            Spacer(minLength: 0)
+        }
     }
 }
 

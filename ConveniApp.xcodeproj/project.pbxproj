@@ -12,6 +12,7 @@
 		1B3254CB269FA44600929F01 /* LcliConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3254CA269FA44600929F01 /* LcliConstants.swift */; };
 		1B3254D0269FAC6B00929F01 /* LoggingOSLog in Frameworks */ = {isa = PBXBuildFile; productRef = 1B3254CF269FAC6B00929F01 /* LoggingOSLog */; };
 		1B3254D2269FACB700929F01 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3254D1269FACB700929F01 /* Logger.swift */; };
+		1B7E1E3D26A237BC006707BB /* WeatherTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7E1E3C26A237BC006707BB /* WeatherTabView.swift */; };
 		1B86F3EB26A0699F00A08D24 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B86F3EA26A0699F00A08D24 /* Home.swift */; };
 		1B86F3ED26A0707D00A08D24 /* TabItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B86F3EC26A0707D00A08D24 /* TabItem.swift */; };
 		1B86F3F026A076F500A08D24 /* UIDevice+SafeArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B86F3EF26A076F500A08D24 /* UIDevice+SafeArea.swift */; };
@@ -53,6 +54,7 @@
 		1B3254C9269FA32000929F01 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1B3254CA269FA44600929F01 /* LcliConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LcliConstants.swift; sourceTree = "<group>"; };
 		1B3254D1269FACB700929F01 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		1B7E1E3C26A237BC006707BB /* WeatherTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTabView.swift; sourceTree = "<group>"; };
 		1B86F3EA26A0699F00A08D24 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		1B86F3EC26A0707D00A08D24 /* TabItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItem.swift; sourceTree = "<group>"; };
 		1B86F3EF26A076F500A08D24 /* UIDevice+SafeArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+SafeArea.swift"; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 				1BB5AB912687503F00CB6C1A /* ContentView.swift */,
 				1BB5ABB7268750A900CB6C1A /* ConveniHeaderView.swift */,
 				1B86F3EA26A0699F00A08D24 /* Home.swift */,
+				1B7E1E3C26A237BC006707BB /* WeatherTabView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -334,6 +337,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1BB5AB922687503F00CB6C1A /* ContentView.swift in Sources */,
+				1B7E1E3D26A237BC006707BB /* WeatherTabView.swift in Sources */,
 				1BF9F2222697C7A000260273 /* NetworkMonitor.swift in Sources */,
 				1BB5AB902687503F00CB6C1A /* ConveniAppApp.swift in Sources */,
 				1B3254C2269F243100929F01 /* URLSession+Get.swift in Sources */,
@@ -521,7 +525,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ConveniApp/Preview Content\"";
-				DEVELOPMENT_TEAM = N9L2U78Y64;
+				DEVELOPMENT_TEAM = NJAK8X6XT3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ConveniApp/Info.plist;
@@ -539,7 +543,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.headspinnerd.ConveniApp;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.headspinnerd.Conveni-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -555,7 +559,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ConveniApp/Preview Content\"";
-				DEVELOPMENT_TEAM = N9L2U78Y64;
+				DEVELOPMENT_TEAM = NJAK8X6XT3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ConveniApp/Info.plist;
@@ -573,7 +577,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.headspinnerd.ConveniApp;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.headspinnerd.Conveni-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
