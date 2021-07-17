@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Home: View {
+struct HomeView: View {
     
     @State var currentTab: TabItem = .Weather
 
@@ -121,7 +121,7 @@ struct Home: View {
             // connecting index with tabview for tab change...
             
             TabView(selection: self.$currentTab) {
-                GridView(fitnesData: fitData)
+                WeatherView()
                     .tag(TabItem.Weather)
                 
                 GridView(fitnesData: fitData)
