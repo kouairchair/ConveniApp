@@ -8,11 +8,17 @@
 import SwiftUI
 
 struct CustomStackView<Title: View, Content: View>: View {
+    var topEdge: CGFloat
     var titleView: Title
     var contentView: Content
     
-    init(@ViewBuilder titleView: @escaping ()->Title,
+    // Offsets...
+    @State var topOffset: CGFloat = 0
+    @State var bottomOffset: CGFloat = 0
+    
+    init(topEdge: CGFloat, @ViewBuilder titleView: @escaping ()->Title,
          @ViewBuilder contentView: @escaping ()->Content) {
+        self.topEdge = topEdge
         self.contentView = contentView()
         self.titleView = titleView()
     }
@@ -33,8 +39,24 @@ struct CustomStackView<Title: View, Content: View>: View {
                 
                 contentView
                     .padding()
-                    .background(.ultraThinMaterial, in: CustomConrnerView(corners: [.bottomLeft, .bottomRight], radius: 12))
             }
+            .background(.ultraThinMaterial, in: CustomConrnerView(corners: [.bottomLeft, .bottomRight], radius: 12))
         }
+        .colorScheme(.dark)
+        .cornerRadius(12)
+        // Stopping View @120...
+        .offset(y: topOffset >= 60 + topEdge ? 0 : -topOffset + 60 + topEdge)
+        .background(
+            
+            GeometryReader{ proxy -> Color in
+            let minY = proxy.frame(in: .global).minY
+            
+            DispatchQueue.main.async {
+                self.topOffset = minY
+            }
+            
+            return Color.clear
+            }
+        )
     }
 }

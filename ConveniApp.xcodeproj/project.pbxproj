@@ -12,6 +12,8 @@
 		1B3254CB269FA44600929F01 /* LcliConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3254CA269FA44600929F01 /* LcliConstants.swift */; };
 		1B3254D0269FAC6B00929F01 /* LoggingOSLog in Frameworks */ = {isa = PBXBuildFile; productRef = 1B3254CF269FAC6B00929F01 /* LoggingOSLog */; };
 		1B3254D2269FACB700929F01 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3254D1269FACB700929F01 /* Logger.swift */; };
+		1B72987C26A2BA9B00234D7A /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B72987B26A2BA9B00234D7A /* BackgroundView.swift */; };
+		1B72987F26A2BBED00234D7A /* ForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B72987E26A2BBED00234D7A /* ForecastView.swift */; };
 		1B7E1E3D26A237BC006707BB /* WeatherTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7E1E3C26A237BC006707BB /* WeatherTabView.swift */; };
 		1B7E1E3F26A23A75006707BB /* WeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7E1E3E26A23A75006707BB /* WeatherView.swift */; };
 		1B86F3EB26A0699F00A08D24 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B86F3EA26A0699F00A08D24 /* HomeView.swift */; };
@@ -25,7 +27,6 @@
 		1BB5AB972687504000CB6C1A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BB5AB962687504000CB6C1A /* Preview Assets.xcassets */; };
 		1BB5ABA12687504000CB6C1A /* ConveniAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB5ABA02687504000CB6C1A /* ConveniAppTests.swift */; };
 		1BB5ABAB2687504000CB6C1A /* ConveniAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB5ABAA2687504000CB6C1A /* ConveniAppUITests.swift */; };
-		1BB5ABB8268750A900CB6C1A /* ConveniHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB5ABB7268750A900CB6C1A /* ConveniHeaderView.swift */; };
 		1BC25D73268BE2C0006AF8F2 /* WeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC25D72268BE2C0006AF8F2 /* WeatherManager.swift */; };
 		1BC25D78268C216C006AF8F2 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC25D77268C216C006AF8F2 /* Weather.swift */; };
 		1BC25D7A268C2451006AF8F2 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC25D79268C2451006AF8F2 /* APIError.swift */; };
@@ -57,6 +58,8 @@
 		1B3254C9269FA32000929F01 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1B3254CA269FA44600929F01 /* LcliConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LcliConstants.swift; sourceTree = "<group>"; };
 		1B3254D1269FACB700929F01 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		1B72987B26A2BA9B00234D7A /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
+		1B72987E26A2BBED00234D7A /* ForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastView.swift; sourceTree = "<group>"; };
 		1B7E1E3C26A237BC006707BB /* WeatherTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTabView.swift; sourceTree = "<group>"; };
 		1B7E1E3E26A23A75006707BB /* WeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherView.swift; sourceTree = "<group>"; };
 		1B86F3EA26A0699F00A08D24 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -73,7 +76,6 @@
 		1BB5ABA02687504000CB6C1A /* ConveniAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConveniAppTests.swift; sourceTree = "<group>"; };
 		1BB5ABA62687504000CB6C1A /* ConveniAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ConveniAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BB5ABAA2687504000CB6C1A /* ConveniAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConveniAppUITests.swift; sourceTree = "<group>"; };
-		1BB5ABB7268750A900CB6C1A /* ConveniHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConveniHeaderView.swift; sourceTree = "<group>"; };
 		1BC25D72268BE2C0006AF8F2 /* WeatherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherManager.swift; sourceTree = "<group>"; };
 		1BC25D76268BEA20006AF8F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		1BC25D77268C216C006AF8F2 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
@@ -116,6 +118,18 @@
 				1B86F3EF26A076F500A08D24 /* UIDevice+SafeArea.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		1B72987D26A2BBC100234D7A /* Weather */ = {
+			isa = PBXGroup;
+			children = (
+				1B7E1E3E26A23A75006707BB /* WeatherView.swift */,
+				1B7E1E3C26A237BC006707BB /* WeatherTabView.swift */,
+				1BE0B4AB26A29A5500A726FD /* CustomStackView.swift */,
+				1BE0B4AD26A29B3400A726FD /* CustomConrnerView.swift */,
+				1B72987E26A2BBED00234D7A /* ForecastView.swift */,
+			);
+			path = Weather;
 			sourceTree = "<group>";
 		};
 		1BB5AB832687503F00CB6C1A = {
@@ -197,12 +211,9 @@
 			isa = PBXGroup;
 			children = (
 				1BB5AB912687503F00CB6C1A /* ContentView.swift */,
-				1BB5ABB7268750A900CB6C1A /* ConveniHeaderView.swift */,
 				1B86F3EA26A0699F00A08D24 /* HomeView.swift */,
-				1B7E1E3C26A237BC006707BB /* WeatherTabView.swift */,
-				1B7E1E3E26A23A75006707BB /* WeatherView.swift */,
-				1BE0B4AB26A29A5500A726FD /* CustomStackView.swift */,
-				1BE0B4AD26A29B3400A726FD /* CustomConrnerView.swift */,
+				1B72987B26A2BA9B00234D7A /* BackgroundView.swift */,
+				1B72987D26A2BBC100234D7A /* Weather */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -355,11 +366,12 @@
 				1BC25D73268BE2C0006AF8F2 /* WeatherManager.swift in Sources */,
 				1BC25D7A268C2451006AF8F2 /* APIError.swift in Sources */,
 				1B86F3EB26A0699F00A08D24 /* HomeView.swift in Sources */,
+				1B72987C26A2BA9B00234D7A /* BackgroundView.swift in Sources */,
+				1B72987F26A2BBED00234D7A /* ForecastView.swift in Sources */,
 				1BA92CA02697BC1A00EE5467 /* Constants.swift in Sources */,
 				1B3254D2269FACB700929F01 /* Logger.swift in Sources */,
 				1B3254CB269FA44600929F01 /* LcliConstants.swift in Sources */,
 				1B86F3ED26A0707D00A08D24 /* TabItem.swift in Sources */,
-				1BB5ABB8268750A900CB6C1A /* ConveniHeaderView.swift in Sources */,
 				1BC25D78268C216C006AF8F2 /* Weather.swift in Sources */,
 				1B86F3F026A076F500A08D24 /* UIDevice+SafeArea.swift in Sources */,
 				1BB3117B2699890A00BD4C48 /* LocationFetcher.swift in Sources */,

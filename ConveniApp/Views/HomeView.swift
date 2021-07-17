@@ -9,150 +9,161 @@ import SwiftUI
 
 struct HomeView: View {
     
+    var topEdge: CGFloat
     @State var currentTab: TabItem = .Weather
 
     var body: some View {
-        VStack {
-            ConveniHeaderView()
-            .padding(.horizontal)
-            
-            // Tab View...
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 0) {
-                    // Weather, Browser, Message...
-                    Group {
-                        WeatherTabView()
-                            .foregroundColor(self.currentTab == .Weather ? .white : Color("TextColor").opacity(0.7))
-                            .background(Color("BackgroundColor").opacity(self.currentTab == .Weather ? 1 : 0))
-                            .clipShape(Capsule())
-                            .onTapGesture {
-                                withAnimation(.default) {
-                                    self.currentTab = .Weather
-                                }
-                            }
-                        
-                        Spacer(minLength: 0)
-                        
-                        Text(TabItem.Browser.rawValue)
-                            .foregroundColor(self.currentTab == .Browser ? .white : Color("TextColor").opacity(0.7))
-                            .fontWeight(.bold)
-                            .padding(.vertical, 10)
-                            .padding(.horizontal, 10)
-                            .background(Color("BackgroundColor").opacity(self.currentTab == .Browser ? 1 : 0))
-                            .clipShape(Capsule())
-                            .onTapGesture {
-                                withAnimation(.default) {
-                                    self.currentTab = .Browser
-                                }
-                            }
-                        
-                        Spacer(minLength: 0)
-                        
-                        Text(TabItem.Message.rawValue)
-                            .foregroundColor(self.currentTab == .Message ? .white : Color("TextColor").opacity(0.7))
-                            .fontWeight(.bold)
-                            .padding(.vertical, 10)
-                            .padding(.horizontal, 10)
-                            .background(Color("BackgroundColor").opacity(self.currentTab == .Message ? 1 : 0))
-                            .clipShape(Capsule())
-                            .onTapGesture {
-                                withAnimation(.default) {
-                                    self.currentTab = .Message
-                                }
-                            }
-                        
-                        Spacer(minLength: 0)
-                    }
+        ZStack {
+            BackgroundView(currentTab: self.$currentTab)
+                
+            VStack {
+                // Tab View With Swipe Gestures...
+                
+                // connecting index with tabview for tab change...
+                
+                TabView(selection: self.$currentTab) {
+                    WeatherView(topEdge: topEdge)
+                        .tag(TabItem.Weather)
                     
-                    // Mail, Calendar, Photo...
-                    Group {
-                        Text(TabItem.Mail.rawValue)
-                            .foregroundColor(self.currentTab == .Mail ? .white : Color("TextColor").opacity(0.7))
-                            .fontWeight(.bold)
-                            .padding(.vertical, 10)
-                            .padding(.horizontal, 20)
-                            .background(Color("BackgroundColor").opacity(self.currentTab == .Mail ? 1 : 0))
-                            .clipShape(Capsule())
-                            .onTapGesture {
-                                withAnimation(.default) {
-                                    self.currentTab = .Mail
+                    GridView(fitnesData: fitData)
+                        .tag(TabItem.Browser)
+                    
+                    VStack {
+                        Text("Message  Data")
+                    }
+                    .tag(TabItem.Message)
+                    
+                    VStack {
+                        Text("Mail  Data")
+                    }
+                    .tag(TabItem.Mail)
+                    
+                    VStack {
+                        Text("Calendar  Data")
+                    }
+                    .tag(TabItem.Calendar)
+                    
+                    VStack {
+                        Text("Photo  Data")
+                    }
+                    .tag(TabItem.Photo)
+                }
+                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+               
+                Spacer(minLength: 0)
+                
+                // Tab View...
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 0) {
+                        // Weather, Browser, Message...
+                        Group {
+                            WeatherTabView()
+                                .foregroundColor(self.currentTab == .Weather ? .white : Color("TextColor").opacity(0.7))
+                                .background(Color("BackgroundColor").opacity(self.currentTab == .Weather ? 1 : 0))
+                                .clipShape(Capsule())
+                                .onTapGesture {
+                                    withAnimation(.default) {
+                                        self.currentTab = .Weather
+                                    }
                                 }
-                            }
-                        
-                        Spacer(minLength: 0)
-                        
-                        Text(TabItem.Calendar.rawValue)
-                            .foregroundColor(self.currentTab == .Calendar ? .white : Color("TextColor").opacity(0.7))
-                            .fontWeight(.bold)
-                            .padding(.vertical, 10)
-                            .padding(.horizontal, 10)
-                            .background(Color("BackgroundColor").opacity(self.currentTab == .Calendar ? 1 : 0))
-                            .clipShape(Capsule())
-                            .onTapGesture {
-                                withAnimation(.default) {
-                                    self.currentTab = .Calendar
+                            
+                            Spacer(minLength: 0)
+                            
+                            Text(TabItem.Browser.rawValue)
+                                .foregroundColor(self.currentTab == .Browser ? .white : Color("TextColor").opacity(0.7))
+                                .fontWeight(.bold)
+                                .padding(.vertical, 10)
+                                .padding(.horizontal, 10)
+                                .background(Color("BackgroundColor").opacity(self.currentTab == .Browser ? 1 : 0))
+                                .clipShape(Capsule())
+                                .onTapGesture {
+                                    withAnimation(.default) {
+                                        self.currentTab = .Browser
+                                    }
                                 }
-                            }
-                        
-                        Spacer(minLength: 0)
-                        
-                        Text(TabItem.Photo.rawValue)
-                            .foregroundColor(self.currentTab == .Photo ? .white : Color("TextColor").opacity(0.7))
-                            .fontWeight(.bold)
-                            .padding(.vertical, 10)
-                            .padding(.horizontal, 30)
-                            .background(Color("BackgroundColor").opacity(self.currentTab == .Photo ? 1 : 0))
-                            .clipShape(Capsule())
-                            .onTapGesture {
-                                withAnimation(.default) {
-                                    self.currentTab = .Photo
+                            
+                            Spacer(minLength: 0)
+                            
+                            Text(TabItem.Message.rawValue)
+                                .foregroundColor(self.currentTab == .Message ? .white : Color("TextColor").opacity(0.7))
+                                .fontWeight(.bold)
+                                .padding(.vertical, 10)
+                                .padding(.horizontal, 10)
+                                .background(Color("BackgroundColor").opacity(self.currentTab == .Message ? 1 : 0))
+                                .clipShape(Capsule())
+                                .onTapGesture {
+                                    withAnimation(.default) {
+                                        self.currentTab = .Message
+                                    }
                                 }
-                            }
+                            
+                            Spacer(minLength: 0)
+                        }
+                        
+                        // Mail, Calendar, Photo...
+                        Group {
+                            Text(TabItem.Mail.rawValue)
+                                .foregroundColor(self.currentTab == .Mail ? .white : Color("TextColor").opacity(0.7))
+                                .fontWeight(.bold)
+                                .padding(.vertical, 10)
+                                .padding(.horizontal, 20)
+                                .background(Color("BackgroundColor").opacity(self.currentTab == .Mail ? 1 : 0))
+                                .clipShape(Capsule())
+                                .onTapGesture {
+                                    withAnimation(.default) {
+                                        self.currentTab = .Mail
+                                    }
+                                }
+                            
+                            Spacer(minLength: 0)
+                            
+                            Text(TabItem.Calendar.rawValue)
+                                .foregroundColor(self.currentTab == .Calendar ? .white : Color("TextColor").opacity(0.7))
+                                .fontWeight(.bold)
+                                .padding(.vertical, 10)
+                                .padding(.horizontal, 10)
+                                .background(Color("BackgroundColor").opacity(self.currentTab == .Calendar ? 1 : 0))
+                                .clipShape(Capsule())
+                                .onTapGesture {
+                                    withAnimation(.default) {
+                                        self.currentTab = .Calendar
+                                    }
+                                }
+                            
+                            Spacer(minLength: 0)
+                            
+                            Text(TabItem.Photo.rawValue)
+                                .foregroundColor(self.currentTab == .Photo ? .white : Color("TextColor").opacity(0.7))
+                                .fontWeight(.bold)
+                                .padding(.vertical, 10)
+                                .padding(.horizontal, 30)
+                                .background(Color("BackgroundColor").opacity(self.currentTab == .Photo ? 1 : 0))
+                                .clipShape(Capsule())
+                                .onTapGesture {
+                                    withAnimation(.default) {
+                                        self.currentTab = .Photo
+                                    }
+                                }
+                        }
                     }
                 }
+                .background(Color.black.opacity(0.06))
+                .clipShape(Capsule())
+                .padding(.horizontal, UIDevice.current.hasNotch ? 10 : 7)
+                
+                Spacer()
+                    .frame(height: UIDevice.current.hasNotch ? 10 : 7)
             }
-            .background(Color.black.opacity(0.06))
-            .clipShape(Capsule())
-            .padding(.horizontal, UIDevice.current.hasNotch ? 10 : 7)
-            .padding(.top, UIDevice.current.hasNotch ? 25 : 15)
-            
-            // Tab View With Swipe Gestures...
-            
-            // connecting index with tabview for tab change...
-            
-            TabView(selection: self.$currentTab) {
-                WeatherView()
-                    .tag(TabItem.Weather)
-                
-                GridView(fitnesData: fitData)
-                    .tag(TabItem.Browser)
-                
-                VStack {
-                    Text("Message  Data")
-                }
-                .tag(TabItem.Message)
-                
-                VStack {
-                    Text("Mail  Data")
-                }
-                .tag(TabItem.Mail)
-                
-                VStack {
-                    Text("Calendar  Data")
-                }
-                .tag(TabItem.Calendar)
-                
-                VStack {
-                    Text("Photo  Data")
-                }
-                .tag(TabItem.Photo)
-            }
-            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-           
-            Spacer(minLength: 0)
+            .padding(.top)
         }
-        .padding(.top)
         
+        
+    }
+}
+
+struct Home_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
     }
 }
 
@@ -224,4 +235,7 @@ var fitData = [
     Fitness(id: 3, title: "Heart Rate", image: "heart", data: "45 bpm", suggest: "80-120 Healthy"),
     Fitness(id: 4, title: "Sleep", image: "sleep", data: "10h 01m", suggest: "Deep Sleep"),
     Fitness(id: 5, title: "Heart Rate", image: "heart", data: "100 bpm", suggest: "80-120 Healthy"),
+    Fitness(id: 6, title: "Heart Rate", image: "heart", data: "100 bpm", suggest: "80-120 Healthy"),
+    Fitness(id: 7, title: "Heart Rate", image: "heart", data: "100 bpm", suggest: "80-120 Healthy"),
+    Fitness(id: 8, title: "Heart Rate", image: "heart", data: "100 bpm", suggest: "80-120 Healthy"),
 ]

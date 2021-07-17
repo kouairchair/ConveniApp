@@ -16,8 +16,12 @@ struct AlertMessage: Identifiable {
 struct ContentView: View {
     
     var body: some View {
-        VStack {
-            HomeView()
+        // Since Window is deprecated in iOS15...
+        // Getting Safe area using Geometry Reader
+        GeometryReader { proxy in
+            let topEdge = proxy.safeAreaInsets.top
+            HomeView(topEdge: topEdge)
+                .ignoresSafeArea(.all, edges: .top)
         }
     }
 }
