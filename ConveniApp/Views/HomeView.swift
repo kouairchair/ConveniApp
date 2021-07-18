@@ -11,6 +11,8 @@ struct HomeView: View {
     
     var topEdge: CGFloat
     @State var currentTab: TabItem = .Weather
+    let tabItemWidth: CGFloat = 60
+    let tabItemHeight: CGFloat = 40
 
     var body: some View {
         ZStack {
@@ -58,9 +60,8 @@ struct HomeView: View {
                         // Weather, Browser, Message...
                         Group {
                             WeatherTabView()
-                                .foregroundColor(self.currentTab == .Weather ? .white : Color("TextColor").opacity(0.7))
+                                .frame(width: tabItemWidth, height: tabItemHeight)
                                 .background(Color("BackgroundColor").opacity(self.currentTab == .Weather ? 1 : 0))
-                                .clipShape(Capsule())
                                 .onTapGesture {
                                     withAnimation(.default) {
                                         self.currentTab = .Weather
@@ -69,13 +70,9 @@ struct HomeView: View {
                             
                             Spacer(minLength: 0)
                             
-                            Text(TabItem.Browser.rawValue)
-                                .foregroundColor(self.currentTab == .Browser ? .white : Color("TextColor").opacity(0.7))
-                                .fontWeight(.bold)
-                                .padding(.vertical, 10)
-                                .padding(.horizontal, 10)
+                            Image(systemName: "desktopcomputer")
+                                .frame(width: tabItemWidth, height: tabItemHeight)
                                 .background(Color("BackgroundColor").opacity(self.currentTab == .Browser ? 1 : 0))
-                                .clipShape(Capsule())
                                 .onTapGesture {
                                     withAnimation(.default) {
                                         self.currentTab = .Browser
@@ -84,13 +81,9 @@ struct HomeView: View {
                             
                             Spacer(minLength: 0)
                             
-                            Text(TabItem.Message.rawValue)
-                                .foregroundColor(self.currentTab == .Message ? .white : Color("TextColor").opacity(0.7))
-                                .fontWeight(.bold)
-                                .padding(.vertical, 10)
-                                .padding(.horizontal, 10)
+                            Image(systemName: "person.2")
+                                .frame(width: tabItemWidth, height: tabItemHeight)
                                 .background(Color("BackgroundColor").opacity(self.currentTab == .Message ? 1 : 0))
-                                .clipShape(Capsule())
                                 .onTapGesture {
                                     withAnimation(.default) {
                                         self.currentTab = .Message
@@ -102,13 +95,9 @@ struct HomeView: View {
                         
                         // Mail, Calendar, Photo...
                         Group {
-                            Text(TabItem.Mail.rawValue)
-                                .foregroundColor(self.currentTab == .Mail ? .white : Color("TextColor").opacity(0.7))
-                                .fontWeight(.bold)
-                                .padding(.vertical, 10)
-                                .padding(.horizontal, 20)
+                            Image(systemName: "envelope.fill")
+                                .frame(width: tabItemWidth, height: tabItemHeight)
                                 .background(Color("BackgroundColor").opacity(self.currentTab == .Mail ? 1 : 0))
-                                .clipShape(Capsule())
                                 .onTapGesture {
                                     withAnimation(.default) {
                                         self.currentTab = .Mail
@@ -117,13 +106,9 @@ struct HomeView: View {
                             
                             Spacer(minLength: 0)
                             
-                            Text(TabItem.Calendar.rawValue)
-                                .foregroundColor(self.currentTab == .Calendar ? .white : Color("TextColor").opacity(0.7))
-                                .fontWeight(.bold)
-                                .padding(.vertical, 10)
-                                .padding(.horizontal, 10)
+                            Image(systemName: "calendar.circle.fill")
+                                .frame(width: tabItemWidth, height: tabItemHeight)
                                 .background(Color("BackgroundColor").opacity(self.currentTab == .Calendar ? 1 : 0))
-                                .clipShape(Capsule())
                                 .onTapGesture {
                                     withAnimation(.default) {
                                         self.currentTab = .Calendar
@@ -132,13 +117,9 @@ struct HomeView: View {
                             
                             Spacer(minLength: 0)
                             
-                            Text(TabItem.Photo.rawValue)
-                                .foregroundColor(self.currentTab == .Photo ? .white : Color("TextColor").opacity(0.7))
-                                .fontWeight(.bold)
-                                .padding(.vertical, 10)
-                                .padding(.horizontal, 30)
+                            Image(systemName: "photo.fill")
+                                .frame(width: tabItemWidth, height: tabItemHeight)
                                 .background(Color("BackgroundColor").opacity(self.currentTab == .Photo ? 1 : 0))
-                                .clipShape(Capsule())
                                 .onTapGesture {
                                     withAnimation(.default) {
                                         self.currentTab = .Photo

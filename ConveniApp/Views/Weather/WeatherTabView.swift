@@ -17,10 +17,7 @@ struct WeatherTabView: View {
             if let _image = image {
                 Image(uiImage: _image)
             } else {
-                Text(TabItem.Weather.rawValue)
-                    .fontWeight(.bold)
-                    .padding(.vertical, 10)
-                    .padding(.horizontal, 10)
+                Image(systemName: "cloud.fill")
             }
         }
         .onAppear {
