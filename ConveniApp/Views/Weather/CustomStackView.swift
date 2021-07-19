@@ -32,7 +32,9 @@ struct CustomStackView<Title: View, Content: View>: View {
                 .frame(height: 38)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.leading)
-                .background(.ultraThinMaterial, in: CustomConrnerView(corners: [.topLeft, .topRight], radius: 12))
+                .background(.ultraThinMaterial, in: CustomConrnerView(corners: bottomOffset < 38 ? .allCorners : [.topLeft, .topRight], radius: 12))
+//                .background(.ultraThinMaterial, in: CustomConrnerView(corners: [.topLeft, .topRight], radius: 12))
+                .zIndex(1)
             
             VStack {
                 Divider()
@@ -41,22 +43,60 @@ struct CustomStackView<Title: View, Content: View>: View {
                     .padding()
             }
             .background(.ultraThinMaterial, in: CustomConrnerView(corners: [.bottomLeft, .bottomRight], radius: 12))
+            // Moving Content Upward...
+            .offset(y: topOffset >= 60 + topEdge ? 0 : -(-topOffset + 60 + topEdge))
+            .zIndex(0)
+            // Clipping to avoid background overlay
+            .clipped()
+            .opacity(getOpacity())
         }
         .colorScheme(.dark)
         .cornerRadius(12)
-        // Stopping View @120...
+        .opacity(getOpacity())
+        // Stopping View @(60 + topEdge)...
         .offset(y: topOffset >= 60 + topEdge ? 0 : -topOffset + 60 + topEdge)
         .background(
             
             GeometryReader{ proxy -> Color in
             let minY = proxy.frame(in: .global).minY
+            let maxY = proxy.frame(in: .global).maxY
             
             DispatchQueue.main.async {
                 self.topOffset = minY
+                // reducing (60 + topEdge)...
+                self.bottomOffset = maxY - (60 + topEdge)
+                // thus we will get out title height 38...
             }
             
             return Color.clear
             }
         )
+        .modifier(CornerModifier(bottomOffset: $bottomOffset))
     }
+    
+    // opacity...
+    func getOpacity() -> CGFloat {
+        if bottomOffset < 28 {
+            
+            let progress = bottomOffset / 28
+            
+            return progress
+        }
+        return 1
+    }
+}
+
+// to avoid this creating new Modifier
+struct CornerModifier: ViewModifier {
+    @Binding var bottomOffset: CGFloat
+    
+    func body(content: Content) -> some View {
+        if bottomOffset < 38 {
+            content
+        } else {
+            content
+                .cornerRadius(12)
+        }
+    }
+    
 }

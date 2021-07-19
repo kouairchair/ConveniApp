@@ -8,6 +8,7 @@
 
 import Foundation
 import Network
+import Logging
 
 class NetworkMonitor {
     static let shared = NetworkMonitor()
@@ -27,7 +28,7 @@ class NetworkMonitor {
             } else {
                 // TODO: post disconnected notification if needed
             }
-            print(path.isExpensive)
+            logger.debug("startMonitoring path.isExpensive:\(path.isExpensive)")
         }
 
         let queue = DispatchQueue(label: "NetworkMonitor")

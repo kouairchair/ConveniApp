@@ -84,6 +84,7 @@ struct WeatherView: View {
                             }
                         }
                     }
+                    .padding(.top, -20)
                 }
                 .padding(.top, 25)
                 .padding(.top, topEdge)
@@ -117,9 +118,9 @@ struct WeatherView: View {
     
     func getTitleOffset() -> CGFloat {
         // setting one max height for whole title...
-        // consider max as 120...
+        // consider max as (60 + topEdge)...
         if offset < 0 {
-            let progress = -offset / 120
+            let progress = -offset / (60 + topEdge)
             
             // since top padding is 25...
             let newOffset = (progress <= 1.0 ? progress : 1) * 20
