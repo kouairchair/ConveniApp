@@ -50,39 +50,37 @@ struct WeatherView: View {
                      
                     VStack(spacing: 8) {
                         // Custom Stack...
-                        
-                        // For Testing...
-                        ForEach(1...5, id: \.self) { _ in
-                            CustomStackView(topEdge: topEdge) {
-                                // Label here...
-                                Label {
-                                    Text("Hourly Forecast")
-                                } icon: {
-                                    Image(systemName: "clock")
-                                }
-                            } contentView: {
-                                // Content..
-                                ScrollView(.horizontal, showsIndicators: false) {
-                                    HStack(spacing: 15) {
-                                        Group {
-                                            ForecastView(time: "12 PM", fahrenheit: 25, image: "sun.min")
-                                            ForecastView(time: "13 PM", fahrenheit: 22, image: "sun.haze")
-                                            ForecastView(time: "14 PM", fahrenheit: 23, image: "cloud.sun")
-                                            ForecastView(time: "15 PM", fahrenheit: 24, image: "sun.haze")
-                                            ForecastView(time: "16 PM", fahrenheit: 22, image: "sun.haze")
-                                            ForecastView(time: "17 PM", fahrenheit: 21, image: "sun.haze")
-                                            
-                                        }
-                                        ForecastView(time: "18 PM", fahrenheit: 20, image: "sun.haze")
-                                        ForecastView(time: "19 PM", fahrenheit: 20, image: "sun.haze")
-                                        ForecastView(time: "20 PM", fahrenheit: 19, image: "sun.haze")
-                                        ForecastView(time: "21 PM", fahrenheit: 17, image: "sun.haze")
-                                        ForecastView(time: "22 PM", fahrenheit: 15, image: "sun.haze")
-                                        ForecastView(time: "23 PM", fahrenheit: 14, image: "sun.haze")
+                        CustomStackView(topEdge: topEdge) {
+                            // Label here...
+                            Label {
+                                Text("Hourly Forecast")
+                            } icon: {
+                                Image(systemName: "clock")
+                            }
+                        } contentView: {
+                            // Content..
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack(spacing: 15) {
+                                    Group {
+                                        ForecastView(time: "12 PM", fahrenheit: 25, image: "sun.min")
+                                        ForecastView(time: "13 PM", fahrenheit: 22, image: "sun.haze")
+                                        ForecastView(time: "14 PM", fahrenheit: 23, image: "cloud.sun")
+                                        ForecastView(time: "15 PM", fahrenheit: 24, image: "sun.haze")
+                                        ForecastView(time: "16 PM", fahrenheit: 22, image: "sun.haze")
+                                        ForecastView(time: "17 PM", fahrenheit: 21, image: "sun.haze")
+                                        
                                     }
+                                    ForecastView(time: "18 PM", fahrenheit: 20, image: "sun.haze")
+                                    ForecastView(time: "19 PM", fahrenheit: 20, image: "sun.haze")
+                                    ForecastView(time: "20 PM", fahrenheit: 19, image: "sun.haze")
+                                    ForecastView(time: "21 PM", fahrenheit: 17, image: "sun.haze")
+                                    ForecastView(time: "22 PM", fahrenheit: 15, image: "sun.haze")
+                                    ForecastView(time: "23 PM", fahrenheit: 14, image: "sun.haze")
                                 }
                             }
                         }
+                        
+                        WeatherDataView(topEdge: topEdge)
                     }
                     .padding(.top, -20)
                 }
