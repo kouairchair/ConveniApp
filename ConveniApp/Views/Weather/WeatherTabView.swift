@@ -21,7 +21,7 @@ struct WeatherTabView: View {
             }
         }
         .onAppear {
-            async {
+            Task.init(priority: .default) {
                 do {
                     if let weatherImage = try await WeatherManager.shared.fetchWeatherIcon() {
                         image = weatherImage
