@@ -10,6 +10,8 @@ import SwiftUI
 struct WeatherView: View {
     var topEdge: CGFloat
     @State var offset: CGFloat = 0
+    @State var locality: String = ""
+    @State var weather: Weather = Weather(description: "", highTemp: "", highTempDiff: "", lowTemp: "", lowTempDiff: "")
     
     var body: some View {
         VStack {
@@ -18,24 +20,24 @@ struct WeatherView: View {
                 VStack {
                     // Weather Data...
                     VStack(alignment: .center, spacing: 5) {
-                        Text("Fukuoka")
+                        Text(locality)
                             .font(.system(size: 35))
                             .foregroundStyle(.white)
                             .shadow(radius: 5)
                         
-                        Text("28°")
+                        Text("\(weather.lowTemp)° - \(weather.highTemp)°")
                             .font(.system(size: 45))
                             .foregroundStyle(.white)
                             .shadow(radius: 5)
                             .opacity(getTitleOpacity())
                         
-                        Text("Cloudy")
+                        Text(weather.description)
                             .foregroundStyle(.secondary)
                             .foregroundStyle(.white)
                             .shadow(radius: 5)
                             .opacity(getTitleOpacity())
                         
-                        Text("H:103° L:105°")
+                        Text("L:\(weather.lowTempDiff)° H:\(weather.highTempDiff)°")
                             .foregroundStyle(.primary)
                             .foregroundStyle(.white)
                             .shadow(radius: 5)
@@ -100,6 +102,16 @@ struct WeatherView: View {
                     return Color.clear
                     }
                 )
+            }
+        }
+        .onAppear() {
+            Task.init(priority: .default) {
+                do {
+                    locality = try await WeatherManager.shared.fetchLocality()
+                    weather = try await WeatherManager.shared.fetchWeather()
+                } catch {
+                    // TODO: need to implement
+                }
             }
         }
     }

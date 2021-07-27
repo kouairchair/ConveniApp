@@ -24,4 +24,18 @@ class LocationFetcher: NSObject, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         lastKnownLocation = locations.first?.coordinate
     }
+    
+    func lookUpCurrentLocation() async throws -> CLPlacemark? {
+        // Use the last reported location.
+        if let lastLocation = self.manager.location {
+            let geocoder = CLGeocoder()
+                
+            // Look up the location and pass it to the completion handler
+            let locations = try await geocoder.reverseGeocodeLocation(lastLocation)
+            
+            return locations.first
+        }
+        
+        return nil
+    }
 }

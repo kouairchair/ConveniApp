@@ -8,6 +8,8 @@
 import Foundation
 import SwiftUI
 
+#if SCRAPING
+#else
 public class WeatherManager {
     let specifiedPlace: Int
     static let shared = WeatherManager()
@@ -63,3 +65,4 @@ enum WeatherError: Error {
     case noImageName
     case imageConvertError
 }
+#endif

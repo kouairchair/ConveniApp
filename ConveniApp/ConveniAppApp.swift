@@ -32,7 +32,10 @@ struct ConveniAppApp: App {
 
 private extension ConveniAppApp {
     func setupModels() {
+        #if SCRAPING
+        #else
         WeatherManager.shared.startFetch()
+        #endif
         NetworkMonitor.shared.startMonitoring()
     }
 }

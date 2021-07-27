@@ -5,6 +5,8 @@
 
 import Foundation
 
+#if SCRAPING
+#else
 // MARK: - Pollution
 struct Pollution: Codable {
     let coord: [Int]
@@ -22,5 +24,4 @@ struct Pollution: Codable {
         let aqi: Int
     }
 }
-
-
+#endif

@@ -9,6 +9,8 @@
 
 import Foundation
 
+#if SCRAPING
+#else
 // MARK: - Weather
 struct Weather: Decodable {
     let coord: Coord
@@ -73,3 +75,4 @@ struct Wind: Decodable {
     let speed: Double
     let deg: Int
 }
+#endif

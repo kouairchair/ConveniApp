@@ -23,7 +23,12 @@ struct WeatherTabView: View {
         .onAppear {
             Task.init(priority: .default) {
                 do {
-                    if let weatherImage = try await WeatherManager.shared.fetchWeatherIcon() {
+                    #if SCRAPING
+                    let weatherIcon = UIImage(systemName: "cloud.fill")
+                    #else
+                    let weatherIcon = try await WeatherManager.shared.fetchWeatherIcon()
+                    #endif
+                    if let weatherImage = weatherIcon {
                         image = weatherImage
                     }
                 } catch {

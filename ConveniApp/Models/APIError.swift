@@ -10,6 +10,9 @@ import Foundation
 enum APIError: Error {
     case offlineError
     case urlError
+    case locationError
+    case locationUrlError
+    case scrapingError
     case noStatusCodeError
     case informationalError
     case redirectionError

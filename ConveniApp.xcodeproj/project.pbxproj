@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		1B1800D126ACD0170082E913 /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1800D026ACD0170082E913 /* Forecast.swift */; };
+		1B322E4826B043A40094F351 /* Kanna in Frameworks */ = {isa = PBXBuildFile; productRef = 1B322E4726B043A40094F351 /* Kanna */; };
+		1B322E4C26B046980094F351 /* WeatherManager_Scraping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B322E4B26B046980094F351 /* WeatherManager_Scraping.swift */; };
+		1B322E4E26B05B820094F351 /* Weather_Scraping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B322E4D26B05B820094F351 /* Weather_Scraping.swift */; };
 		1B3254C2269F243100929F01 /* URLSession+Get.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3254C1269F243100929F01 /* URLSession+Get.swift */; };
 		1B3254C6269FA2FC00929F01 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1B3254C8269FA2FC00929F01 /* Localizable.strings */; };
 		1B3254CB269FA44600929F01 /* LcliConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3254CA269FA44600929F01 /* LcliConstants.swift */; };
@@ -57,6 +60,8 @@
 
 /* Begin PBXFileReference section */
 		1B1800D026ACD0170082E913 /* Forecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forecast.swift; sourceTree = "<group>"; };
+		1B322E4B26B046980094F351 /* WeatherManager_Scraping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherManager_Scraping.swift; sourceTree = "<group>"; };
+		1B322E4D26B05B820094F351 /* Weather_Scraping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather_Scraping.swift; sourceTree = "<group>"; };
 		1B3254C1269F243100929F01 /* URLSession+Get.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Get.swift"; sourceTree = "<group>"; };
 		1B3254C7269FA2FC00929F01 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1B3254C9269FA32000929F01 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -96,6 +101,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B322E4826B043A40094F351 /* Kanna in Frameworks */,
 				1B3254D0269FAC6B00929F01 /* LoggingOSLog in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -117,6 +123,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1B322E4926B044600094F351 /* OpenWeather */ = {
+			isa = PBXGroup;
+			children = (
+				1BC25D72268BE2C0006AF8F2 /* WeatherManager.swift */,
+				1BC25D77268C216C006AF8F2 /* Weather.swift */,
+				1B54DE0826A6FC2D0053407C /* Pollution.swift */,
+			);
+			path = OpenWeather;
+			sourceTree = "<group>";
+		};
+		1B322E4A26B0447E0094F351 /* tenki.jp */ = {
+			isa = PBXGroup;
+			children = (
+				1B322E4B26B046980094F351 /* WeatherManager_Scraping.swift */,
+				1B322E4D26B05B820094F351 /* Weather_Scraping.swift */,
+			);
+			path = tenki.jp;
+			sourceTree = "<group>";
+		};
 		1B3254BE269F1E0100929F01 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -129,9 +154,8 @@
 		1B54DE0A26A6FC3E0053407C /* Weather */ = {
 			isa = PBXGroup;
 			children = (
-				1BC25D72268BE2C0006AF8F2 /* WeatherManager.swift */,
-				1BC25D77268C216C006AF8F2 /* Weather.swift */,
-				1B54DE0826A6FC2D0053407C /* Pollution.swift */,
+				1B322E4A26B0447E0094F351 /* tenki.jp */,
+				1B322E4926B044600094F351 /* OpenWeather */,
 				1B1800D026ACD0170082E913 /* Forecast.swift */,
 			);
 			path = Weather;
@@ -253,6 +277,7 @@
 			name = ConveniApp;
 			packageProductDependencies = (
 				1B3254CF269FAC6B00929F01 /* LoggingOSLog */,
+				1B322E4726B043A40094F351 /* Kanna */,
 			);
 			productName = ConveniApp;
 			productReference = 1BB5AB8C2687503F00CB6C1A /* ConveniApp.app */;
@@ -329,6 +354,7 @@
 			mainGroup = 1BB5AB832687503F00CB6C1A;
 			packageReferences = (
 				1B3254CE269FAC6A00929F01 /* XCRemoteSwiftPackageReference "swift-log-oslog" */,
+				1B322E4626B043A40094F351 /* XCRemoteSwiftPackageReference "Kanna" */,
 			);
 			productRefGroup = 1BB5AB8D2687503F00CB6C1A /* Products */;
 			projectDirPath = "";
@@ -377,6 +403,7 @@
 				1B54DE0726A6E7E90053407C /* WeatherDataView.swift in Sources */,
 				1B7E1E3D26A237BC006707BB /* WeatherTabView.swift in Sources */,
 				1BF9F2222697C7A000260273 /* NetworkMonitor.swift in Sources */,
+				1B322E4E26B05B820094F351 /* Weather_Scraping.swift in Sources */,
 				1BB5AB902687503F00CB6C1A /* ConveniAppApp.swift in Sources */,
 				1B3254C2269F243100929F01 /* URLSession+Get.swift in Sources */,
 				1B7E1E3F26A23A75006707BB /* WeatherView.swift in Sources */,
@@ -391,6 +418,7 @@
 				1BA92CA02697BC1A00EE5467 /* Constants.swift in Sources */,
 				1B3254D2269FACB700929F01 /* Logger.swift in Sources */,
 				1B3254CB269FA44600929F01 /* LcliConstants.swift in Sources */,
+				1B322E4C26B046980094F351 /* WeatherManager_Scraping.swift in Sources */,
 				1B86F3ED26A0707D00A08D24 /* TabItem.swift in Sources */,
 				1BC25D78268C216C006AF8F2 /* Weather.swift in Sources */,
 				1B86F3F026A076F500A08D24 /* UIDevice+SafeArea.swift in Sources */,
@@ -589,6 +617,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.headspinnerd.Conveni-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG SCRAPING";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -767,6 +796,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		1B322E4626B043A40094F351 /* XCRemoteSwiftPackageReference "Kanna" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tid-kijyun/Kanna";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		1B3254CE269FAC6A00929F01 /* XCRemoteSwiftPackageReference "swift-log-oslog" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/inmotionsoftware/swift-log-oslog.git";
@@ -778,6 +815,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		1B322E4726B043A40094F351 /* Kanna */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1B322E4626B043A40094F351 /* XCRemoteSwiftPackageReference "Kanna" */;
+			productName = Kanna;
+		};
 		1B3254CF269FAC6B00929F01 /* LoggingOSLog */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 1B3254CE269FAC6A00929F01 /* XCRemoteSwiftPackageReference "swift-log-oslog" */;
