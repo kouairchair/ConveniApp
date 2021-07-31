@@ -11,7 +11,8 @@ struct WeatherView: View {
     var topEdge: CGFloat
     @State var offset: CGFloat = 0
     @State var locality: String = ""
-    @State var weather: Weather = Weather(description: "", highTemp: "", highTempDiff: "", lowTemp: "", lowTempDiff: "")
+    @State var weather: Weather = Weather(description: "", highTemp: "", highTempDiff: "", lowTemp: "", lowTempDiff: "", hourlyWeather: [])
+    @State var isPastMode: Bool = false
     
     var body: some View {
         VStack {
@@ -55,7 +56,18 @@ struct WeatherView: View {
                         CustomStackView(topEdge: topEdge) {
                             // Label here...
                             Label {
-                                Text("Hourly Forecast")
+                                HStack {
+                                    Text("1時間天気")
+                                    Spacer()
+                                    Button(action: {
+                                        isPastMode.toggle()
+                                    }){
+                                        Text(isPastMode ? "過去の天気を非表示" : "過去の天気を表示")
+                                            .foregroundColor(.white)
+                                            .underline()
+                                            .padding(.horizontal, 15)
+                                    }
+                                }
                             } icon: {
                                 Image(systemName: "clock")
                             }
@@ -63,21 +75,15 @@ struct WeatherView: View {
                             // Content..
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack(spacing: 15) {
-                                    Group {
-                                        ForecastView(time: "12 PM", fahrenheit: 25, image: "sun.min")
-                                        ForecastView(time: "13 PM", fahrenheit: 22, image: "sun.haze")
-                                        ForecastView(time: "14 PM", fahrenheit: 23, image: "cloud.sun")
-                                        ForecastView(time: "15 PM", fahrenheit: 24, image: "sun.haze")
-                                        ForecastView(time: "16 PM", fahrenheit: 22, image: "sun.haze")
-                                        ForecastView(time: "17 PM", fahrenheit: 21, image: "sun.haze")
-                                        
+                                    ForEach(weather.hourlyWeather) { weatherPerHour in
+                                        let shouldHide = isPastMode ? weatherPerHour.isPast : false
+                                        if !shouldHide {
+                                            ForecastView(time: weatherPerHour.hour,
+                                                         temperature: weatherPerHour.temperature,
+                                                         image: weatherPerHour.weatherImage,
+                                                         changeOfRain: weatherPerHour.changeOfRain)
+                                        }
                                     }
-                                    ForecastView(time: "18 PM", fahrenheit: 20, image: "sun.haze")
-                                    ForecastView(time: "19 PM", fahrenheit: 20, image: "sun.haze")
-                                    ForecastView(time: "20 PM", fahrenheit: 19, image: "sun.haze")
-                                    ForecastView(time: "21 PM", fahrenheit: 17, image: "sun.haze")
-                                    ForecastView(time: "22 PM", fahrenheit: 15, image: "sun.haze")
-                                    ForecastView(time: "23 PM", fahrenheit: 14, image: "sun.haze")
                                 }
                             }
                         }

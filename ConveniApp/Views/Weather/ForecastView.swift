@@ -9,25 +9,32 @@ import SwiftUI
 
 struct ForecastView: View {
     var time: String
-    var fahrenheit: CGFloat
-    var image: String
+    var temperature: String
+    var image: UIImage?
+    var changeOfRain: String
     
     var body: some View {
-        VStack(spacing: 15) {
+        VStack(spacing: 10) {
             Text(time)
                 .font(.callout.bold())
                 .foregroundStyle(.white)
             
-            Image(systemName: image)
-                .font(.title2)
-            // MultiColor...
-                .symbolVariant(.fill)
-                .symbolRenderingMode(.palette)
-                .foregroundStyle(.yellow, .white)
-            // max Frame...
-                .frame(height: 30)
+            if let image = image {
+                Image(uiImage: image)
+                    .font(.title2)
+                // MultiColor...
+//                    .symbolVariant(.fill)
+//                    .symbolRenderingMode(.palette)
+//                    .foregroundStyle(.yellow, .white)
+                // max Frame...
+                    .frame(height: 30)
+            }
+                           
+            Text(temperature)
+                .font(.callout.bold())
+                .foregroundStyle(.white)
             
-            Text("\(Int(fahrenheit))°")
+            Text(changeOfRain)
                 .font(.callout.bold())
                 .foregroundStyle(.white)
         }

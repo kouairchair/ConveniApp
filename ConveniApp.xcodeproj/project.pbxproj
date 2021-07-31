@@ -18,6 +18,7 @@
 		1B3254D2269FACB700929F01 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3254D1269FACB700929F01 /* Logger.swift */; };
 		1B54DE0726A6E7E90053407C /* WeatherDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B54DE0626A6E7E90053407C /* WeatherDataView.swift */; };
 		1B54DE0926A6FC2D0053407C /* Pollution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B54DE0826A6FC2D0053407C /* Pollution.swift */; };
+		1B59CEFA26B58EE200C50974 /* HourlyWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B59CEF926B58EE200C50974 /* HourlyWeather.swift */; };
 		1B72987C26A2BA9B00234D7A /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B72987B26A2BA9B00234D7A /* BackgroundView.swift */; };
 		1B72987F26A2BBED00234D7A /* ForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B72987E26A2BBED00234D7A /* ForecastView.swift */; };
 		1B7E1E3D26A237BC006707BB /* WeatherTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7E1E3C26A237BC006707BB /* WeatherTabView.swift */; };
@@ -69,6 +70,8 @@
 		1B3254D1269FACB700929F01 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		1B54DE0626A6E7E90053407C /* WeatherDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDataView.swift; sourceTree = "<group>"; };
 		1B54DE0826A6FC2D0053407C /* Pollution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pollution.swift; sourceTree = "<group>"; };
+		1B59CEF826B5017900C50974 /* ConveniApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ConveniApp.entitlements; sourceTree = "<group>"; };
+		1B59CEF926B58EE200C50974 /* HourlyWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyWeather.swift; sourceTree = "<group>"; };
 		1B72987B26A2BA9B00234D7A /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
 		1B72987E26A2BBED00234D7A /* ForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastView.swift; sourceTree = "<group>"; };
 		1B7E1E3C26A237BC006707BB /* WeatherTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTabView.swift; sourceTree = "<group>"; };
@@ -138,6 +141,7 @@
 			children = (
 				1B322E4B26B046980094F351 /* WeatherManager_Scraping.swift */,
 				1B322E4D26B05B820094F351 /* Weather_Scraping.swift */,
+				1B59CEF926B58EE200C50974 /* HourlyWeather.swift */,
 			);
 			path = tenki.jp;
 			sourceTree = "<group>";
@@ -197,6 +201,7 @@
 		1BB5AB8E2687503F00CB6C1A /* ConveniApp */ = {
 			isa = PBXGroup;
 			children = (
+				1B59CEF826B5017900C50974 /* ConveniApp.entitlements */,
 				1BC25D76268BEA20006AF8F2 /* Info.plist */,
 				1BB5AB8F2687503F00CB6C1A /* ConveniAppApp.swift */,
 				1BC25D71268BE290006AF8F2 /* Views */,
@@ -420,6 +425,7 @@
 				1B3254CB269FA44600929F01 /* LcliConstants.swift in Sources */,
 				1B322E4C26B046980094F351 /* WeatherManager_Scraping.swift in Sources */,
 				1B86F3ED26A0707D00A08D24 /* TabItem.swift in Sources */,
+				1B59CEFA26B58EE200C50974 /* HourlyWeather.swift in Sources */,
 				1BC25D78268C216C006AF8F2 /* Weather.swift in Sources */,
 				1B86F3F026A076F500A08D24 /* UIDevice+SafeArea.swift in Sources */,
 				1BB3117B2699890A00BD4C48 /* LocationFetcher.swift in Sources */,
@@ -594,6 +600,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ConveniApp/ConveniApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ConveniApp/Preview Content\"";
@@ -629,6 +636,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ConveniApp/ConveniApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ConveniApp/Preview Content\"";
