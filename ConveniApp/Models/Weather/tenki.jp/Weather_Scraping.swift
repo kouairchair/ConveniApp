@@ -14,6 +14,7 @@ struct Weather {
     let highTempDiff: String
     let lowTemp: String
     let lowTempDiff: String
-    let hourlyWeather: [HourlyWeather]
+    let hourlyWeatherToday: [HourlyWeather]
+    let hourlyWeatherTomorrow: [HourlyWeather]
 }
 #endif

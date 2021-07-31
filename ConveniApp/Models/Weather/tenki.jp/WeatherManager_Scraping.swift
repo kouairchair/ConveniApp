@@ -67,7 +67,12 @@ public class WeatherManager {
         let weatherHourlyUrl = "\(weatherTodayTomorrowUrl)1hour.html"
         let htmlHourlyData  = try await URLSession.shared.getData(urlString: weatherHourlyUrl)
         let docHourly = try HTML(html: htmlHourlyData, encoding: String.Encoding.utf8)
-        guard let hourlyWeatherSectionNode = docHourly.xpath("//*[@id='forecast-point-1h-today']").first else {
+        // 今日分
+        guard let hourlyWeatherForTodaySectionNode = docHourly.xpath("//*[@id='forecast-point-1h-today']").first else {
+            throw APIError.scrapingError
+        }
+        // 明日分
+        guard let hourlyWeatherForTomorrowSectionNode = docHourly.xpath("//*[@id='forecast-point-1h-tomorrow']").first else {
             throw APIError.scrapingError
         }
         
@@ -93,14 +98,21 @@ public class WeatherManager {
         }
         
         // 1時間毎の天気
-        let hourTextArrayObject = hourlyWeatherSectionNode.xpath("//tr[@class='hour']//td")
-        let weatherImageArrayObject = hourlyWeatherSectionNode.xpath("//tr[@class='weather']//td")
-        let temperatureArrayObject = hourlyWeatherSectionNode.xpath("//tr[@class='temperature']//td")
-        let chanceOfRainArrayObject = hourlyWeatherSectionNode.xpath("//tr[@class='prob-precip']//td")
+        let todayHourlyWeather = try getHourlyWeather(sectionNode: hourlyWeatherForTodaySectionNode)
+        let tomorrowHourlyWeather = try getHourlyWeather(sectionNode: hourlyWeatherForTomorrowSectionNode)
+        
+        return Weather(description: weatherDescription, highTemp: highTempValue, highTempDiff: highTempDiffValue, lowTemp: lowTempValue, lowTempDiff: lowTempDiffValue, hourlyWeatherToday: todayHourlyWeather, hourlyWeatherTomorrow: tomorrowHourlyWeather)
+    }
+    
+    func getHourlyWeather(sectionNode: XMLElement) throws -> [HourlyWeather] {
+        let hourTextArrayObject = sectionNode.xpath("//tr[@class='hour']//td")
+        let weatherImageArrayObject = sectionNode.xpath("//tr[@class='weather']//td")
+        let temperatureArrayObject = sectionNode.xpath("//tr[@class='temperature']//td")
+        let chanceOfRainArrayObject = sectionNode.xpath("//tr[@class='prob-precip']//td")
         if hourTextArrayObject.count != 24 || weatherImageArrayObject.count != 24 || temperatureArrayObject.count != 24 || chanceOfRainArrayObject.count != 24 {
             throw APIError.scrapingError
         }
-        let hourlyWeather = try (0...23).map { i -> HourlyWeather in
+        return try (0...23).map { i -> HourlyWeather in
             // 時間（何時台か）
             guard let hourText = hourTextArrayObject[i].content else {
                 throw APIError.scrapingError
@@ -122,8 +134,6 @@ public class WeatherManager {
 
             return HourlyWeather(isPast: isPast, hour: hourText, weatherImage: gifImageWithURL(gifUrl: weatherImageUrl), temperature: temperatureText, changeOfRain: changeOfRainText)
         }
-        
-        return Weather(description: weatherDescription, highTemp: highTempValue, highTempDiff: highTempDiffValue, lowTemp: lowTempValue, lowTempDiff: lowTempDiffValue, hourlyWeather: hourlyWeather)
     }
     
     func gifImageWithURL(gifUrl: String) -> UIImage? {

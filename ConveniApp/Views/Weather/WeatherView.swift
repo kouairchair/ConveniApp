@@ -11,8 +11,8 @@ struct WeatherView: View {
     var topEdge: CGFloat
     @State var offset: CGFloat = 0
     @State var locality: String = ""
-    @State var weather: Weather = Weather(description: "", highTemp: "", highTempDiff: "", lowTemp: "", lowTempDiff: "", hourlyWeather: [])
-    @State var isPastMode: Bool = false
+    @State var weather: Weather = Weather(description: "", highTemp: "", highTempDiff: "", lowTemp: "", lowTempDiff: "", hourlyWeatherToday: [], hourlyWeatherTomorrow: [])
+    @State var shouldHidePast: Bool = true
     
     var body: some View {
         VStack {
@@ -57,12 +57,12 @@ struct WeatherView: View {
                             // Label here...
                             Label {
                                 HStack {
-                                    Text("1時間天気")
+                                    Text("1時間天気(今日)")
                                     Spacer()
                                     Button(action: {
-                                        isPastMode.toggle()
+                                        shouldHidePast.toggle()
                                     }){
-                                        Text(isPastMode ? "過去の天気を非表示" : "過去の天気を表示")
+                                        Text(shouldHidePast ? "過去の天気を表示" : "過去の天気を非表示")
                                             .foregroundColor(.white)
                                             .underline()
                                             .padding(.horizontal, 15)
@@ -74,15 +74,37 @@ struct WeatherView: View {
                         } contentView: {
                             // Content..
                             ScrollView(.horizontal, showsIndicators: false) {
-                                HStack(spacing: 15) {
-                                    ForEach(weather.hourlyWeather) { weatherPerHour in
-                                        let shouldHide = isPastMode ? weatherPerHour.isPast : false
+                                HStack(spacing: 0) {
+                                    ForEach(weather.hourlyWeatherToday) { weatherPerHour in
+                                        let shouldHide = shouldHidePast ? weatherPerHour.isPast : false
                                         if !shouldHide {
                                             ForecastView(time: weatherPerHour.hour,
                                                          temperature: weatherPerHour.temperature,
                                                          image: weatherPerHour.weatherImage,
                                                          changeOfRain: weatherPerHour.changeOfRain)
                                         }
+                                    }
+                                }
+                            }
+                        }
+                        
+                        // Custom Stack...
+                        CustomStackView(topEdge: topEdge) {
+                            // Label here...
+                            Label {
+                                Text("1時間天気(明日)")
+                            } icon: {
+                                Image(systemName: "clock")
+                            }
+                        } contentView: {
+                            // Content..
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack(spacing: 0) {
+                                    ForEach(weather.hourlyWeatherTomorrow) { weatherPerHour in
+                                        ForecastView(time: weatherPerHour.hour,
+                                                     temperature: weatherPerHour.temperature,
+                                                     image: weatherPerHour.weatherImage,
+                                                     changeOfRain: weatherPerHour.changeOfRain)
                                     }
                                 }
                             }

@@ -22,10 +22,6 @@ struct ForecastView: View {
             if let image = image {
                 Image(uiImage: image)
                     .font(.title2)
-                // MultiColor...
-//                    .symbolVariant(.fill)
-//                    .symbolRenderingMode(.palette)
-//                    .foregroundStyle(.yellow, .white)
                 // max Frame...
                     .frame(height: 30)
             }
