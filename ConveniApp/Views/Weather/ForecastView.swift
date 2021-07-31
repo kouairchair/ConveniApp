@@ -14,7 +14,7 @@ struct ForecastView: View {
     var changeOfRain: String
     
     var body: some View {
-        VStack(spacing: 10) {
+        VStack(spacing: 7) {
             Text(time)
                 .font(.callout.bold())
                 .foregroundStyle(.white)
@@ -30,11 +30,11 @@ struct ForecastView: View {
                     .frame(height: 30)
             }
                            
-            Text(temperature)
+            Text("\(temperature)°")
                 .font(.callout.bold())
                 .foregroundStyle(.white)
             
-            Text(changeOfRain)
+            Text("\(changeOfRain)\(changeOfRain == "---" ? "" : "%")")
                 .font(.callout.bold())
                 .foregroundStyle(.white)
         }
