@@ -8,41 +8,32 @@
 import SwiftUI
 
 struct ForecastView: View {
-    var time: String
-    var temperature: String
-    var weatherImage: UIImage?
-    var changeOfRain: String
-    var precipitationImage: UIImage?
-    var precipitation: String
-    var humidity: String
-    var windDirectionImage: UIImage?
-    var windDirection: String
-    var windSpeed: String
+    var hourlyWeather: HourlyWeather
     @Binding var shouldHideMoreInfo: Bool
     
     var body: some View {
         VStack(spacing: 5) {
-            Text(time)
+            Text(hourlyWeather.hour)
                 .font(.callout.bold())
                 .foregroundStyle(.white)
             
-            if let weatherImage = weatherImage {
+            if let weatherImage = hourlyWeather.weatherImage {
                 Image(uiImage: weatherImage)
                     .font(.title2)
                 // max Frame...
                     .frame(height: 30)
             }
                            
-            Text("\(temperature)°")
+            Text("\(hourlyWeather.temperature)°")
                 .font(.callout.bold())
                 .foregroundStyle(.white)
             
-            Text("\(changeOfRain)\(changeOfRain == "---" ? "" : "%")")
+            Text(hourlyWeather.changeOfRain)
                 .font(.callout.bold())
                 .foregroundStyle(.white)
             
             if !shouldHideMoreInfo {
-                if let precipitationImage = precipitationImage {
+                if let precipitationImage = hourlyWeather.precipitationImage {
                     Image(uiImage: precipitationImage)
                         .font(.title2)
                     // max Frame...
@@ -50,29 +41,29 @@ struct ForecastView: View {
                 }
             }
             
-            Text("\(precipitation)mm")
+            Text("\(hourlyWeather.precipitation)mm")
                 .font(.callout.bold())
                 .foregroundStyle(.white)
                         
             if !shouldHideMoreInfo {
-                Text("\(humidity)%")
+                Text("\(hourlyWeather.humidity)%")
                     .font(.callout.bold())
                     .foregroundStyle(.white)
                 
-                if let windDirectionImage = windDirectionImage {
+                if let windDirectionImage = hourlyWeather.windDirectionImage {
                     Image(uiImage: windDirectionImage)
                         .font(.title2)
                     // max Frame...
                         .frame(height: 25)
                 }
                 
-                Text(windDirection)
+                Text(hourlyWeather.windDirection)
                     .font(.callout.bold())
                     .foregroundStyle(.white)
                 
             }
             
-            Text("\(windSpeed)m/s")
+            Text("\(hourlyWeather.windSpeed)m/s")
                 .font(.callout.bold())
                 .foregroundStyle(.white)
         }

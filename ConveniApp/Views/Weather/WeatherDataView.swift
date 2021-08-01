@@ -9,6 +9,7 @@ import SwiftUI
 
 struct WeatherDataView: View {
     var topEdge: CGFloat
+    @Binding var weather: Weather
     
     var body: some View {
         VStack(spacing: 8) {
@@ -79,41 +80,34 @@ struct WeatherDataView: View {
                 }
             } contentView: {
                 VStack(alignment: .leading, spacing: 10) {
-                    ForEach(forecast) { cast in
-                        HStack(spacing: 15) {
-                            Text(cast.day)
-                                .font(.title3.bold())
+                    ForEach(weather.tenDaysWeather) { dailyWeather in
+                        HStack(spacing: 0) {
+                            Text(dailyWeather.date)
+                                .bold()
                                 .foregroundStyle(.white)
                             // max width...
-                                .frame(width: 60, alignment: .leading)
+                                .frame(width: 100, alignment: .leading)
 
-                            Image(systemName: cast.image)
-                                .font(.title3)
-                                .symbolVariant(.fill)
-                                .symbolRenderingMode(.palette)
-                                .foregroundStyle(.yellow, .white)
-                                .frame(width: 30)
-
-                            Text("\(Int(cast.celcius))")
-                                .font(.title3.bold())
-                                .foregroundStyle(.secondary)
-                                .foregroundStyle(.white)
-                                .frame(width: 30)
-
-                            // Progress Bar...
-                            ZStack(alignment: .leading) {
-                                Capsule()
-                                    .fill(.tertiary)
-                                    .foregroundStyle(.white)
-
-                                // for width..
-                                GeometryReader { proxy in
-                                    Capsule()
-                                        .fill(.linearGradient(.init(colors: [.orange,.red]), startPoint: .leading, endPoint: .trailing))
-                                        .frame(width: (((cast.celcius * 9 / 5) + 32) / 140) * proxy.size.width)
-                                }
+                            if let weatherIcon = dailyWeather.weatherIcon {
+                                Image(uiImage: weatherIcon)
+                                    .symbolVariant(.fill)
+                                    .symbolRenderingMode(.palette)
+                                    .foregroundStyle(.yellow, .white)
+                                    .frame(width: 30)
                             }
-                            .frame(height: 4)
+                            
+                            Text(dailyWeather.weatherDescription)
+                                .foregroundStyle(.white)
+                                .frame(width: 80)
+                            
+                            Text("\(dailyWeather.lowTemperature)°-\(dailyWeather.highTemperature)°")
+                                .font(.system(size: 15))
+                                .foregroundStyle(.white)
+                                .frame(width: 68)
+                            
+                            Text(dailyWeather.changeOfRain)
+                                .font(.system(size: 15))
+                                .foregroundStyle(.white)
                         }
                         
                         Divider()

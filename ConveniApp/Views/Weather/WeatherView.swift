@@ -11,7 +11,7 @@ struct WeatherView: View {
     var topEdge: CGFloat
     @State var offset: CGFloat = 0
     @State var locality: String = ""
-    @State var weather: Weather = Weather(description: "", highTemp: "", highTempDiff: "", lowTemp: "", lowTempDiff: "", hourlyWeatherToday: [], hourlyWeatherTomorrow: [])
+    @State var weather: Weather = Weather(description: "", highTemp: "", highTempDiff: "", lowTemp: "", lowTempDiff: "", hourlyWeathersToday: [], hourlyWeathersTomorrow: [], tenDaysWeather: [])
     @State var shouldHidePast: Bool = true
     @State var shouldHideMoreInfo: Bool = true
     
@@ -68,7 +68,7 @@ struct WeatherView: View {
                                     Button(action: {
                                         shouldHidePast.toggle()
                                     }){
-                                        Text(shouldHidePast ? "過去分を表示" : "過去分を非表示")
+                                        Text(shouldHidePast ? "過去分表示" : "過去分非表示")
                                             .foregroundColor(.white)
                                             .underline()
                                             .padding(.horizontal, 15)
@@ -81,20 +81,10 @@ struct WeatherView: View {
                             // Content..
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack(spacing: 0) {
-                                    ForEach(weather.hourlyWeatherToday) { weatherPerHour in
+                                    ForEach(weather.hourlyWeathersToday) { weatherPerHour in
                                         let shouldHide = shouldHidePast ? weatherPerHour.isPast : false
                                         if !shouldHide {
-                                            ForecastView(time: weatherPerHour.hour,
-                                                         temperature: weatherPerHour.temperature,
-                                                         weatherImage: weatherPerHour.weatherImage,
-                                                         changeOfRain: weatherPerHour.changeOfRain,
-                                                         precipitationImage: weatherPerHour.precipitationImage,
-                                                         precipitation: weatherPerHour.precipitation,
-                                                         humidity: weatherPerHour.humidity,
-                                                         windDirectionImage: weatherPerHour.windDirectionImage,
-                                                         windDirection: weatherPerHour.windDirection,
-                                                         windSpeed: weatherPerHour.windSpeed,
-                                                         shouldHideMoreInfo: $shouldHideMoreInfo)
+                                            ForecastView(hourlyWeather: weatherPerHour, shouldHideMoreInfo: $shouldHideMoreInfo)
                                         }
                                     }
                                 }
@@ -122,24 +112,14 @@ struct WeatherView: View {
                             // Content..
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack(spacing: 0) {
-                                    ForEach(weather.hourlyWeatherTomorrow) { weatherPerHour in
-                                        ForecastView(time: weatherPerHour.hour,
-                                                     temperature: weatherPerHour.temperature,
-                                                     weatherImage: weatherPerHour.weatherImage,
-                                                     changeOfRain: weatherPerHour.changeOfRain,
-                                                     precipitationImage: weatherPerHour.precipitationImage,
-                                                     precipitation: weatherPerHour.precipitation,
-                                                     humidity: weatherPerHour.humidity,
-                                                     windDirectionImage: weatherPerHour.windDirectionImage,
-                                                     windDirection: weatherPerHour.windDirection,
-                                                     windSpeed: weatherPerHour.windSpeed,
-                                                     shouldHideMoreInfo: $shouldHideMoreInfo)
+                                    ForEach(weather.hourlyWeathersTomorrow) { weatherPerHour in
+                                        ForecastView(hourlyWeather: weatherPerHour, shouldHideMoreInfo: $shouldHideMoreInfo)
                                     }
                                 }
                             }
                         }
                         
-                        WeatherDataView(topEdge: topEdge)
+                        WeatherDataView(topEdge: topEdge, weather: $weather)
                     }
                     .padding(.top, -20)
                 }

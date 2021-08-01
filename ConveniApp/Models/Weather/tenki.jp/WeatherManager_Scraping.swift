@@ -62,20 +62,7 @@ public class WeatherManager {
         guard let weatherWrapDivNode = todayWeatherSectionNode.first?.at_xpath("//div[@class='weather-wrap clearfix']") else {
             throw APIError.scrapingError
         }
-        
-        // １時間天気のHTMLを取得
-        let weatherHourlyUrl = "\(weatherTodayTomorrowUrl)1hour.html"
-        let htmlHourlyData  = try await URLSession.shared.getData(urlString: weatherHourlyUrl)
-        let docHourly = try HTML(html: htmlHourlyData, encoding: String.Encoding.utf8)
-        // 今日分
-        guard let hourlyWeatherForTodaySectionNode = docHourly.xpath("//*[@id='forecast-point-1h-today']").first else {
-            throw APIError.scrapingError
-        }
-        // 明日分
-        guard let hourlyWeatherForTomorrowSectionNode = docHourly.xpath("//*[@id='forecast-point-1h-tomorrow']").first else {
-            throw APIError.scrapingError
-        }
-        
+    
         // 気温(最高)
         guard let highTempValue = weatherWrapDivNode.xpath("//dd[@class='high-temp temp']").first?.at_xpath("//span[@class='value']")?.content else {
             throw APIError.scrapingError
@@ -97,11 +84,82 @@ public class WeatherManager {
             throw APIError.scrapingError
         }
         
+        // 10日間天気のノードを取得（HTMLは今日・明日の天気と同様）
+        guard let hourlyWeatherForTodaySectionNode = docTodayTomorrow.xpath("//section[@class='forecast-point-week-wrap']").first?.at_xpath("//*[@class='forecast-point-week forecast-days-long']") else {
+            throw APIError.scrapingError
+        }
+        let tenDaysWeather = try getTenDaysWeather(sectionNode: hourlyWeatherForTodaySectionNode)
+        
+        // １時間天気のHTMLを取得
+        let weatherHourlyUrl = "\(weatherTodayTomorrowUrl)1hour.html"
+        let htmlHourlyData  = try await URLSession.shared.getData(urlString: weatherHourlyUrl)
+        let docHourly = try HTML(html: htmlHourlyData, encoding: String.Encoding.utf8)
+        // 今日分
+        guard let hourlyWeatherForTodaySectionNode = docHourly.xpath("//*[@id='forecast-point-1h-today']").first else {
+            throw APIError.scrapingError
+        }
+        // 明日分
+        guard let hourlyWeatherForTomorrowSectionNode = docHourly.xpath("//*[@id='forecast-point-1h-tomorrow']").first else {
+            throw APIError.scrapingError
+        }
+        
         // 1時間毎の天気
         let todayHourlyWeather = try getHourlyWeather(sectionNode: hourlyWeatherForTodaySectionNode)
         let tomorrowHourlyWeather = try getHourlyWeather(sectionNode: hourlyWeatherForTomorrowSectionNode)
         
-        return Weather(description: weatherDescription, highTemp: highTempValue, highTempDiff: highTempDiffValue, lowTemp: lowTempValue, lowTempDiff: lowTempDiffValue, hourlyWeatherToday: todayHourlyWeather, hourlyWeatherTomorrow: tomorrowHourlyWeather)
+        return Weather(description: weatherDescription, highTemp: highTempValue, highTempDiff: highTempDiffValue, lowTemp: lowTempValue, lowTempDiff: lowTempDiffValue,
+                       hourlyWeathersToday: todayHourlyWeather, hourlyWeathersTomorrow: tomorrowHourlyWeather, tenDaysWeather: tenDaysWeather)
+    }
+    
+    func getTenDaysWeather(sectionNode: XMLElement) throws -> [DailyWeather] {
+        let dateTextArrayObject = sectionNode.xpath("//tr")[0].xpath("//td[@class='cityday']")
+        let weatherInfoArrayObject = sectionNode.xpath("//tr")[1].xpath("//td[@class='weather-icon']")
+        let highTemperatureArrayObject = sectionNode.xpath("//tr")[2].xpath("//td//p[@class='high-temp']")
+        let lowTemperatureArrayObject = sectionNode.xpath("//tr")[2].xpath("//td//p[@class='low-temp']")
+        let changeOfRainArrayObject = sectionNode.xpath("//tr")[3].xpath("//td//p[@class='precip']")
+        try [dateTextArrayObject, weatherInfoArrayObject, highTemperatureArrayObject, lowTemperatureArrayObject, changeOfRainArrayObject].forEach {
+            if $0.count != 9 {
+                throw APIError.scrapingError
+            }
+        }
+        
+        return try (0...8).map { i -> DailyWeather in
+            // 日付
+            guard let dateText = dateTextArrayObject[i].content else {
+                throw APIError.scrapingError
+            }
+            let _dateText = dateText.replacingOccurrences(of: "\n", with: "") // 無駄な改行を削除
+                .replacingOccurrences(of: " ", with: "") // 無駄なスペースを削除
+                .replacingOccurrences(of: "^0+", with: "", options: .regularExpression) // 最初の"0"を削除
+            
+            // 天気を表す画像
+            guard let weatherImageUrl = weatherInfoArrayObject[i].xpath("img").first?["src"] else {
+                throw APIError.scrapingError
+            }
+            let weatherImage = UserDefaults.standard.gifImageWithURL(gifUrl: weatherImageUrl)
+            
+            // 天気(「晴れ」など)
+            guard let weatherDescription = weatherInfoArrayObject[i].content else {
+                throw APIError.scrapingError
+            }
+            
+            // 最高気温
+            guard let highTemperature = highTemperatureArrayObject[i].content else {
+                throw APIError.scrapingError
+            }
+            
+            // 最低気温
+            guard let lowTemperature = lowTemperatureArrayObject[i].content else {
+                throw APIError.scrapingError
+            }
+            
+            // 降水確率
+            guard let changeOfRain = changeOfRainArrayObject[i].content else {
+                throw APIError.scrapingError
+            }
+                    
+            return DailyWeather(date: _dateText, weatherIcon: weatherImage, weatherDescription: weatherDescription, highTemperature: highTemperature, lowTemperature: lowTemperature, changeOfRain: changeOfRain)
+        }
     }
     
     func getHourlyWeather(sectionNode: XMLElement) throws -> [HourlyWeather] {
@@ -125,28 +183,34 @@ public class WeatherManager {
             guard let hourText = hourTextArrayObject[i].content else {
                 throw APIError.scrapingError
             }
-            // 最初の"0"を除外しておく
+            // 最初の"0"を削除しておく
             let _hourText = hourText.replacingOccurrences(of: "^0+", with: "", options: .regularExpression)
             
             // 過去の時間か
             let isPast = hourTextArrayObject[i].xpath("//span[@class='past']").first != nil
+            
             // 天気を表す画像
             guard let weatherImageUrl = weatherImageArrayObject[i].xpath("img").first?["src"] else {
                 throw APIError.scrapingError
             }
+            let weatherImage = UserDefaults.standard.gifImageWithURL(gifUrl: weatherImageUrl)
+            
             // 気温
             guard let temperatureText = temperatureArrayObject[i].content else {
                 throw APIError.scrapingError
             }
+            
             // 降水確率
             guard let changeOfRainText = chanceOfRainArrayObject[i].content else {
                 throw APIError.scrapingError
             }
+            let _chanceOfRainText = changeOfRainText + changeOfRainText == "---" ? "" : "%"
             
             // 降水量(グラフの画像と実際の降水量(mm/h))
             guard let precipitationImageUrl = precipitationImageArrayObject[i].xpath("img").first?["src"] else {
                 throw APIError.scrapingError
             }
+            let precipitationImage = UserDefaults.standard.gifImageWithURL(gifUrl: precipitationImageUrl)
             guard let precipitationText = precipitationTextArrayObject[i].content else {
                 throw APIError.scrapingError
             }
@@ -160,6 +224,7 @@ public class WeatherManager {
             guard let windDirectionImageUrl = windDirectionTextArrayObject[i].xpath("img").first?["src"] else {
                 throw APIError.scrapingError
             }
+            let windDirectionImage = UserDefaults.standard.gifImageWithURL(gifUrl: windDirectionImageUrl)
             guard let windDirectionText = windDirectionTextArrayObject[i].content else {
                 throw APIError.scrapingError
             }
@@ -169,10 +234,8 @@ public class WeatherManager {
                 throw APIError.scrapingError
             }
 
-            let weatherImage = UserDefaults.standard.gifImageWithURL(gifUrl: weatherImageUrl)
-            let precipitationImage = UserDefaults.standard.gifImageWithURL(gifUrl: precipitationImageUrl)
-            let windDirectionImage = UserDefaults.standard.gifImageWithURL(gifUrl: windDirectionImageUrl)
-            return HourlyWeather(isPast: isPast, hour: _hourText, weatherImage: weatherImage, temperature: temperatureText, changeOfRain: changeOfRainText, precipitationImage: precipitationImage, precipitation: precipitationText, humidity: humidityText, windDirectionImage: windDirectionImage, windDirection: windDirectionText, windSpeed: windSpeedText)
+            return HourlyWeather(isPast: isPast, hour: _hourText, weatherImage: weatherImage, temperature: temperatureText, changeOfRain: _chanceOfRainText, precipitationImage: precipitationImage,
+                                 precipitation: precipitationText, humidity: humidityText, windDirectionImage: windDirectionImage, windDirection: windDirectionText, windSpeed: windSpeedText)
         }
     }
     
