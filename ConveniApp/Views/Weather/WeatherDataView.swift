@@ -81,29 +81,32 @@ struct WeatherDataView: View {
             } contentView: {
                 VStack(alignment: .leading, spacing: 10) {
                     ForEach(weather.tenDaysWeather) { dailyWeather in
+                        // TODO:横向き時のレイアウトを要見直し
                         HStack(spacing: 0) {
                             Text(dailyWeather.date)
+                                .font(.system(size: 16))
                                 .bold()
                                 .foregroundStyle(.white)
                             // max width...
-                                .frame(width: 100, alignment: .leading)
+                            Spacer()
 
                             if let weatherIcon = dailyWeather.weatherIcon {
                                 Image(uiImage: weatherIcon)
                                     .symbolVariant(.fill)
                                     .symbolRenderingMode(.palette)
                                     .foregroundStyle(.yellow, .white)
-                                    .frame(width: 30)
+                                Spacer()
                             }
                             
                             Text(dailyWeather.weatherDescription)
+                                .font(.system(size: 15))
                                 .foregroundStyle(.white)
-                                .frame(width: 80)
+                            Spacer()
                             
                             Text("\(dailyWeather.lowTemperature)°-\(dailyWeather.highTemperature)°")
                                 .font(.system(size: 15))
                                 .foregroundStyle(.white)
-                                .frame(width: 68)
+                            Spacer()
                             
                             Text(dailyWeather.changeOfRain)
                                 .font(.system(size: 15))

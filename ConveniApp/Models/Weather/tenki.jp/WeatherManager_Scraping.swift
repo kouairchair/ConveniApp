@@ -130,7 +130,13 @@ public class WeatherManager {
             }
             let _dateText = dateText.replacingOccurrences(of: "\n", with: "") // 無駄な改行を削除
                 .replacingOccurrences(of: " ", with: "") // 無駄なスペースを削除
-                .replacingOccurrences(of: "^0+", with: "", options: .regularExpression) // 最初の"0"を削除
+                // TODO: MM月DD日(曜日)の形式をMM/DD(曜日)に変換する良い方法を要考慮
+                .replacingOccurrences(of: "(月)", with: "(Mon)")
+                .replacingOccurrences(of: "(日)", with: "(Sun)")
+                .replacingOccurrences(of: "月", with: "/")
+                .replacingOccurrences(of: "日", with: "")
+                .replacingOccurrences(of: "(Mon)", with: "(月)")
+                .replacingOccurrences(of: "(Sun)", with: "(日)")
             
             // 天気を表す画像
             guard let weatherImageUrl = weatherInfoArrayObject[i].xpath("img").first?["src"] else {
@@ -204,7 +210,7 @@ public class WeatherManager {
             guard let changeOfRainText = chanceOfRainArrayObject[i].content else {
                 throw APIError.scrapingError
             }
-            let _chanceOfRainText = changeOfRainText + changeOfRainText == "---" ? "" : "%"
+            let _chanceOfRainText = changeOfRainText + (changeOfRainText == "---" ? "" : "%")
             
             // 降水量(グラフの画像と実際の降水量(mm/h))
             guard let precipitationImageUrl = precipitationImageArrayObject[i].xpath("img").first?["src"] else {
