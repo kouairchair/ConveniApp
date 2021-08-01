@@ -132,32 +132,9 @@ public class WeatherManager {
                 throw APIError.scrapingError
             }
 
-            return HourlyWeather(isPast: isPast, hour: hourText, weatherImage: gifImageWithURL(gifUrl: weatherImageUrl), temperature: temperatureText, changeOfRain: changeOfRainText)
+            let image = UserDefaults.standard.gifImageWithURL(gifUrl: weatherImageUrl)
+            return HourlyWeather(isPast: isPast, hour: hourText, weatherImage: image, temperature: temperatureText, changeOfRain: changeOfRainText)
         }
-    }
-    
-    func gifImageWithURL(gifUrl: String) -> UIImage? {
-        guard let bundleURL = NSURL(string: gifUrl)
-            else {
-                print("image named \"\(gifUrl)\" doesn't exist")
-                return nil
-        }
-        guard let imageData = NSData(contentsOf: bundleURL as URL) else {
-            print("image named \"\(gifUrl)\" into NSData")
-            return nil
-        }
-
-        guard let source = CGImageSourceCreateWithData(imageData, nil) else {
-            print("image doesn't exist")
-            return nil
-        }
-        
-        let options = [
-            kCGImageSourceCreateThumbnailWithTransform: true,
-            kCGImageSourceCreateThumbnailFromImageAlways: true,
-            kCGImageSourceThumbnailMaxPixelSize: 30] as CFDictionary
-        let imageReference = CGImageSourceCreateThumbnailAtIndex(source, 0, options)!
-        return UIImage(cgImage: imageReference)
     }
     
     func fetchWeatherIcon() async throws -> UIImage? {

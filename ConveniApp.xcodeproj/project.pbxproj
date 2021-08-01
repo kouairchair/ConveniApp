@@ -19,6 +19,7 @@
 		1B54DE0726A6E7E90053407C /* WeatherDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B54DE0626A6E7E90053407C /* WeatherDataView.swift */; };
 		1B54DE0926A6FC2D0053407C /* Pollution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B54DE0826A6FC2D0053407C /* Pollution.swift */; };
 		1B59CEFA26B58EE200C50974 /* HourlyWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B59CEF926B58EE200C50974 /* HourlyWeather.swift */; };
+		1B6F5B9F26B625BE003BF5E6 /* UserDefaults+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6F5B9E26B625BE003BF5E6 /* UserDefaults+UIImage.swift */; };
 		1B72987C26A2BA9B00234D7A /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B72987B26A2BA9B00234D7A /* BackgroundView.swift */; };
 		1B72987F26A2BBED00234D7A /* ForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B72987E26A2BBED00234D7A /* ForecastView.swift */; };
 		1B7E1E3D26A237BC006707BB /* WeatherTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7E1E3C26A237BC006707BB /* WeatherTabView.swift */; };
@@ -72,6 +73,7 @@
 		1B54DE0826A6FC2D0053407C /* Pollution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pollution.swift; sourceTree = "<group>"; };
 		1B59CEF826B5017900C50974 /* ConveniApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ConveniApp.entitlements; sourceTree = "<group>"; };
 		1B59CEF926B58EE200C50974 /* HourlyWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyWeather.swift; sourceTree = "<group>"; };
+		1B6F5B9E26B625BE003BF5E6 /* UserDefaults+UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+UIImage.swift"; sourceTree = "<group>"; };
 		1B72987B26A2BA9B00234D7A /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
 		1B72987E26A2BBED00234D7A /* ForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastView.swift; sourceTree = "<group>"; };
 		1B7E1E3C26A237BC006707BB /* WeatherTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTabView.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 			children = (
 				1B3254C1269F243100929F01 /* URLSession+Get.swift */,
 				1B86F3EF26A076F500A08D24 /* UIDevice+SafeArea.swift */,
+				1B6F5B9E26B625BE003BF5E6 /* UserDefaults+UIImage.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -407,6 +410,7 @@
 				1BB5AB922687503F00CB6C1A /* ContentView.swift in Sources */,
 				1B54DE0726A6E7E90053407C /* WeatherDataView.swift in Sources */,
 				1B7E1E3D26A237BC006707BB /* WeatherTabView.swift in Sources */,
+				1B6F5B9F26B625BE003BF5E6 /* UserDefaults+UIImage.swift in Sources */,
 				1BF9F2222697C7A000260273 /* NetworkMonitor.swift in Sources */,
 				1B322E4E26B05B820094F351 /* Weather_Scraping.swift in Sources */,
 				1BB5AB902687503F00CB6C1A /* ConveniAppApp.swift in Sources */,
