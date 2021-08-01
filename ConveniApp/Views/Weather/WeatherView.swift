@@ -13,6 +13,7 @@ struct WeatherView: View {
     @State var locality: String = ""
     @State var weather: Weather = Weather(description: "", highTemp: "", highTempDiff: "", lowTemp: "", lowTempDiff: "", hourlyWeatherToday: [], hourlyWeatherTomorrow: [])
     @State var shouldHidePast: Bool = true
+    @State var shouldHideMoreInfo: Bool = true
     
     var body: some View {
         VStack {
@@ -60,9 +61,14 @@ struct WeatherView: View {
                                     Text("1時間天気(今日)")
                                     Spacer()
                                     Button(action: {
+                                        shouldHideMoreInfo.toggle()
+                                    }){
+                                        Image(systemName: shouldHideMoreInfo ? "ellipsis.rectangle" : "ellipsis.rectangle.fill")
+                                    }
+                                    Button(action: {
                                         shouldHidePast.toggle()
                                     }){
-                                        Text(shouldHidePast ? "過去の天気を表示" : "過去の天気を非表示")
+                                        Text(shouldHidePast ? "過去分を表示" : "過去分を非表示")
                                             .foregroundColor(.white)
                                             .underline()
                                             .padding(.horizontal, 15)
@@ -80,8 +86,15 @@ struct WeatherView: View {
                                         if !shouldHide {
                                             ForecastView(time: weatherPerHour.hour,
                                                          temperature: weatherPerHour.temperature,
-                                                         image: weatherPerHour.weatherImage,
-                                                         changeOfRain: weatherPerHour.changeOfRain)
+                                                         weatherImage: weatherPerHour.weatherImage,
+                                                         changeOfRain: weatherPerHour.changeOfRain,
+                                                         precipitationImage: weatherPerHour.precipitationImage,
+                                                         precipitation: weatherPerHour.precipitation,
+                                                         humidity: weatherPerHour.humidity,
+                                                         windDirectionImage: weatherPerHour.windDirectionImage,
+                                                         windDirection: weatherPerHour.windDirection,
+                                                         windSpeed: weatherPerHour.windSpeed,
+                                                         shouldHideMoreInfo: $shouldHideMoreInfo)
                                         }
                                     }
                                 }
@@ -92,7 +105,16 @@ struct WeatherView: View {
                         CustomStackView(topEdge: topEdge) {
                             // Label here...
                             Label {
-                                Text("1時間天気(明日)")
+                                HStack {
+                                    Text("1時間天気(明日)")
+                                    Spacer()
+                                    Button(action: {
+                                        shouldHideMoreInfo.toggle()
+                                    }){
+                                        Image(systemName: shouldHideMoreInfo ? "ellipsis.rectangle" : "ellipsis.rectangle.fill")
+                                            .padding(.horizontal, 15)
+                                    }
+                                }
                             } icon: {
                                 Image(systemName: "clock")
                             }
@@ -103,8 +125,15 @@ struct WeatherView: View {
                                     ForEach(weather.hourlyWeatherTomorrow) { weatherPerHour in
                                         ForecastView(time: weatherPerHour.hour,
                                                      temperature: weatherPerHour.temperature,
-                                                     image: weatherPerHour.weatherImage,
-                                                     changeOfRain: weatherPerHour.changeOfRain)
+                                                     weatherImage: weatherPerHour.weatherImage,
+                                                     changeOfRain: weatherPerHour.changeOfRain,
+                                                     precipitationImage: weatherPerHour.precipitationImage,
+                                                     precipitation: weatherPerHour.precipitation,
+                                                     humidity: weatherPerHour.humidity,
+                                                     windDirectionImage: weatherPerHour.windDirectionImage,
+                                                     windDirection: weatherPerHour.windDirection,
+                                                     windSpeed: weatherPerHour.windSpeed,
+                                                     shouldHideMoreInfo: $shouldHideMoreInfo)
                                     }
                                 }
                             }

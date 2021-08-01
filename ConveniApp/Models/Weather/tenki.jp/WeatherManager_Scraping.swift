@@ -92,7 +92,7 @@ public class WeatherManager {
             throw APIError.scrapingError
         }
         
-        // 天気
+        // 天気(「晴れ」など)
         guard let weatherDescription = weatherWrapDivNode.xpath("//p[@class='weather-telop']").first?.content else {
             throw APIError.scrapingError
         }
@@ -109,14 +109,25 @@ public class WeatherManager {
         let weatherImageArrayObject = sectionNode.xpath("//tr[@class='weather']//td")
         let temperatureArrayObject = sectionNode.xpath("//tr[@class='temperature']//td")
         let chanceOfRainArrayObject = sectionNode.xpath("//tr[@class='prob-precip']//td")
-        if hourTextArrayObject.count != 24 || weatherImageArrayObject.count != 24 || temperatureArrayObject.count != 24 || chanceOfRainArrayObject.count != 24 {
-            throw APIError.scrapingError
+        let precipitationImageArrayObject = sectionNode.xpath("//tr[@class='precip-graph']//td")
+        let precipitationTextArrayObject = sectionNode.xpath("//tr[@class='precipitation']//td")
+        let humidityTextArrayObject = sectionNode.xpath("//tr[@class='humidity']//td")
+        let windDirectionTextArrayObject = sectionNode.xpath("//tr[@class='wind-blow']//td")
+        let windSpeedTextArrayObject = sectionNode.xpath("//tr[@class='wind-speed']//td")
+        try [hourTextArrayObject, weatherImageArrayObject, temperatureArrayObject, chanceOfRainArrayObject, precipitationImageArrayObject, precipitationTextArrayObject, humidityTextArrayObject, windDirectionTextArrayObject, windSpeedTextArrayObject ].forEach {
+            if $0.count != 24 {
+                throw APIError.scrapingError
+            }
         }
+        
         return try (0...23).map { i -> HourlyWeather in
             // 時間（何時台か）
             guard let hourText = hourTextArrayObject[i].content else {
                 throw APIError.scrapingError
             }
+            // 最初の"0"を除外しておく
+            let _hourText = hourText.replacingOccurrences(of: "^0+", with: "", options: .regularExpression)
+            
             // 過去の時間か
             let isPast = hourTextArrayObject[i].xpath("//span[@class='past']").first != nil
             // 天気を表す画像
@@ -131,9 +142,37 @@ public class WeatherManager {
             guard let changeOfRainText = chanceOfRainArrayObject[i].content else {
                 throw APIError.scrapingError
             }
+            
+            // 降水量(グラフの画像と実際の降水量(mm/h))
+            guard let precipitationImageUrl = precipitationImageArrayObject[i].xpath("img").first?["src"] else {
+                throw APIError.scrapingError
+            }
+            guard let precipitationText = precipitationTextArrayObject[i].content else {
+                throw APIError.scrapingError
+            }
 
-            let image = UserDefaults.standard.gifImageWithURL(gifUrl: weatherImageUrl)
-            return HourlyWeather(isPast: isPast, hour: hourText, weatherImage: image, temperature: temperatureText, changeOfRain: changeOfRainText)
+            // 湿度
+            guard let humidityText = humidityTextArrayObject[i].content else {
+                throw APIError.scrapingError
+            }
+            
+            // 風向
+            guard let windDirectionImageUrl = windDirectionTextArrayObject[i].xpath("img").first?["src"] else {
+                throw APIError.scrapingError
+            }
+            guard let windDirectionText = windDirectionTextArrayObject[i].content else {
+                throw APIError.scrapingError
+            }
+            
+            // 風速（m/s）
+            guard let windSpeedText = windSpeedTextArrayObject[i].content else {
+                throw APIError.scrapingError
+            }
+
+            let weatherImage = UserDefaults.standard.gifImageWithURL(gifUrl: weatherImageUrl)
+            let precipitationImage = UserDefaults.standard.gifImageWithURL(gifUrl: precipitationImageUrl)
+            let windDirectionImage = UserDefaults.standard.gifImageWithURL(gifUrl: windDirectionImageUrl)
+            return HourlyWeather(isPast: isPast, hour: _hourText, weatherImage: weatherImage, temperature: temperatureText, changeOfRain: changeOfRainText, precipitationImage: precipitationImage, precipitation: precipitationText, humidity: humidityText, windDirectionImage: windDirectionImage, windDirection: windDirectionText, windSpeed: windSpeedText)
         }
     }
     
