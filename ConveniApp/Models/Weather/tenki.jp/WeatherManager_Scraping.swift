@@ -43,19 +43,30 @@ public class WeatherManager {
             throw APIError.offlineError
         }
         
+        // tenki.jp用の現在地のURLを取得する
+        var currentLocationUrlStr = ""
         guard let currentLocationPostalCode = try await locationFetcher.lookUpCurrentLocation()?.postalCode else {
             throw APIError.locationError
         }
-        let urlString = "\(Constants.tenkiJpBaseUrl)/search/?keyword=\(currentLocationPostalCode)"
-        let htmlSearchPostalCodeData = try await URLSession.shared.getData(urlString: urlString)
-        let doc = try HTML(html: htmlSearchPostalCodeData, encoding: String.Encoding.utf8)
-        let searchEntryDataNode = doc.xpath("//p[@class='search-entry-data']")
-        guard let href = searchEntryDataNode.first?.at_xpath("a")?["href"] else {
-            throw APIError.locationUrlError
+        
+        
+        if let href = UserDefaults.standard.string(forKey: currentLocationPostalCode) {
+            currentLocationUrlStr = href
+        } else {
+            let urlString = "\(Constants.tenkiJpBaseUrl)/search/?keyword=\(currentLocationPostalCode)"
+            let htmlSearchPostalCodeData = try await URLSession.shared.getData(urlString: urlString)
+            let doc = try HTML(html: htmlSearchPostalCodeData, encoding: String.Encoding.utf8)
+            let searchEntryDataNode = doc.xpath("//p[@class='search-entry-data']")
+            guard let href = searchEntryDataNode.first?.at_xpath("a")?["href"] else {
+                throw APIError.locationUrlError
+            }
+            currentLocationUrlStr = href
+            UserDefaults.standard.set(href, forKey: currentLocationPostalCode)
         }
+
         
         // 今日・明日の天気のHTMLを取得
-        let weatherTodayTomorrowUrl = "\(Constants.tenkiJpBaseUrl)\(href)" // e.g. https://tenki.jp/forecast/4/18/5410/15103/
+        let weatherTodayTomorrowUrl = "\(Constants.tenkiJpBaseUrl)\(currentLocationUrlStr)" // e.g. https://tenki.jp/forecast/4/18/5410/15103/
         let htmlTodayTomorrowData  = try await URLSession.shared.getData(urlString: weatherTodayTomorrowUrl)
         let docTodayTomorrow = try HTML(html: htmlTodayTomorrowData, encoding: String.Encoding.utf8)
         let todayWeatherSectionNode = docTodayTomorrow.xpath("//section[@class='today-weather']")
