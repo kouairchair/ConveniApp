@@ -71,7 +71,6 @@
 		1B3DFB9D26B6DD5500C500B0 /* DailyWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyWeather.swift; sourceTree = "<group>"; };
 		1B54DE0626A6E7E90053407C /* WeatherDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDataView.swift; sourceTree = "<group>"; };
 		1B54DE0826A6FC2D0053407C /* Pollution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pollution.swift; sourceTree = "<group>"; };
-		1B59CEF826B5017900C50974 /* ConveniApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ConveniApp.entitlements; sourceTree = "<group>"; };
 		1B59CEF926B58EE200C50974 /* HourlyWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyWeather.swift; sourceTree = "<group>"; };
 		1B6F5B9E26B625BE003BF5E6 /* UserDefaults+UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+UIImage.swift"; sourceTree = "<group>"; };
 		1B72987B26A2BA9B00234D7A /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
@@ -99,6 +98,7 @@
 		1BE0B4AB26A29A5500A726FD /* CustomStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStackView.swift; sourceTree = "<group>"; };
 		1BE0B4AD26A29B3400A726FD /* CustomConrnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomConrnerView.swift; sourceTree = "<group>"; };
 		1BF9F2212697C79F00260273 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+		BF5F110C26B765E500E99A65 /* ConveniApp.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = ConveniApp.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,7 +204,7 @@
 		1BB5AB8E2687503F00CB6C1A /* ConveniApp */ = {
 			isa = PBXGroup;
 			children = (
-				1B59CEF826B5017900C50974 /* ConveniApp.entitlements */,
+				BF5F110C26B765E500E99A65 /* ConveniApp.entitlements */,
 				1BC25D76268BEA20006AF8F2 /* Info.plist */,
 				1BB5AB8F2687503F00CB6C1A /* ConveniAppApp.swift */,
 				1BC25D71268BE290006AF8F2 /* Views */,
@@ -608,7 +608,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ConveniApp/Preview Content\"";
-				DEVELOPMENT_TEAM = NJAK8X6XT3;
+				DEVELOPMENT_TEAM = AV8C7DZ7RN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ConveniApp/Info.plist;
@@ -626,7 +626,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.headspinnerd.Conveni-App";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.headspinnerd.Conveni-App2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG SCRAPING";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -644,7 +644,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ConveniApp/Preview Content\"";
-				DEVELOPMENT_TEAM = NJAK8X6XT3;
+				DEVELOPMENT_TEAM = AV8C7DZ7RN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ConveniApp/Info.plist;
@@ -662,7 +662,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.headspinnerd.Conveni-App";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.headspinnerd.Conveni-App2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
