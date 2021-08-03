@@ -1,0 +1,34 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Kanna",
+        "repositoryURL": "https://github.com/tid-kijyun/Kanna",
+        "state": {
+          "branch": null,
+          "revision": "126bdc9600e30b4a8aeb8d14088953c16aebf495",
+          "version": "5.2.6"
+        }
+      },
+      {
+        "package": "swift-log",
+        "repositoryURL": "https://github.com/apple/swift-log.git",
+        "state": {
+          "branch": null,
+          "revision": "5d66f7ba25daf4f94100e7022febf3c75e37a6c7",
+          "version": "1.4.2"
+        }
+      },
+      {
+        "package": "swift-log-oslog",
+        "repositoryURL": "https://github.com/inmotionsoftware/swift-log-oslog.git",
+        "state": {
+          "branch": null,
+          "revision": "df9ce289aa3a27eac33ee89a7e9bb62cbea87a18",
+          "version": "1.0.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
