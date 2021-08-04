@@ -9,8 +9,8 @@ import SwiftUI
 
 struct HomeView: View {
     
-    var topEdge: CGFloat
     @State var currentTab: TabItem = .Weather
+    var topEdge: CGFloat
     let tabItemWidth: CGFloat = 60
     let tabItemHeight: CGFloat = 40
 
@@ -27,7 +27,9 @@ struct HomeView: View {
                     WeatherView(topEdge: topEdge)
                         .tag(TabItem.Weather)
                     
-                    GridView(fitnesData: fitData)
+                    VStack {
+                        Text("Browser  Data")
+                    }
                         .tag(TabItem.Browser)
                     
                     VStack {
@@ -147,76 +149,3 @@ struct Home_Previews: PreviewProvider {
         ContentView()
     }
 }
-
-// TODO: This is just a sample view(need to be deleted later...)
-struct GridView: View {
-    var fitnesData: [Fitness]
-    var columns = Array(repeating: GridItem(.flexible(), spacing: 20), count: 2)
-
-    var body: some View {
-        ScrollView(.vertical) {
-            LazyVGrid(columns: columns, spacing: 30) {
-                ForEach(fitnesData) { fitness in
-                    ZStack(alignment: Alignment(horizontal: .trailing, vertical: .top)) {
-                        VStack(alignment: .leading, spacing: 20) {
-                            Text(fitness.title)
-                            
-                            Text(fitness.data)
-                                .font(.title)
-                                .fontWeight(.bold)
-                                .foregroundColor(.white)
-                                .padding(.top, 10)
-                            
-                            HStack {
-                                Spacer(minLength: 0)
-                                
-                                Text(fitness.suggest)
-                                    .foregroundColor(.white)
-                            }
-                        }
-                        .padding()
-                        .background(Color(fitness.image))
-                        .cornerRadius(20)
-                        // shadow...
-                        .shadow(color: Color.black.opacity(0.2), radius: 5, x:0, y:5)
-                        
-                        // top image...
-                        Image(fitness.image)
-                            .resizable()
-                            .frame(width: 20, height: 20)
-                            //.renderingMode(.template)
-                            .foregroundColor(.white)
-                            .padding()
-                            .background(Color.white.opacity(0.12))
-                            .clipShape(Circle())
-                    }
-                }
-            }
-            .padding(.horizontal)
-            .padding(.top, 25)
-        }
-    }
-}
-
-
-// TODO: need to be deleted
-struct Fitness: Identifiable {
-    var id: Int
-    var title: String
-    var image: String
-    var data: String
-    var suggest: String
-}
-
-// TODO: need to be deleted
-var fitData = [
-    Fitness(id: 0, title: "Heart Rate", image: "heart", data: "124 bpm", suggest: "80-120 Healthy"),
-    Fitness(id: 1, title: "Sleep", image: "sleep", data: "4h", suggest: "Deep Sleep"),
-    Fitness(id: 2, title: "Sleep", image: "sleep", data: "6h 43m", suggest: "Deep Sleep"),
-    Fitness(id: 3, title: "Heart Rate", image: "heart", data: "45 bpm", suggest: "80-120 Healthy"),
-    Fitness(id: 4, title: "Sleep", image: "sleep", data: "10h 01m", suggest: "Deep Sleep"),
-    Fitness(id: 5, title: "Heart Rate", image: "heart", data: "100 bpm", suggest: "80-120 Healthy"),
-    Fitness(id: 6, title: "Heart Rate", image: "heart", data: "100 bpm", suggest: "80-120 Healthy"),
-    Fitness(id: 7, title: "Heart Rate", image: "heart", data: "100 bpm", suggest: "80-120 Healthy"),
-    Fitness(id: 8, title: "Heart Rate", image: "heart", data: "100 bpm", suggest: "80-120 Healthy"),
-]

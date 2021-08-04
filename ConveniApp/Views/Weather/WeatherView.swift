@@ -14,6 +14,7 @@ struct WeatherView: View {
     @State var weather: Weather = Weather(description: "", highTemp: "", highTempDiff: "", lowTemp: "", lowTempDiff: "", hourlyWeathersToday: [], hourlyWeathersTomorrow: [], tenDaysWeather: [])
     @State var shouldHidePast: Bool = true
     @State var shouldHideMoreInfo: Bool = true
+    @State private var alertMessage: AlertMessage?
     
     var body: some View {
         VStack {
@@ -147,7 +148,10 @@ struct WeatherView: View {
                     locality = try await WeatherManager.shared.fetchLocality()
                     weather = try await WeatherManager.shared.fetchWeather()
                 } catch {
-                    // TODO: need to implement
+                    logger.error("fetchWeather failed:\(error)")
+                    if Constants.isDebug {
+                        self.alertMessage = AlertMessage(message: String(format: LcliConstants.fetchWeatherFailed.translate(), [error]))
+                    }
                 }
             }
         }
@@ -158,9 +162,14 @@ struct WeatherView: View {
                     locality = try await WeatherManager.shared.fetchLocality()
                     weather = try await WeatherManager.shared.fetchWeather()
                 } catch {
-                    // TODO: need to implement
+                    logger.error("fetchWeather failed:\(error)")
+                    if Constants.isDebug {
+                        self.alertMessage = AlertMessage(message: String(format: LcliConstants.fetchWeatherFailed.translate(), [error]))
+                    }
                 }
             }
+        }.alert(item: $alertMessage) { alert in
+            Alert(title: Text(LcliConstants.errorMessage.translate()), message: Text(alert.message), dismissButton: .cancel())
         }
     }
     

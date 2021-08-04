@@ -8,9 +8,11 @@
 import Foundation
 import SwiftUI
 import Kanna
+//test_tanaka
+import CryptoKit
 
 #if SCRAPING
-public class WeatherManager {
+public actor WeatherManager {
     let specifiedPlace: Int
     static let shared = WeatherManager()
     
@@ -68,7 +70,7 @@ public class WeatherManager {
         await withTaskGroup(of: Data.self, body: { taskGroup in
             
         })
-        // 今日・明日の天気のHTMLを取得
+        // 今日・明日の天気のHTMLを取得(10日間天気も含む)
         let weatherTodayTomorrowUrl = "\(Constants.tenkiJpBaseUrl)\(currentLocationUrlStr)" // e.g. https://tenki.jp/forecast/4/18/5410/15103/
         let htmlTodayTomorrowData  = try await URLSession.shared.getData(urlString: weatherTodayTomorrowUrl)
         let docTodayTomorrow = try HTML(html: htmlTodayTomorrowData, encoding: String.Encoding.utf8)
