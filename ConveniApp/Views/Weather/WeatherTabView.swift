@@ -17,7 +17,7 @@ struct WeatherTabView: View {
             if let _image = image {
                 Image(uiImage: _image)
             } else {
-                Image(systemName: "cloud.fill")
+                Image(systemName: "cloud")
             }
         }
         .onAppear {

@@ -151,6 +151,17 @@ struct WeatherView: View {
                 }
             }
         }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+            // REMARK: priorityは優先度高い順にhigh,userInitiated,default,low,utility,background
+            Task.init(priority: .low) {
+                do {
+                    locality = try await WeatherManager.shared.fetchLocality()
+                    weather = try await WeatherManager.shared.fetchWeather()
+                } catch {
+                    // TODO: need to implement
+                }
+            }
+        }
     }
     
     func getTitleOpacity() -> CGFloat {

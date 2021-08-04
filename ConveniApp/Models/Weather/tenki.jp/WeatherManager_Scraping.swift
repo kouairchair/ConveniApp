@@ -64,7 +64,10 @@ public class WeatherManager {
             UserDefaults.standard.set(href, forKey: currentLocationPostalCode)
         }
 
-        
+        // TODO: implementing
+        await withTaskGroup(of: Data.self, body: { taskGroup in
+            
+        })
         // 今日・明日の天気のHTMLを取得
         let weatherTodayTomorrowUrl = "\(Constants.tenkiJpBaseUrl)\(currentLocationUrlStr)" // e.g. https://tenki.jp/forecast/4/18/5410/15103/
         let htmlTodayTomorrowData  = try await URLSession.shared.getData(urlString: weatherTodayTomorrowUrl)
