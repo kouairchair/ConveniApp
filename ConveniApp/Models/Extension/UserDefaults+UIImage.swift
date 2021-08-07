@@ -10,6 +10,7 @@ import SwiftUI
 extension UserDefaults {
     /// 指定したURLについて、UserDefaultsに既に画像を保存していればその画像をreturnし、
     /// 未保存であればWEBから画像を取得してUserDefaultsに保存し、画像をreturnする
+    ///  TODO: 画像の保存はUserDefaultsではなくアプリ内のフォルダを作成して保存する？
     /// - Parameter gifUrl:指定したURL(TODO: 現在はGIF画像限定)
     func gifImageWithURL(gifUrl: String) -> UIImage? {
         let doesExistData = self.bool(forKey: gifUrl)

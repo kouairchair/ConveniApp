@@ -8,13 +8,18 @@
 import Foundation
 import SwiftUI
 import Kanna
-//test_tanaka
-import CryptoKit
 
 #if SCRAPING
 public actor WeatherManager {
     let specifiedPlace: Int
     static let shared = WeatherManager()
+    // tenki.jp用の現在地のURL
+    private var currentLocationUrlStr = ""
+    private var weatherTodayTomorrowUrl: String {
+        get {
+            "\(Constants.tenkiJpBaseUrl)\(self.currentLocationUrlStr)" // e.g. https://tenki.jp/forecast/4/18/5410/15103/
+        }
+    }
     
     let locationFetcher = LocationFetcher()
     
@@ -67,64 +72,62 @@ public actor WeatherManager {
         }
 
         // TODO: implementing
-        await withTaskGroup(of: Data.self, body: { taskGroup in
-            
-        })
-        // 今日・明日の天気のHTMLを取得(10日間天気も含む)
         let weatherTodayTomorrowUrl = "\(Constants.tenkiJpBaseUrl)\(currentLocationUrlStr)" // e.g. https://tenki.jp/forecast/4/18/5410/15103/
-        let htmlTodayTomorrowData  = try await URLSession.shared.getData(urlString: weatherTodayTomorrowUrl)
-        let docTodayTomorrow = try HTML(html: htmlTodayTomorrowData, encoding: String.Encoding.utf8)
-        let todayWeatherSectionNode = docTodayTomorrow.xpath("//section[@class='today-weather']")
-        guard let weatherWrapDivNode = todayWeatherSectionNode.first?.at_xpath("//div[@class='weather-wrap clearfix']") else {
-            throw APIError.scrapingError
-        }
-    
-        // 気温(最高)
-        guard let highTempValue = weatherWrapDivNode.xpath("//dd[@class='high-temp temp']").first?.at_xpath("//span[@class='value']")?.content else {
-            throw APIError.scrapingError
-        }
-        guard let highTempDiffValue = weatherWrapDivNode.xpath("//dd[@class='high-temp tempdiff']").first?.content else {
-            throw APIError.scrapingError
-        }
+        var weatherResult = Weather()
         
-        // 気温(最低)
-        guard let lowTempValue = weatherWrapDivNode.xpath("//dd[@class='low-temp temp']").first?.at_xpath("//span[@class='value']")?.content else {
-            throw APIError.scrapingError
-        }
-        guard let lowTempDiffValue = weatherWrapDivNode.xpath("//dd[@class='low-temp tempdiff']").first?.content else {
-            throw APIError.scrapingError
-        }
+        try await withThrowingTaskGroup(of: (HTMLDocument, Bool).self, body: { taskGroup in
+            taskGroup.async(priority: .default) {
+                // 今日・明日の天気のHTMLを取得(10日間天気も含む)
+                let htmlTodayTomorrowData  = try await URLSession.shared.getData(urlString: weatherTodayTomorrowUrl)
+                return (try HTML(html: htmlTodayTomorrowData, encoding: String.Encoding.utf8), true)
+            }
+            
+            taskGroup.async(priority: .default) {
+                // １時間天気のHTMLを取得
+                let weatherHourlyUrl = "\(weatherTodayTomorrowUrl)1hour.html"
+                let htmlHourlyData  = try await URLSession.shared.getData(urlString: weatherHourlyUrl)
+                return (try HTML(html: htmlHourlyData, encoding: String.Encoding.utf8), false)
+            }
+            
+            for try await finishedHtmlDoc in taskGroup {
+                if finishedHtmlDoc.1 {
+                    let docTodayTomorrow = finishedHtmlDoc.0
+                    // 今日・明日の天気(10日間天気も含む)
+                    let todayWeatherSectionNode = docTodayTomorrow.xpath("//section[@class='today-weather']")
+                    guard let weatherWrapDivNode = todayWeatherSectionNode.first?.at_xpath("//div[@class='weather-wrap clearfix']") else {
+                        throw APIError.scrapingError
+                    }
+                
+                    // 気温(最高)
+                    weatherResult.highTemp = weatherWrapDivNode.xpath("//dd[@class='high-temp temp']").first?.at_xpath("//span[@class='value']")?.content ?? ""
+                    weatherResult.highTempDiff = weatherWrapDivNode.xpath("//dd[@class='high-temp tempdiff']").first?.content ?? ""
+                    
+                    // 気温(最低)
+                    weatherResult.lowTemp = weatherWrapDivNode.xpath("//dd[@class='low-temp temp']").first?.at_xpath("//span[@class='value']")?.content ?? ""
+                    weatherResult.lowTempDiff = weatherWrapDivNode.xpath("//dd[@class='low-temp tempdiff']").first?.content ?? ""
+                    
+                    // 天気(「晴れ」など)
+                    weatherResult.description = weatherWrapDivNode.xpath("//p[@class='weather-telop']").first?.content ?? ""
+                    
+                    // 10日間天気のノードを取得（HTMLは今日・明日の天気と同様）
+                    if let hourlyWeatherForTodaySectionNode = docTodayTomorrow.xpath("//section[@class='forecast-point-week-wrap']").first?.at_xpath("//*[@class='forecast-point-week forecast-days-long']") {
+                        weatherResult.tenDaysWeather = try getTenDaysWeather(sectionNode: hourlyWeatherForTodaySectionNode)
+                    }
+                } else {
+                    // １時間天気
+                    let docHourly = finishedHtmlDoc.0
+                    // 今日分と明日分のセクションノード取得
+                    if let hourlyWeatherForTodaySectionNode = docHourly.xpath("//*[@id='forecast-point-1h-today']").first,
+                       let hourlyWeatherForTomorrowSectionNode = docHourly.xpath("//*[@id='forecast-point-1h-tomorrow']").first {
+                        // 1時間毎の天気
+                        weatherResult.hourlyWeathersToday = try getHourlyWeather(sectionNode: hourlyWeatherForTodaySectionNode)
+                        weatherResult.hourlyWeathersTomorrow = try getHourlyWeather(sectionNode: hourlyWeatherForTomorrowSectionNode)
+                    }
+                }
+            }
+        })
         
-        // 天気(「晴れ」など)
-        guard let weatherDescription = weatherWrapDivNode.xpath("//p[@class='weather-telop']").first?.content else {
-            throw APIError.scrapingError
-        }
-        
-        // 10日間天気のノードを取得（HTMLは今日・明日の天気と同様）
-        guard let hourlyWeatherForTodaySectionNode = docTodayTomorrow.xpath("//section[@class='forecast-point-week-wrap']").first?.at_xpath("//*[@class='forecast-point-week forecast-days-long']") else {
-            throw APIError.scrapingError
-        }
-        let tenDaysWeather = try getTenDaysWeather(sectionNode: hourlyWeatherForTodaySectionNode)
-        
-        // １時間天気のHTMLを取得
-        let weatherHourlyUrl = "\(weatherTodayTomorrowUrl)1hour.html"
-        let htmlHourlyData  = try await URLSession.shared.getData(urlString: weatherHourlyUrl)
-        let docHourly = try HTML(html: htmlHourlyData, encoding: String.Encoding.utf8)
-        // 今日分
-        guard let hourlyWeatherForTodaySectionNode = docHourly.xpath("//*[@id='forecast-point-1h-today']").first else {
-            throw APIError.scrapingError
-        }
-        // 明日分
-        guard let hourlyWeatherForTomorrowSectionNode = docHourly.xpath("//*[@id='forecast-point-1h-tomorrow']").first else {
-            throw APIError.scrapingError
-        }
-        
-        // 1時間毎の天気
-        let todayHourlyWeather = try getHourlyWeather(sectionNode: hourlyWeatherForTodaySectionNode)
-        let tomorrowHourlyWeather = try getHourlyWeather(sectionNode: hourlyWeatherForTomorrowSectionNode)
-        
-        return Weather(description: weatherDescription, highTemp: highTempValue, highTempDiff: highTempDiffValue, lowTemp: lowTempValue, lowTempDiff: lowTempDiffValue,
-                       hourlyWeathersToday: todayHourlyWeather, hourlyWeathersTomorrow: tomorrowHourlyWeather, tenDaysWeather: tenDaysWeather)
+        return weatherResult
     }
     
     func getTenDaysWeather(sectionNode: XMLElement) throws -> [DailyWeather] {

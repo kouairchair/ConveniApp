@@ -11,7 +11,7 @@ struct WeatherView: View {
     var topEdge: CGFloat
     @State var offset: CGFloat = 0
     @State var locality: String = ""
-    @State var weather: Weather = Weather(description: "", highTemp: "", highTempDiff: "", lowTemp: "", lowTempDiff: "", hourlyWeathersToday: [], hourlyWeathersTomorrow: [], tenDaysWeather: [])
+    @State var weather: Weather = Weather()
     @State var shouldHidePast: Bool = true
     @State var shouldHideMoreInfo: Bool = true
     @State private var alertMessage: AlertMessage?

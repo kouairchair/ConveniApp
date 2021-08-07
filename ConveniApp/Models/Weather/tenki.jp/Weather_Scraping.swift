@@ -8,14 +8,14 @@
 import Foundation
 
 #if SCRAPING
-struct Weather {
-    let description: String
-    let highTemp: String
-    let highTempDiff: String
-    let lowTemp: String
-    let lowTempDiff: String
-    let hourlyWeathersToday: [HourlyWeather]
-    let hourlyWeathersTomorrow: [HourlyWeather]
-    let tenDaysWeather: [DailyWeather]
+struct Weather {    
+    var description: String = ""
+    var highTemp: String = ""
+    var highTempDiff: String = ""
+    var lowTemp: String = ""
+    var lowTempDiff: String = ""
+    var hourlyWeathersToday: [HourlyWeather] = []
+    var hourlyWeathersTomorrow: [HourlyWeather] = []
+    var tenDaysWeather: [DailyWeather] = []
 }
 #endif
