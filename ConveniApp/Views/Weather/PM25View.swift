@@ -21,7 +21,7 @@ struct PM25View: View {
                     .font(.callout.bold())
                     .foregroundStyle(.white)
             } else {
-                Text("")
+                Text("    ")
                     .font(.callout.bold())
                     .foregroundStyle(.white)
             }
