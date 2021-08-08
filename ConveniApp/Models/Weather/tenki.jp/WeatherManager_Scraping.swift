@@ -51,7 +51,6 @@ public actor WeatherManager {
         }
         
         // tenki.jp用の現在地のURLを取得する
-        var currentLocationUrlStr = ""
         guard let currentLocationPostalCode = try await locationFetcher.lookUpCurrentLocation()?.postalCode else {
             throw APIError.locationError
         }
@@ -72,25 +71,42 @@ public actor WeatherManager {
         }
 
         // TODO: implementing
-        let weatherTodayTomorrowUrl = "\(Constants.tenkiJpBaseUrl)\(currentLocationUrlStr)" // e.g. https://tenki.jp/forecast/4/18/5410/15103/
         var weatherResult = Weather()
         
-        try await withThrowingTaskGroup(of: (HTMLDocument, Bool).self, body: { taskGroup in
+        enum WeatherTask {
+            case todayTomorrowTask, hourlyTask, pm2_5Task
+        }
+        try await withThrowingTaskGroup(of: (HTMLDocument, WeatherTask).self, body: { taskGroup in
             taskGroup.addTask(priority: .medium) {
                 // 今日・明日の天気のHTMLを取得(10日間天気も含む)
-                let htmlTodayTomorrowData  = try await URLSession.shared.getData(urlString: weatherTodayTomorrowUrl)
-                return (try HTML(html: htmlTodayTomorrowData, encoding: String.Encoding.utf8), true)
+                let htmlTodayTomorrowData  = try await URLSession.shared.getData(urlString: self.weatherTodayTomorrowUrl)
+                return (try HTML(html: htmlTodayTomorrowData, encoding: String.Encoding.utf8), .todayTomorrowTask)
             }
             
             taskGroup.addTask(priority: .medium) {
                 // １時間天気のHTMLを取得
-                let weatherHourlyUrl = "\(weatherTodayTomorrowUrl)1hour.html"
+                let weatherHourlyUrl = "\(await self.weatherTodayTomorrowUrl)1hour.html"
                 let htmlHourlyData  = try await URLSession.shared.getData(urlString: weatherHourlyUrl)
-                return (try HTML(html: htmlHourlyData, encoding: String.Encoding.utf8), false)
+                return (try HTML(html: htmlHourlyData, encoding: String.Encoding.utf8), .hourlyTask)
+            }
+            
+            taskGroup.addTask(priority: .medium) {
+                // PM2.5分布予測
+                let currentLocationUrlStrSplit = (await self.currentLocationUrlStr).split(separator: "/")
+                if currentLocationUrlStrSplit.count >= 4 {
+                    let currentLocalityUrl = "/\(currentLocationUrlStrSplit[1])/\(currentLocationUrlStrSplit[2])/\(currentLocationUrlStrSplit[3]).html"
+                    let pm2_5url = "\(Constants.tenkiJpBaseUrl)/pm25\(currentLocalityUrl)"
+                    let htmlPm2_5Data  = try await URLSession.shared.getData(urlString: pm2_5url)
+                    return (try HTML(html: htmlPm2_5Data, encoding: String.Encoding.utf8), .pm2_5Task)
+                } else {
+                    // TODO: need to successfully initialize HTMLDocument
+                    return (try HTML(html: "", encoding: String.Encoding.utf8), .pm2_5Task)
+                }
             }
             
             for try await finishedHtmlDoc in taskGroup {
-                if finishedHtmlDoc.1 {
+                switch (finishedHtmlDoc.1) {
+                case .todayTomorrowTask:
                     let docTodayTomorrow = finishedHtmlDoc.0
                     // 今日・明日の天気(10日間天気も含む)
                     let todayWeatherSectionNode = docTodayTomorrow.xpath("//section[@class='today-weather']")
@@ -113,7 +129,7 @@ public actor WeatherManager {
                     if let hourlyWeatherForTodaySectionNode = docTodayTomorrow.xpath("//section[@class='forecast-point-week-wrap']").first?.at_xpath("//*[@class='forecast-point-week forecast-days-long']") {
                         weatherResult.tenDaysWeather = try getTenDaysWeather(sectionNode: hourlyWeatherForTodaySectionNode)
                     }
-                } else {
+                case .hourlyTask:
                     // １時間天気
                     let docHourly = finishedHtmlDoc.0
                     // 今日分と明日分のセクションノード取得
@@ -123,11 +139,57 @@ public actor WeatherManager {
                         weatherResult.hourlyWeathersToday = try getHourlyWeather(sectionNode: hourlyWeatherForTodaySectionNode)
                         weatherResult.hourlyWeathersTomorrow = try getHourlyWeather(sectionNode: hourlyWeatherForTomorrowSectionNode)
                     }
+                    
+                case .pm2_5Task:
+                    // PM2.5分布予測
+                    let docPm2_5 = finishedHtmlDoc.0
+                    // セクションノード取得
+                    if let pm2_5SectionNode = docPm2_5.xpath("//*[@class='common-info-table pm25-city-table']").first {
+                        weatherResult.pm2_5Infos = try getPm2_5Info(sectionNode: pm2_5SectionNode)
+                    }
                 }
             }
         })
         
         return weatherResult
+    }
+    
+    func getPm2_5Info(sectionNode: XMLElement) throws -> [Pm2_5Info] {
+        let hourTextArrayObject = sectionNode.xpath("//tr[@class='hour']//td")
+        let pm25ArrayObject = sectionNode.xpath("//tr[@class='pm25-image']//td")
+        try [hourTextArrayObject, pm25ArrayObject].forEach {
+            if $0.count != 16 {
+                throw APIError.scrapingError
+            }
+        }
+        
+        return try (0...15).map { i -> Pm2_5Info in
+            // 今日かどうか（falseなら明日）
+            let isToday = i < 8
+            
+            // 時間（何時台か）
+            guard let hourText = hourTextArrayObject[i].content else {
+                throw APIError.scrapingError
+            }
+            // 最初の"0"を削除しておく
+            let _hourText = hourText.replacingOccurrences(of: "^0+", with: "", options: .regularExpression)
+            
+            // 過去の時間か
+            let isPast = hourTextArrayObject[i].xpath("//span[@class='past']").first != nil
+            
+            // PM2.5の濃度を表す画像
+            guard let pm2_5ImageUrl = pm25ArrayObject[i].xpath("img").first?["src"] else {
+                throw APIError.scrapingError
+            }
+            let pm2_5Image = UserDefaults.standard.gifImageWithURL(gifUrl: pm2_5ImageUrl)
+            
+            // PM2.5の濃度を表す記述
+            guard let description = pm25ArrayObject[i].content else {
+                throw APIError.scrapingError
+            }
+            
+            return Pm2_5Info(isToday: isToday, isPast: isPast, hour: _hourText, pm2_5Image: pm2_5Image, description: description)
+        }
     }
     
     func getTenDaysWeather(sectionNode: XMLElement) throws -> [DailyWeather] {

@@ -17,5 +17,6 @@ struct Weather {
     var hourlyWeathersToday: [HourlyWeather] = []
     var hourlyWeathersTomorrow: [HourlyWeather] = []
     var tenDaysWeather: [DailyWeather] = []
+    var pm2_5Infos: [Pm2_5Info] = []
 }
 #endif

@@ -10,23 +10,41 @@ import SwiftUI
 struct WeatherDataView: View {
     var topEdge: CGFloat
     @Binding var weather: Weather
+    @State var shouldHidePast: Bool = true
     
     var body: some View {
         VStack(spacing: 8) {
             CustomStackView(topEdge: topEdge) {
-                Label {
-                    Text("Air Quality")
-                } icon: {
-                    Image(systemName: "circle.hexagongrid.fill")
+                HStack {
+                    Label {
+                        Text("PM2.5分布予測")
+                    } icon: {
+                        Image(systemName: "circle.hexagongrid.fill")
+                    }
+                    Spacer()
+                    Button(action: {
+                        shouldHidePast.toggle()
+                    }){
+                        Text(shouldHidePast ? "過去分表示" : "過去分非表示")
+                            .foregroundColor(.white)
+                            .underline()
+                            .padding(.horizontal, 15)
+                    }
                 }
             } contentView: {
-                VStack(alignment: .leading, spacing: 10) {
-                    Text("143 - Moderately Polluted")
-                        .font(.title3.bold())
-                    Text("May cause breathing discomfort for people with lung disease sch as asthma and discomfort for people with heart disease, children and older adults.")
-                        .fontWeight(.semibold)
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 0) {
+                        ForEach(weather.pm2_5Infos) { pm2_5Info in
+                            let shouldHide = shouldHidePast ? pm2_5Info.isPast : false
+                            if !shouldHide {
+                                PM25View(pm2_5Info: pm2_5Info)
+                            }
+                            if pm2_5Info.isToday && pm2_5Info.hour == "24" {
+                                Divider().background(.white)
+                            }
+                        }
+                    }
                 }
-                .foregroundStyle(.white)
             }
             
             HStack {
