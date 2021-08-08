@@ -143,7 +143,7 @@ struct WeatherView: View {
             }
         }
         .onAppear() {
-            Task.init(priority: .default) {
+            Task.init(priority: .medium) {
                 do {
                     locality = try await WeatherManager.shared.fetchLocality()
                     weather = try await WeatherManager.shared.fetchWeather()

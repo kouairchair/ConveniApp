@@ -76,13 +76,13 @@ public actor WeatherManager {
         var weatherResult = Weather()
         
         try await withThrowingTaskGroup(of: (HTMLDocument, Bool).self, body: { taskGroup in
-            taskGroup.async(priority: .default) {
+            taskGroup.addTask(priority: .medium) {
                 // 今日・明日の天気のHTMLを取得(10日間天気も含む)
                 let htmlTodayTomorrowData  = try await URLSession.shared.getData(urlString: weatherTodayTomorrowUrl)
                 return (try HTML(html: htmlTodayTomorrowData, encoding: String.Encoding.utf8), true)
             }
             
-            taskGroup.async(priority: .default) {
+            taskGroup.addTask(priority: .medium) {
                 // １時間天気のHTMLを取得
                 let weatherHourlyUrl = "\(weatherTodayTomorrowUrl)1hour.html"
                 let htmlHourlyData  = try await URLSession.shared.getData(urlString: weatherHourlyUrl)

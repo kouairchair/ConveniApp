@@ -21,7 +21,7 @@ struct WeatherTabView: View {
             }
         }
         .onAppear {
-            Task.init(priority: .default) {
+            Task.init(priority: .medium) {
                 do {
                     #if SCRAPING
                     let weatherIcon = UIImage(systemName: "cloud.fill")
