@@ -125,6 +125,11 @@ public actor WeatherManager {
                     // 天気(「晴れ」など)
                     weatherResult.description = weatherWrapDivNode.xpath("//p[@class='weather-telop']").first?.content ?? ""
                     
+                    // 紫外線、洗濯、服装
+                    if let pickupWrapSectionNode = docTodayTomorrow.xpath("//div[@class='common-indexes-pickup-wrap']").first {
+                       
+                    }
+                       
                     // 10日間天気のノードを取得（HTMLは今日・明日の天気と同様）
                     if let hourlyWeatherForTodaySectionNode = docTodayTomorrow.xpath("//section[@class='forecast-point-week-wrap']").first?.at_xpath("//*[@class='forecast-point-week forecast-days-long']") {
                         weatherResult.tenDaysWeather = try getTenDaysWeather(sectionNode: hourlyWeatherForTodaySectionNode)
@@ -152,6 +157,33 @@ public actor WeatherManager {
         })
         
         return weatherResult
+    }
+    
+    func getPickupWrap(sectionNode: XMLElement) throws -> [PickupWrap] {
+        let pickupWrapImageArrayObject = sectionNode.xpath("//div[@class='img-box']")
+        let pickupWrapTelopArrayObject = sectionNode.xpath("//div[@class='telop']")
+        let pickupWrapTelopCommentArrayObject = sectionNode.xpath("//div[@class='telop comment']")
+        
+        try [pickupWrapImageArrayObject, pickupWrapTelopArrayObject, pickupWrapTelopCommentArrayObject].forEach {
+            if $0.count != 4 {
+                throw APIError.scrapingError
+            }
+        }
+            
+        return try (0...3).map { i -> PickupWrap in
+            guard let imageUrl = pickupWrapImageArrayObject[i].xpath("img").first?["src"] else {
+                throw APIError.scrapingError
+            }
+            let imageWrap = UserDefaults.standard.gifImageWithURL(gifUrl: imageUrl)
+            guard let telop = pickupWrapTelopArrayObject[i].content else {
+                throw APIError.scrapingError
+            }
+            guard let telopComment = pickupWrapTelopCommentArrayObject[i].content else {
+                throw APIError.scrapingError
+            }
+            
+            return PickupWrap(image: imageWrap, telop: telop, telopComment: telopComment)
+        }
     }
     
     func getPm2_5Info(sectionNode: XMLElement) throws -> [Pm2_5Info] {

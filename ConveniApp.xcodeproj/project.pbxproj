@@ -18,6 +18,7 @@
 		1B3DFB9E26B6DD5500C500B0 /* DailyWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3DFB9D26B6DD5500C500B0 /* DailyWeather.swift */; };
 		1B54DE0726A6E7E90053407C /* WeatherDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B54DE0626A6E7E90053407C /* WeatherDataView.swift */; };
 		1B54DE0926A6FC2D0053407C /* Pollution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B54DE0826A6FC2D0053407C /* Pollution.swift */; };
+		1B59674F26C10F0A00E5F4E6 /* PickupWrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B59674E26C10F0A00E5F4E6 /* PickupWrap.swift */; };
 		1B59CEFA26B58EE200C50974 /* HourlyWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B59CEF926B58EE200C50974 /* HourlyWeather.swift */; };
 		1B6F5B9F26B625BE003BF5E6 /* UserDefaults+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6F5B9E26B625BE003BF5E6 /* UserDefaults+UIImage.swift */; };
 		1B72987C26A2BA9B00234D7A /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B72987B26A2BA9B00234D7A /* BackgroundView.swift */; };
@@ -73,6 +74,7 @@
 		1B3DFB9D26B6DD5500C500B0 /* DailyWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyWeather.swift; sourceTree = "<group>"; };
 		1B54DE0626A6E7E90053407C /* WeatherDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDataView.swift; sourceTree = "<group>"; };
 		1B54DE0826A6FC2D0053407C /* Pollution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pollution.swift; sourceTree = "<group>"; };
+		1B59674E26C10F0A00E5F4E6 /* PickupWrap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickupWrap.swift; sourceTree = "<group>"; };
 		1B59CEF926B58EE200C50974 /* HourlyWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyWeather.swift; sourceTree = "<group>"; };
 		1B6F5B9E26B625BE003BF5E6 /* UserDefaults+UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+UIImage.swift"; sourceTree = "<group>"; };
 		1B72987B26A2BA9B00234D7A /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 				1B59CEF926B58EE200C50974 /* HourlyWeather.swift */,
 				1B3DFB9D26B6DD5500C500B0 /* DailyWeather.swift */,
 				1BD040B626BFBB9200255DF0 /* Pm2_5Info.swift */,
+				1B59674E26C10F0A00E5F4E6 /* PickupWrap.swift */,
 			);
 			path = tenki.jp;
 			sourceTree = "<group>";
@@ -434,6 +437,7 @@
 				1B3254D2269FACB700929F01 /* Logger.swift in Sources */,
 				1BD040B926BFBF9500255DF0 /* PM25View.swift in Sources */,
 				1B3254CB269FA44600929F01 /* LcliConstants.swift in Sources */,
+				1B59674F26C10F0A00E5F4E6 /* PickupWrap.swift in Sources */,
 				1B322E4C26B046980094F351 /* WeatherManager_Scraping.swift in Sources */,
 				1B86F3ED26A0707D00A08D24 /* TabItem.swift in Sources */,
 				1B59CEFA26B58EE200C50974 /* HourlyWeather.swift in Sources */,

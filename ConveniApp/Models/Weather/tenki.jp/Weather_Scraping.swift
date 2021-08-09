@@ -14,6 +14,9 @@ struct Weather {
     var highTempDiff: String = ""
     var lowTemp: String = ""
     var lowTempDiff: String = ""
+    var uvIndexWrap: PickupWrap = PickupWrap()
+    var clothDriedWrap: PickupWrap = PickupWrap()
+    var dressWrap: PickupWrap = PickupWrap()
     var hourlyWeathersToday: [HourlyWeather] = []
     var hourlyWeathersTomorrow: [HourlyWeather] = []
     var tenDaysWeather: [DailyWeather] = []
