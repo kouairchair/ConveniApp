@@ -12,7 +12,7 @@ enum APIError: Error {
     case urlError
     case locationError
     case locationUrlError
-    case scrapingError
+    case scrapingError(Int)
     case noStatusCodeError
     case informationalError
     case redirectionError

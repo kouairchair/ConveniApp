@@ -38,11 +38,15 @@ public actor WeatherManager {
     }
     
     func fetchLocality() async throws -> String {
-        guard let currentLocationLocality = try await locationFetcher.lookUpCurrentLocation()?.locality else {
-            throw APIError.locationError
+        if let currentLocationLocality = try await locationFetcher.lookUpCurrentLocation()?.locality {
+            UserDefaults.standard.set(Constants.locationIdFukuoka, forKey: "lastLocality")
+            return currentLocationLocality
+        }
+        if let lastLocality = UserDefaults.standard.object(forKey: "lastLocality") as? String {
+            return lastLocality
         }
         
-        return currentLocationLocality
+        throw APIError.locationError
     }
     
     func fetchWeather() async throws -> Weather {
@@ -50,11 +54,7 @@ public actor WeatherManager {
             throw APIError.offlineError
         }
         
-        // tenki.jp用の現在地のURLを取得する
-        guard let currentLocationPostalCode = try await locationFetcher.lookUpCurrentLocation()?.postalCode else {
-            throw APIError.locationError
-        }
-        
+        let currentLocationPostalCode = try await getPostalCode()
         
         if let href = UserDefaults.standard.string(forKey: currentLocationPostalCode) {
             currentLocationUrlStr = href
@@ -74,7 +74,7 @@ public actor WeatherManager {
         var weatherResult = Weather()
         
         enum WeatherTask {
-            case todayTomorrowTask, hourlyTask, pm2_5Task
+            case todayTomorrowTask, hourlyTask, pm2_5Task, engadgetAppleTask
         }
         try await withThrowingTaskGroup(of: (HTMLDocument, WeatherTask).self, body: { taskGroup in
             taskGroup.addTask(priority: .medium) {
@@ -104,6 +104,13 @@ public actor WeatherManager {
                 }
             }
             
+            //test_tanaka
+            taskGroup.addTask(priority: .medium) {
+                let engadgetAppleUrl = "https://www.engadget.com/tag/apple"
+                let engadgetAppleData  = try await URLSession.shared.getData(urlString: engadgetAppleUrl)
+                return (try HTML(html: engadgetAppleData, encoding: String.Encoding.utf8), .engadgetAppleTask)
+            }
+            
             for try await finishedHtmlDoc in taskGroup {
                 switch (finishedHtmlDoc.1) {
                 case .todayTomorrowTask:
@@ -111,7 +118,7 @@ public actor WeatherManager {
                     // 今日・明日の天気(10日間天気も含む)
                     let todayWeatherSectionNode = docTodayTomorrow.xpath("//section[@class='today-weather']")
                     guard let weatherWrapDivNode = todayWeatherSectionNode.first?.at_xpath("//div[@class='weather-wrap clearfix']") else {
-                        throw APIError.scrapingError
+                        throw APIError.scrapingError(1)
                     }
                 
                     // 気温(最高)
@@ -125,6 +132,7 @@ public actor WeatherManager {
                     // 天気(「晴れ」など)
                     weatherResult.description = weatherWrapDivNode.xpath("//p[@class='weather-telop']").first?.content ?? ""
                     
+                    // TODO: implementing
                     // 紫外線、洗濯、服装
                     if let pickupWrapSectionNode = docTodayTomorrow.xpath("//div[@class='common-indexes-pickup-wrap']").first {
                        
@@ -152,11 +160,54 @@ public actor WeatherManager {
                     if let pm2_5SectionNode = docPm2_5.xpath("//*[@class='common-info-table pm25-city-table']").first {
                         weatherResult.pm2_5Infos = try getPm2_5Info(sectionNode: pm2_5SectionNode)
                     }
+                // TODO: 天気のデータに混じっている。どの画面に出すかも要検討。
+                case .engadgetAppleTask:
+                    let docEngadgetApple = finishedHtmlDoc.0
+                    if let engadgetAppleNode = docEngadgetApple.xpath("//ul[@data-component='LatestStream']").first {
+                        let newsArrayObject = engadgetAppleNode.xpath("//li")
+                        var appleNewsList: [AppleNews] = []
+                        newsArrayObject.forEach { obj -> Void in
+                            if let titleAndHref = obj.xpath("//a").first,
+                               let title = titleAndHref["title"],
+                               let href = titleAndHref["href"] {
+                                var appleNews = AppleNews()
+                                appleNews.title = title
+                                appleNews.href = href
+                                if obj.xpath("//a").count > 2,
+                                   let authorImageUrl = obj.xpath("//a")[2].xpath("img").first?["src"],
+                                   let postInfo = obj.xpath("//a")[2].content?.split(separator: ","),
+                                    postInfo.count >= 2 {
+                                    
+                                    let authorName = String(postInfo[0])
+                                    appleNews.authorName = authorName
+                                    let postedTime = String(postInfo[1]).trimmingCharacters(in: .whitespacesAndNewlines)
+                                    appleNews.postedTime = postedTime
+                                    let authorImage = UserDefaults.standard.gifImageWithURL(gifUrl: authorImageUrl)
+                                    appleNews.authorImage = authorImage
+                                }
+                                appleNewsList.append(appleNews)
+                            }
+                        }
+                        weatherResult.appleNewsList = appleNewsList
+                    }
                 }
             }
         })
         
         return weatherResult
+    }
+    
+    private func getPostalCode() async throws -> String {
+        // tenki.jp用の現在地のURLを取得する
+        if let postalCode = try await locationFetcher.lookUpCurrentLocation()?.postalCode {
+            UserDefaults.standard.set(Constants.locationIdFukuoka, forKey: "lastPostalCode")
+            return postalCode
+        }
+        if let lastPostalCode = UserDefaults.standard.object(forKey: "lastPostalCode") as? String {
+            return lastPostalCode
+        }
+        
+        throw APIError.locationError
     }
     
     func getPickupWrap(sectionNode: XMLElement) throws -> [PickupWrap] {
@@ -166,20 +217,20 @@ public actor WeatherManager {
         
         try [pickupWrapImageArrayObject, pickupWrapTelopArrayObject, pickupWrapTelopCommentArrayObject].forEach {
             if $0.count != 4 {
-                throw APIError.scrapingError
+                throw APIError.scrapingError(2)
             }
         }
             
         return try (0...3).map { i -> PickupWrap in
             guard let imageUrl = pickupWrapImageArrayObject[i].xpath("img").first?["src"] else {
-                throw APIError.scrapingError
+                throw APIError.scrapingError(3)
             }
             let imageWrap = UserDefaults.standard.gifImageWithURL(gifUrl: imageUrl)
             guard let telop = pickupWrapTelopArrayObject[i].content else {
-                throw APIError.scrapingError
+                throw APIError.scrapingError(4)
             }
             guard let telopComment = pickupWrapTelopCommentArrayObject[i].content else {
-                throw APIError.scrapingError
+                throw APIError.scrapingError(5)
             }
             
             return PickupWrap(image: imageWrap, telop: telop, telopComment: telopComment)
@@ -191,7 +242,7 @@ public actor WeatherManager {
         let pm25ArrayObject = sectionNode.xpath("//tr[@class='pm25-image']//td")
         try [hourTextArrayObject, pm25ArrayObject].forEach {
             if $0.count != 16 {
-                throw APIError.scrapingError
+                throw APIError.scrapingError(6)
             }
         }
         
@@ -201,7 +252,7 @@ public actor WeatherManager {
             
             // 時間（何時台か）
             guard let hourText = hourTextArrayObject[i].content else {
-                throw APIError.scrapingError
+                throw APIError.scrapingError(7)
             }
             // 最初の"0"を削除しておく
             let _hourText = hourText.replacingOccurrences(of: "^0+", with: "", options: .regularExpression)
@@ -211,13 +262,13 @@ public actor WeatherManager {
             
             // PM2.5の濃度を表す画像
             guard let pm2_5ImageUrl = pm25ArrayObject[i].xpath("img").first?["src"] else {
-                throw APIError.scrapingError
+                throw APIError.scrapingError(8)
             }
             let pm2_5Image = UserDefaults.standard.gifImageWithURL(gifUrl: pm2_5ImageUrl)
             
             // PM2.5の濃度を表す記述
             guard let description = pm25ArrayObject[i].content else {
-                throw APIError.scrapingError
+                throw APIError.scrapingError(9)
             }
             
             return Pm2_5Info(isToday: isToday, isPast: isPast, hour: _hourText, pm2_5Image: pm2_5Image, description: description)
@@ -230,16 +281,16 @@ public actor WeatherManager {
         let highTemperatureArrayObject = sectionNode.xpath("//tr")[2].xpath("//td//p[@class='high-temp']")
         let lowTemperatureArrayObject = sectionNode.xpath("//tr")[2].xpath("//td//p[@class='low-temp']")
         let changeOfRainArrayObject = sectionNode.xpath("//tr")[3].xpath("//td//p[@class='precip']")
-        try [dateTextArrayObject, weatherInfoArrayObject, highTemperatureArrayObject, lowTemperatureArrayObject, changeOfRainArrayObject].forEach {
+        try [dateTextArrayObject, weatherInfoArrayObject, highTemperatureArrayObject, lowTemperatureArrayObject].forEach {
             if $0.count != 9 {
-                throw APIError.scrapingError
+                throw APIError.scrapingError(10)
             }
         }
         
         return try (0...8).map { i -> DailyWeather in
             // 日付
             guard let dateText = dateTextArrayObject[i].content else {
-                throw APIError.scrapingError
+                throw APIError.scrapingError(11)
             }
             let _dateText = dateText.replacingOccurrences(of: "\n", with: "") // 無駄な改行を削除
                 .replacingOccurrences(of: " ", with: "") // 無駄なスペースを削除
@@ -252,29 +303,32 @@ public actor WeatherManager {
                 .replacingOccurrences(of: "(Sun)", with: "(日)")
             
             // 天気を表す画像
-            guard let weatherImageUrl = weatherInfoArrayObject[i].xpath("img").first?["src"] else {
-                throw APIError.scrapingError
+            var weatherImage: UIImage? = nil
+            if let weatherImageUrl = weatherInfoArrayObject[i].xpath("img").first?["src"] {
+                weatherImage = UserDefaults.standard.gifImageWithURL(gifUrl: weatherImageUrl)
             }
-            let weatherImage = UserDefaults.standard.gifImageWithURL(gifUrl: weatherImageUrl)
             
             // 天気(「晴れ」など)
             guard let weatherDescription = weatherInfoArrayObject[i].content else {
-                throw APIError.scrapingError
+                throw APIError.scrapingError(13)
             }
             
             // 最高気温
             guard let highTemperature = highTemperatureArrayObject[i].content else {
-                throw APIError.scrapingError
+                throw APIError.scrapingError(14)
             }
             
             // 最低気温
             guard let lowTemperature = lowTemperatureArrayObject[i].content else {
-                throw APIError.scrapingError
+                throw APIError.scrapingError(15)
             }
             
             // 降水確率
-            guard let changeOfRain = changeOfRainArrayObject[i].content else {
-                throw APIError.scrapingError
+            // Remark:10日間天気の最後の日は空のデータになることがあり、changeOfRainArrayObjectだけは数が1つ少ない？
+            var changeOfRain = "---"
+            if changeOfRainArrayObject.count > i,
+               let _changeOfRain = changeOfRainArrayObject[i].content {
+                changeOfRain = _changeOfRain
             }
                     
             return DailyWeather(date: _dateText, weatherIcon: weatherImage, weatherDescription: weatherDescription, highTemperature: highTemperature, lowTemperature: lowTemperature, changeOfRain: changeOfRain)
@@ -293,14 +347,14 @@ public actor WeatherManager {
         let windSpeedTextArrayObject = sectionNode.xpath("//tr[@class='wind-speed']//td")
         try [hourTextArrayObject, weatherImageArrayObject, temperatureArrayObject, chanceOfRainArrayObject, precipitationImageArrayObject, precipitationTextArrayObject, humidityTextArrayObject, windDirectionTextArrayObject, windSpeedTextArrayObject ].forEach {
             if $0.count != 24 {
-                throw APIError.scrapingError
+                throw APIError.scrapingError(17)
             }
         }
         
         return try (0...23).map { i -> HourlyWeather in
             // 時間（何時台か）
             guard let hourText = hourTextArrayObject[i].content else {
-                throw APIError.scrapingError
+                throw APIError.scrapingError(18)
             }
             // 最初の"0"を削除しておく
             let _hourText = hourText.replacingOccurrences(of: "^0+", with: "", options: .regularExpression)
@@ -310,47 +364,47 @@ public actor WeatherManager {
             
             // 天気を表す画像
             guard let weatherImageUrl = weatherImageArrayObject[i].xpath("img").first?["src"] else {
-                throw APIError.scrapingError
+                throw APIError.scrapingError(19)
             }
             let weatherImage = UserDefaults.standard.gifImageWithURL(gifUrl: weatherImageUrl)
             
             // 気温
             guard let temperatureText = temperatureArrayObject[i].content else {
-                throw APIError.scrapingError
+                throw APIError.scrapingError(20)
             }
             
             // 降水確率
             guard let changeOfRainText = chanceOfRainArrayObject[i].content else {
-                throw APIError.scrapingError
+                throw APIError.scrapingError(21)
             }
             let _chanceOfRainText = changeOfRainText + (changeOfRainText == "---" ? "" : "%")
             
             // 降水量(グラフの画像と実際の降水量(mm/h))
             guard let precipitationImageUrl = precipitationImageArrayObject[i].xpath("img").first?["src"] else {
-                throw APIError.scrapingError
+                throw APIError.scrapingError(22)
             }
             let precipitationImage = UserDefaults.standard.gifImageWithURL(gifUrl: precipitationImageUrl)
             guard let precipitationText = precipitationTextArrayObject[i].content else {
-                throw APIError.scrapingError
+                throw APIError.scrapingError(23)
             }
 
             // 湿度
             guard let humidityText = humidityTextArrayObject[i].content else {
-                throw APIError.scrapingError
+                throw APIError.scrapingError(24)
             }
             
             // 風向
             guard let windDirectionImageUrl = windDirectionTextArrayObject[i].xpath("img").first?["src"] else {
-                throw APIError.scrapingError
+                throw APIError.scrapingError(25)
             }
             let windDirectionImage = UserDefaults.standard.gifImageWithURL(gifUrl: windDirectionImageUrl)
             guard let windDirectionText = windDirectionTextArrayObject[i].content else {
-                throw APIError.scrapingError
+                throw APIError.scrapingError(26)
             }
             
             // 風速（m/s）
             guard let windSpeedText = windSpeedTextArrayObject[i].content else {
-                throw APIError.scrapingError
+                throw APIError.scrapingError(27)
             }
 
             return HourlyWeather(isPast: isPast, hour: _hourText, weatherImage: weatherImage, temperature: temperatureText, changeOfRain: _chanceOfRainText, precipitationImage: precipitationImage,

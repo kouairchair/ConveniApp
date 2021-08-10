@@ -21,5 +21,7 @@ struct Weather {
     var hourlyWeathersTomorrow: [HourlyWeather] = []
     var tenDaysWeather: [DailyWeather] = []
     var pm2_5Infos: [Pm2_5Info] = []
+    // TODO: 天気のデータに混じっている。どの画面に出すかも要検討。
+    var appleNewsList: [AppleNews] = []
 }
 #endif

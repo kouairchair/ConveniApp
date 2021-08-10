@@ -47,52 +47,96 @@ struct WeatherDataView: View {
                 }
             }
             
-            HStack {
-                CustomStackView(topEdge: topEdge) {
-                    Label {
-                        Text("UV Index")
-                    } icon: {
-                        Image(systemName: "sun.min")
-                    }
-                } contentView: {
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text("0")
-                            .font(.title)
-                            .fontWeight(.semibold)
-                        
-                        Text("Low")
-                            .font(.title)
-                            .fontWeight(.semibold)
-                    }
-                    .foregroundStyle(.white)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+            // TODO: アップルニュースが天気のデータに混じっている。どの画面に出すかも要検討。
+            CustomStackView(topEdge: topEdge) {
+                Label {
+                    Text("Engadget Apple News")
+                } icon: {
+                    Image(systemName: "newspaper")
                 }
-                
-                CustomStackView(topEdge: topEdge) {
-                    Label {
-                        Text("Rainfall")
-                    } icon: {
-                        Image(systemName: "drop.fill")
-                    }
-                } contentView: {
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text("0 mm")
-                            .font(.title)
-                            .fontWeight(.semibold)
+            } contentView: {
+                VStack(alignment: .leading, spacing: 10) {
+                    ForEach(weather.appleNewsList) { appleNews in
+                        VStack(spacing: 5) {
+                            if let url = URL(string: "https://www.engadget.com/" + appleNews.href) {
+                                Link(appleNews.title, destination: url)
+                                    .foregroundStyle(.yellow, .white)
+                            } else {
+                                Text(appleNews.title)
+                                    .foregroundStyle(.yellow, .white)
+                            }
+                            
+                            HStack(spacing: 10) {
+                                if let authorImage = appleNews.authorImage {
+                                    Image(uiImage: authorImage)
+                                        .symbolVariant(.fill)
+                                        .symbolRenderingMode(.palette)
+                                        .foregroundStyle(.yellow, .white)
+                                }
+                                
+                                Text(appleNews.authorName)
+                                    .font(.system(size: 15))
+                                    .foregroundStyle(.white)
+                                
+                                Text(appleNews.postedTime)
+                                    .font(.system(size: 15))
+                                    .foregroundStyle(.white)
+                            }
+                        }
                         
-                        Text("in last 24 hours")
-                            .font(.title3)
-                            .fontWeight(.semibold)
+                        Divider()
                     }
-                    .foregroundStyle(.white)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                    .padding(.vertical, 3)
                 }
             }
-            .frame(maxHeight: .infinity)
+            
+//            HStack {
+//                CustomStackView(topEdge: topEdge) {
+//                    Label {
+//                        Text("UV Index")
+//                    } icon: {
+//                        Image(systemName: "sun.min")
+//                    }
+//                } contentView: {
+//                    VStack(alignment: .leading, spacing: 10) {
+//                        Text("0")
+//                            .font(.title)
+//                            .fontWeight(.semibold)
+//
+//                        Text("Low")
+//                            .font(.title)
+//                            .fontWeight(.semibold)
+//                    }
+//                    .foregroundStyle(.white)
+//                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+//                }
+//
+//                CustomStackView(topEdge: topEdge) {
+//                    Label {
+//                        Text("Rainfall")
+//                    } icon: {
+//                        Image(systemName: "drop.fill")
+//                    }
+//                } contentView: {
+//                    VStack(alignment: .leading, spacing: 10) {
+//                        Text("0 mm")
+//                            .font(.title)
+//                            .fontWeight(.semibold)
+//
+//                        Text("in last 24 hours")
+//                            .font(.title3)
+//                            .fontWeight(.semibold)
+//                    }
+//                    .foregroundStyle(.white)
+//                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+//                }
+//            }
+//            .frame(maxHeight: .infinity)
             
             CustomStackView(topEdge: topEdge) {
                 Label {
-                    Text("10-day Forecast")
+                    // TODO: 「福岡市の10日間天気」のように、範囲が広くなっているようなので、タイトルを可変にすべき？
+                    Text("10日間天気")
                 } icon: {
                     Image(systemName: "calendar")
                 }

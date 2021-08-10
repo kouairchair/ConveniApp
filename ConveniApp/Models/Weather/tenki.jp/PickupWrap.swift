@@ -9,7 +9,7 @@ import UIKit
 
 struct PickupWrap: Identifiable {
     var id = UUID().uuidString
-    let image: UIImage? = nil
-    let telop: String = ""
-    let telopComment: String = ""
+    var image: UIImage? = nil
+    var telop: String = ""
+    var telopComment: String = ""
 }
