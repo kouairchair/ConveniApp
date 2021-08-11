@@ -45,6 +45,7 @@
 		1BE0B4AC26A29A5500A726FD /* CustomStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE0B4AB26A29A5500A726FD /* CustomStackView.swift */; };
 		1BE0B4AE26A29B3400A726FD /* CustomConrnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE0B4AD26A29B3400A726FD /* CustomConrnerView.swift */; };
 		1BF9F2222697C7A000260273 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF9F2212697C79F00260273 /* NetworkMonitor.swift */; };
+		BF1E012026C49A820082C5AF /* NewsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1E011F26C49A820082C5AF /* NewsManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +107,7 @@
 		1BE0B4AB26A29A5500A726FD /* CustomStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStackView.swift; sourceTree = "<group>"; };
 		1BE0B4AD26A29B3400A726FD /* CustomConrnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomConrnerView.swift; sourceTree = "<group>"; };
 		1BF9F2212697C79F00260273 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+		BF1E011F26C49A820082C5AF /* NewsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsManager.swift; sourceTree = "<group>"; };
 		BF5F110C26B765E500E99A65 /* ConveniApp.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = ConveniApp.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -283,6 +285,7 @@
 			isa = PBXGroup;
 			children = (
 				1BC8827426C2BDC300BEBC31 /* AppleNews.swift */,
+				BF1E011F26C49A820082C5AF /* NewsManager.swift */,
 			);
 			path = News;
 			sourceTree = "<group>";
@@ -431,6 +434,7 @@
 				1B54DE0726A6E7E90053407C /* WeatherDataView.swift in Sources */,
 				1B7E1E3D26A237BC006707BB /* WeatherTabView.swift in Sources */,
 				1B6F5B9F26B625BE003BF5E6 /* UserDefaults+UIImage.swift in Sources */,
+				BF1E012026C49A820082C5AF /* NewsManager.swift in Sources */,
 				1BF9F2222697C7A000260273 /* NetworkMonitor.swift in Sources */,
 				1B322E4E26B05B820094F351 /* Weather_Scraping.swift in Sources */,
 				1BB5AB902687503F00CB6C1A /* ConveniAppApp.swift in Sources */,

@@ -5,7 +5,6 @@
 //  Created by headspinnerd on 2021/07/27.
 //
 
-import Foundation
 import SwiftUI
 import Kanna
 
@@ -104,9 +103,9 @@ public actor WeatherManager {
                 }
             }
             
-            //test_tanaka
+            // TODO: 天気のデータに混じっている。どの画面に出すかも要検討。
             taskGroup.addTask(priority: .medium) {
-                let engadgetAppleUrl = "https://www.engadget.com/tag/apple"
+                let engadgetAppleUrl = "https://www.engadget.com/tag/apple" //"https://japanese.engadget.com/tag/apple"// main -> ul -> [li] -> a[0]>alt,a[0]>href, / [li] -> a[2]>alt,a[2]>href / [li] -> span[0].content
                 let engadgetAppleData  = try await URLSession.shared.getData(urlString: engadgetAppleUrl)
                 return (try HTML(html: engadgetAppleData, encoding: String.Encoding.utf8), .engadgetAppleTask)
             }

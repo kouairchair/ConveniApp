@@ -12,6 +12,7 @@ struct WeatherView: View {
     @State var offset: CGFloat = 0
     @State var locality: String = ""
     @State var weather: Weather = Weather()
+    @State var appleNewsList: ([AppleNews], [AppleNews]) = ([], []) // 前者は英語版、後者は日本語版
     @State var shouldHidePast: Bool = true
     @State var shouldHideMoreInfo: Bool = true
     @State private var alertMessage: AlertMessage?
@@ -154,15 +155,35 @@ struct WeatherView: View {
                     }
                 }
             }
+            Task.init(priority: .low) {
+                do {
+                    appleNewsList = try await NewsManager.shared.fetchNews()
+                } catch {
+                    logger.error("fetchNews failed:\(error)")
+                    if Constants.isDebug {
+                        self.alertMessage = AlertMessage(message: String(format: LcliConstants.fetchWeatherFailed.translate(), [error]))
+                    }
+                }
+            }
         }
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
-            // REMARK: priorityは優先度高い順にhigh,userInitiated,default,low,utility,background
+            // REMARK: priorityは優先度高い順にhigh,userInitiated,medium,low,utility,background
             Task.init(priority: .low) {
                 do {
                     locality = try await WeatherManager.shared.fetchLocality()
                     weather = try await WeatherManager.shared.fetchWeather()
                 } catch {
                     logger.error("fetchWeather failed:\(error)")
+                    if Constants.isDebug {
+                        self.alertMessage = AlertMessage(message: String(format: LcliConstants.fetchWeatherFailed.translate(), [error]))
+                    }
+                }
+            }
+            Task.init(priority: .low) {
+                do {
+                    appleNewsList = try await NewsManager.shared.fetchNews()
+                } catch {
+                    logger.error("fetchNews failed:\(error)")
                     if Constants.isDebug {
                         self.alertMessage = AlertMessage(message: String(format: LcliConstants.fetchWeatherFailed.translate(), [error]))
                     }
