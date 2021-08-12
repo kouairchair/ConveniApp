@@ -19,11 +19,17 @@ public actor NewsManager {
         enum NewsTask {
             case engadgetAppleTask, engadgetAppleJapanTask
         }
+        var appleNewsList: ([AppleNews], [AppleNews]) = ([], [])
         try await withThrowingTaskGroup(of: (HTMLDocument, NewsTask).self, body: { taskGroup in
-            taskGroup.addTask(priority: .medium) {
-                let engadgetAppleUrl = "https://www.engadget.com/tag/apple" //"https://japanese.engadget.com/tag/apple"// main -> ul -> [li] -> a[0]>alt,a[0]>href, / [li] -> a[2]>alt,a[2]>href / [li] -> span[0].content
+            taskGroup.addTask(priority: .low) {
+                let engadgetAppleUrl = "https://www.engadget.com/tag/apple"
                 let engadgetAppleData  = try await URLSession.shared.getData(urlString: engadgetAppleUrl)
                 return (try HTML(html: engadgetAppleData, encoding: String.Encoding.utf8), .engadgetAppleTask)
+            }
+            taskGroup.addTask(priority: .low) {
+                let engadgetAppleJapanUrl = "https://japanese.engadget.com/tag/apple"
+                let engadgetAppleJapanData  = try await URLSession.shared.getData(urlString: engadgetAppleJapanUrl)
+                return (try HTML(html: engadgetAppleJapanData, encoding: String.Encoding.utf8), .engadgetAppleJapanTask)
             }
             
             for try await finishedHtmlDoc in taskGroup {
@@ -32,7 +38,7 @@ public actor NewsManager {
                     let docEngadgetApple = finishedHtmlDoc.0
                     if let engadgetAppleNode = docEngadgetApple.xpath("//ul[@data-component='LatestStream']").first {
                         let newsArrayObject = engadgetAppleNode.xpath("//li")
-                        var appleNewsList: [AppleNews] = []
+                        var appleNewses: [AppleNews] = []
                         newsArrayObject.forEach { obj -> Void in
                             if let titleAndHref = obj.xpath("//a").first,
                                let title = titleAndHref["title"],
@@ -52,18 +58,43 @@ public actor NewsManager {
                                     let authorImage = UserDefaults.standard.gifImageWithURL(gifUrl: authorImageUrl)
                                     appleNews.authorImage = authorImage
                                 }
-                                appleNewsList.append(appleNews)
+                                appleNewses.append(appleNews)
                             }
                         }
-                        weatherResult.appleNewsList = appleNewsList
+                        appleNewsList.0 = appleNewses
                     }
-                case .engadgetAppleJapanTask:
-                    break
+                case .engadgetAppleJapanTask: // main -> ul -> [li] -> a[0]>alt,a[0]>href, / [li] -> a[1]>alt,a[1]>href / [li] -> span[0].content
+                    let docEngadgetAppleJapan = finishedHtmlDoc.0
+                    if let engadgetAppleJapanNode = docEngadgetAppleJapan.xpath("//main//ul").first {
+                        let newsArrayObject = engadgetAppleJapanNode.xpath("//li")
+                        var appleNewsesJapan: [AppleNews] = []
+                        newsArrayObject.forEach { obj -> Void in
+                            if let titleAndHref = obj.xpath("//a").first,
+                               let title = titleAndHref["alt"],
+                               let href = titleAndHref["href"] {
+                                var appleNews = AppleNews()
+                                appleNews.title = title
+                                appleNews.href = href
+                                if obj.xpath("//a").count > 2,
+                                   let authorImageUrl = obj.xpath("//a")[2].xpath("img").first?["src"],
+                                   let authorName = obj.xpath("//a")[2].xpath("img").first?["alt"] {
+                                    appleNews.authorName = authorName
+                                    let authorImage = UserDefaults.standard.gifImageWithURL(gifUrl: authorImageUrl)
+                                    appleNews.authorImage = authorImage
+                                }
+                                if let postedTime = obj.xpath("//span").first?.content {
+                                    appleNews.postedTime = postedTime
+                                }
+                                appleNewsesJapan.append(appleNews)
+                            }
+                        }
+                        appleNewsList.1 = appleNewsesJapan
+                    }
                 }
             }
         })
         
-        return weatherResult
+        return appleNewsList
     }
     
 }
