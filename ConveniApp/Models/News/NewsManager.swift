@@ -11,7 +11,7 @@ import Kanna
 public actor NewsManager {
     static let shared = NewsManager()
     
-    func fetchNews() async throws -> ([AppleNews], [AppleNews]) {
+    func fetchNews() async throws -> [AppleNews] {
         if !NetworkMonitor.shared.isReachable {
             throw APIError.offlineError
         }
@@ -19,7 +19,7 @@ public actor NewsManager {
         enum NewsTask {
             case engadgetAppleTask, engadgetAppleJapanTask
         }
-        var appleNewsList: ([AppleNews], [AppleNews]) = ([], [])
+        var appleNewsList: [AppleNews] = []
         try await withThrowingTaskGroup(of: (HTMLDocument, NewsTask).self, body: { taskGroup in
             taskGroup.addTask(priority: .low) {
                 let engadgetAppleUrl = "https://www.engadget.com/tag/apple"
@@ -55,13 +55,14 @@ public actor NewsManager {
                                     appleNews.authorName = authorName
                                     let postedTime = String(postInfo[1]).trimmingCharacters(in: .whitespacesAndNewlines)
                                     appleNews.postedTime = postedTime
+                                    appleNews.postedMinutesAgo = getPostedMinutesAgo(postedTime: postedTime)
                                     let authorImage = UserDefaults.standard.gifImageWithURL(gifUrl: authorImageUrl)
                                     appleNews.authorImage = authorImage
                                 }
                                 appleNewses.append(appleNews)
                             }
                         }
-                        appleNewsList.0 = appleNewses
+                        appleNewsList.append(contentsOf: appleNewses)
                     }
                 case .engadgetAppleJapanTask: // main -> ul -> [li] -> a[0]>alt,a[0]>href, / [li] -> a[1]>alt,a[1]>href / [li] -> span[0].content
                     let docEngadgetAppleJapan = finishedHtmlDoc.0
@@ -84,17 +85,122 @@ public actor NewsManager {
                                 }
                                 if let postedTime = obj.xpath("//span").first?.content {
                                     appleNews.postedTime = postedTime
+                                    appleNews.postedMinutesAgo = getPostedMinutesAgo(postedTime: postedTime)
                                 }
                                 appleNewsesJapan.append(appleNews)
                             }
                         }
-                        appleNewsList.1 = appleNewsesJapan
+                        appleNewsList.append(contentsOf: appleNewsesJapan)
                     }
                 }
             }
         })
         
+        sortAppleNews(appleNewsList: &appleNewsList)
+        
         return appleNewsList
+    }
+    
+    func getPostedMinutesAgo(postedTime: String) -> Int32 {
+        let formatter: DateFormatter = DateFormatter()
+        formatter.calendar = Calendar(identifier: .gregorian)
+        formatter.dateFormat = "MM.dd.yyyy"
+        if let usDate = formatter.date(from: postedTime) {
+            return Int32(Date().timeIntervalSinceReferenceDate - usDate.timeIntervalSinceReferenceDate)
+        }
+        
+        var pattern = ".*ago"
+        if isRegexMatched(pattern: pattern, str: postedTime) {
+            func splitFirstNumber(str: String) -> Int32 {
+                let splitItem = str.split(separator: " ")
+                if splitItem.count >= 2 {
+                    let firstWord = String(splitItem[0])
+                    if firstWord == "a" {
+                        return 1
+                    } else {
+                        return Int32(firstWord) ?? 0
+                    }
+                }
+                
+                return 0
+            }
+            
+            pattern = ".*minutes? ago"
+            if isRegexMatched(pattern: pattern, str: postedTime) {
+                return splitFirstNumber(str: postedTime)
+            }
+            pattern = ".*hours? ago"
+            if isRegexMatched(pattern: pattern, str: postedTime) {
+                return splitFirstNumber(str: postedTime) * 60
+            }
+            pattern = ".*days? ago"
+            if isRegexMatched(pattern: pattern, str: postedTime) {
+                return splitFirstNumber(str: postedTime) * 60 * 24
+            }
+        }
+        
+        pattern = "([1-9]|1[1-2])月([1-9]|[1-2][0-9]|30|31)日"
+        if isRegexMatched(pattern: pattern, str: postedTime) {
+            let thisYear = Calendar.current.component(.year, from: Date())
+            let postedTimeThisYear = "\(thisYear)年\(postedTime)"
+            formatter.dateFormat = "yyyy年MM月dd日"
+            if let jpDateThisYear = formatter.date(from: postedTimeThisYear) {
+                let result = Int32(Date().timeIntervalSinceReferenceDate - jpDateThisYear.timeIntervalSinceReferenceDate)
+                if result < 0 {
+                    let postedTimeLastYear = "\(thisYear - 1)年\(postedTime)"
+                    if let jpDateLastYear = formatter.date(from: postedTimeLastYear) {
+                        return Int32(Date().timeIntervalSinceReferenceDate - jpDateLastYear.timeIntervalSinceReferenceDate)
+                    }
+                } else {
+                    return result
+                }
+            }
+        }
+        
+        pattern = ".*前"
+        if isRegexMatched(pattern: pattern, str: postedTime) {
+            func splitFirstNumber(str: String) -> Int32 {
+                let zero: Unicode.Scalar = "0"
+                let nine: Unicode.Scalar = "9"
+                var numberStr = ""
+                for letter in str.unicodeScalars {
+                    switch letter.value {
+                    case zero.value...nine.value:
+                        numberStr += String(letter)
+                    default:
+                        break
+                    }
+                }
+                
+                return Int32(numberStr) ?? 0
+            }
+            
+            pattern = ".*分前"
+            if isRegexMatched(pattern: pattern, str: postedTime) {
+                return splitFirstNumber(str: postedTime)
+            }
+            pattern = ".*時間前"
+            if isRegexMatched(pattern: pattern, str: postedTime) {
+                return splitFirstNumber(str: postedTime) * 60
+            }
+        }
+            
+        return 0
+    }
+    
+    func sortAppleNews(appleNewsList: inout [AppleNews]) {
+        appleNewsList.sort {
+            return $0.postedMinutesAgo < $1.postedMinutesAgo
+        }
+    }
+    
+    func isRegexMatched(pattern: String, str: String) -> Bool {
+        if let regex = try? NSRegularExpression(pattern: pattern, options: []),
+           regex.matches(in: str, range: NSRange(location: 0, length: str.count)).count > 0 {
+            return true
+        }
+        
+        return false
     }
     
 }

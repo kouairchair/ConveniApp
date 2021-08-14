@@ -126,9 +126,9 @@ public actor WeatherManager {
                     
                     // TODO: implementing
                     // 紫外線、洗濯、服装
-                    if let pickupWrapSectionNode = docTodayTomorrow.xpath("//div[@class='common-indexes-pickup-wrap']").first {
-                       
-                    }
+//                    if let pickupWrapSectionNode = docTodayTomorrow.xpath("//div[@class='common-indexes-pickup-wrap']").first {
+//                       
+//                    }
                        
                     // 10日間天気のノードを取得（HTMLは今日・明日の天気と同様）
                     if let hourlyWeatherForTodaySectionNode = docTodayTomorrow.xpath("//section[@class='forecast-point-week-wrap']").first?.at_xpath("//*[@class='forecast-point-week forecast-days-long']") {

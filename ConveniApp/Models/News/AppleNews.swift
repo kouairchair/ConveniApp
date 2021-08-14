@@ -24,4 +24,6 @@ struct AppleNews: Identifiable {
     
     // いつ投稿されたか（an hour agoなど）
     var postedTime: String = ""
+    
+    var postedMinutesAgo: Int32 = 0
 }

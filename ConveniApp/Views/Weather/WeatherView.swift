@@ -12,7 +12,7 @@ struct WeatherView: View {
     @State var offset: CGFloat = 0
     @State var locality: String = ""
     @State var weather: Weather = Weather()
-    @State var appleNewsList: ([AppleNews], [AppleNews]) = ([], []) // 前者は英語版、後者は日本語版
+    @State var appleNewsList: [AppleNews] = []
     @State var shouldHidePast: Bool = true
     @State var shouldHideMoreInfo: Bool = true
     @State private var alertMessage: AlertMessage?
@@ -121,7 +121,7 @@ struct WeatherView: View {
                             }
                         }
                         
-                        WeatherDataView(topEdge: topEdge, weather: $weather)
+                        WeatherDataView(topEdge: topEdge, weather: $weather, appleNewsList: $appleNewsList)
                     }
                     .padding(.top, -20)
                 }
