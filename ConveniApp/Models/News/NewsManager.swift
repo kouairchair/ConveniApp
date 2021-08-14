@@ -183,6 +183,10 @@ public actor NewsManager {
             if isRegexMatched(pattern: pattern, str: postedTime) {
                 return splitFirstNumber(str: postedTime) * 60
             }
+            pattern = ".*日前"
+            if isRegexMatched(pattern: pattern, str: postedTime) {
+                return splitFirstNumber(str: postedTime) * 60 * 24
+            }
         }
             
         return 0

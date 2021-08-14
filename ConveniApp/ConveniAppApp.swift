@@ -34,7 +34,7 @@ private extension ConveniAppApp {
     func setupModels() {
         Task.init(priority: .high) {
             await WeatherManager.shared.startFetch()
+            NetworkMonitor.shared.startMonitoring()
         }
-        NetworkMonitor.shared.startMonitoring()
     }
 }
