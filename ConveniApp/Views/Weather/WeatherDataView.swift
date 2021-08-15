@@ -60,7 +60,7 @@ struct WeatherDataView: View {
                 VStack(alignment: .leading, spacing: 10) {
                     ForEach(appleNewsList) { appleNews in
                         VStack(spacing: 5) {
-                            if let url = URL(string: "https://www.engadget.com/" + appleNews.href) {
+                            if let url = URL(string: appleNews.href) {
                                 Link(appleNews.title, destination: url)
                                     .foregroundStyle(.yellow, .white)
                             } else {

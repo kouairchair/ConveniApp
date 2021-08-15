@@ -22,12 +22,12 @@ public actor NewsManager {
         var appleNewsList: [AppleNews] = []
         try await withThrowingTaskGroup(of: (HTMLDocument, NewsTask).self, body: { taskGroup in
             taskGroup.addTask(priority: .low) {
-                let engadgetAppleUrl = "https://www.engadget.com/tag/apple"
+                let engadgetAppleUrl = "\(Constants.engadgetsUSUrl)tag/apple"
                 let engadgetAppleData  = try await URLSession.shared.getData(urlString: engadgetAppleUrl)
                 return (try HTML(html: engadgetAppleData, encoding: String.Encoding.utf8), .engadgetAppleTask)
             }
             taskGroup.addTask(priority: .low) {
-                let engadgetAppleJapanUrl = "https://japanese.engadget.com/tag/apple"
+                let engadgetAppleJapanUrl = "\(Constants.engadgetsJapanUrl)tag/apple"
                 let engadgetAppleJapanData  = try await URLSession.shared.getData(urlString: engadgetAppleJapanUrl)
                 return (try HTML(html: engadgetAppleJapanData, encoding: String.Encoding.utf8), .engadgetAppleJapanTask)
             }
@@ -45,7 +45,7 @@ public actor NewsManager {
                                let href = titleAndHref["href"] {
                                 var appleNews = AppleNews()
                                 appleNews.title = title
-                                appleNews.href = href
+                                appleNews.href = Constants.engadgetsUSUrl + href
                                 if obj.xpath("//a").count > 2,
                                    let authorImageUrl = obj.xpath("//a")[2].xpath("img").first?["src"],
                                    let postInfo = obj.xpath("//a")[2].content?.split(separator: ","),
@@ -75,7 +75,7 @@ public actor NewsManager {
                                let href = titleAndHref["href"] {
                                 var appleNews = AppleNews()
                                 appleNews.title = title
-                                appleNews.href = href
+                                appleNews.href = Constants.engadgetsJapanUrl + href
                                 if obj.xpath("//a").count > 2,
                                    let authorImageUrl = obj.xpath("//a")[2].xpath("img").first?["src"],
                                    let authorName = obj.xpath("//a")[2].xpath("img").first?["alt"] {
