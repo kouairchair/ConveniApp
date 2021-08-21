@@ -22,7 +22,7 @@ struct ConveniAppApp: App {
             #endif
         }
     }
-    
+    //test_tanaka
     var body: some Scene {
         WindowGroup {
             ContentView()
