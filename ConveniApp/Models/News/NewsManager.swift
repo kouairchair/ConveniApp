@@ -12,6 +12,7 @@ public actor NewsManager {
     static let shared = NewsManager()
     
     func fetchNews() async throws -> [AppleNews] {
+        print("fetchNews started")
         if !NetworkMonitor.shared.isReachable {
             throw APIError.offlineError
         }
@@ -98,6 +99,7 @@ public actor NewsManager {
         
         sortAppleNews(appleNewsList: &appleNewsList)
         
+        print("received appleNewsList")
         return appleNewsList
     }
     

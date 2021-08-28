@@ -7,4 +7,6 @@
 */
 
 "Error" = "エラー";
-"Fetch.Weather.Failed" = "天気情報取得失敗しました。error:%@";
+"Fetch.Location.Failed" = "ロケージョン情報取得に失敗しました。error:%@";
+"Fetch.Weather.Failed" = "天気情報取得に失敗しました。error:%@";
+"Fetch.News.Failed" = "ニュース取得に失敗しました。error:%@";

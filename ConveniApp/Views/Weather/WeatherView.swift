@@ -147,12 +147,28 @@ struct WeatherView: View {
             Task.init(priority: .medium) {
                 do {
                     locality = try await WeatherManager.shared.fetchLocality()
-                    weather = try await WeatherManager.shared.fetchWeather()
-                    appleNewsList = try await NewsManager.shared.fetchNews()
                 } catch {
-                    logger.error("fetchWeather or news failed:\(error)")
+                    logger.error("fetchLocality failed:\(error)")
+                    if Constants.isDebug {
+                        self.alertMessage = AlertMessage(message: String(format: LcliConstants.fetchLocationFailed.translate(), [error]))
+                    }
+                }
+                
+                do {
+                    weather = try await WeatherManager.shared.fetchWeather()
+                } catch {
+                    logger.error("fetchWeather failed:\(error)")
                     if Constants.isDebug {
                         self.alertMessage = AlertMessage(message: String(format: LcliConstants.fetchWeatherFailed.translate(), [error]))
+                    }
+                }
+                
+                do {
+                    appleNewsList = try await NewsManager.shared.fetchNews()
+                } catch {
+                    logger.error("fetchNews failed:\(error)")
+                    if Constants.isDebug {
+                        self.alertMessage = AlertMessage(message: String(format: LcliConstants.fetchNewsFailed.translate(), [error]))
                     }
                 }
             }
@@ -161,12 +177,29 @@ struct WeatherView: View {
             // REMARK: priorityは優先度高い順にhigh,userInitiated,medium,low,utility,background
             Task.init(priority: .low) {
                 do {
-                    weather = try await WeatherManager.shared.fetchWeather()
-                    appleNewsList = try await NewsManager.shared.fetchNews()
+                    locality = try await WeatherManager.shared.fetchLocality()
                 } catch {
-                    logger.error("fetchWeather or news failed:\(error)")
+                    logger.error("fetchLocality failed:\(error)")
+                    if Constants.isDebug {
+                        self.alertMessage = AlertMessage(message: String(format: LcliConstants.fetchLocationFailed.translate(), [error]))
+                    }
+                }
+                
+                do {
+                    weather = try await WeatherManager.shared.fetchWeather()
+                } catch {
+                    logger.error("fetchWeather failed:\(error)")
                     if Constants.isDebug {
                         self.alertMessage = AlertMessage(message: String(format: LcliConstants.fetchWeatherFailed.translate(), [error]))
+                    }
+                }
+                
+                do {
+                    appleNewsList = try await NewsManager.shared.fetchNews()
+                } catch {
+                    logger.error("fetchNews failed:\(error)")
+                    if Constants.isDebug {
+                        self.alertMessage = AlertMessage(message: String(format: LcliConstants.fetchNewsFailed.translate(), [error]))
                     }
                 }
             }

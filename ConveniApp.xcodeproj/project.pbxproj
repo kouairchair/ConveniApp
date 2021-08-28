@@ -46,6 +46,9 @@
 		1BE0B4AE26A29B3400A726FD /* CustomConrnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE0B4AD26A29B3400A726FD /* CustomConrnerView.swift */; };
 		1BF9F2222697C7A000260273 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF9F2212697C79F00260273 /* NetworkMonitor.swift */; };
 		BF1E012026C49A820082C5AF /* NewsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1E011F26C49A820082C5AF /* NewsManager.swift */; };
+		BF6CFEE926DA0351009C29B4 /* Actor+Timeout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6CFEE826DA0351009C29B4 /* Actor+Timeout.swift */; };
+		BFC907C026CDCCE5006B1141 /* NewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC907BF26CDCCE5006B1141 /* NewsView.swift */; };
+		BFC907C226CE14C5006B1141 /* ArchiveButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC907C126CE14C5006B1141 /* ArchiveButtonView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +112,9 @@
 		1BF9F2212697C79F00260273 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		BF1E011F26C49A820082C5AF /* NewsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsManager.swift; sourceTree = "<group>"; };
 		BF5F110C26B765E500E99A65 /* ConveniApp.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = ConveniApp.entitlements; sourceTree = "<group>"; };
+		BF6CFEE826DA0351009C29B4 /* Actor+Timeout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Actor+Timeout.swift"; sourceTree = "<group>"; };
+		BFC907BF26CDCCE5006B1141 /* NewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsView.swift; sourceTree = "<group>"; };
+		BFC907C126CE14C5006B1141 /* ArchiveButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveButtonView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +173,7 @@
 				1B3254C1269F243100929F01 /* URLSession+Get.swift */,
 				1B86F3EF26A076F500A08D24 /* UIDevice+SafeArea.swift */,
 				1B6F5B9E26B625BE003BF5E6 /* UserDefaults+UIImage.swift */,
+				BF6CFEE826DA0351009C29B4 /* Actor+Timeout.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -276,6 +283,7 @@
 				1BB5AB912687503F00CB6C1A /* ContentView.swift */,
 				1B86F3EA26A0699F00A08D24 /* HomeView.swift */,
 				1B72987B26A2BA9B00234D7A /* BackgroundView.swift */,
+				BFC907BE26CDCCC0006B1141 /* News */,
 				1B72987D26A2BBC100234D7A /* Weather */,
 			);
 			path = Views;
@@ -286,6 +294,15 @@
 			children = (
 				1BC8827426C2BDC300BEBC31 /* AppleNews.swift */,
 				BF1E011F26C49A820082C5AF /* NewsManager.swift */,
+			);
+			path = News;
+			sourceTree = "<group>";
+		};
+		BFC907BE26CDCCC0006B1141 /* News */ = {
+			isa = PBXGroup;
+			children = (
+				BFC907BF26CDCCE5006B1141 /* NewsView.swift */,
+				BFC907C126CE14C5006B1141 /* ArchiveButtonView.swift */,
 			);
 			path = News;
 			sourceTree = "<group>";
@@ -433,6 +450,7 @@
 				1BB5AB922687503F00CB6C1A /* ContentView.swift in Sources */,
 				1B54DE0726A6E7E90053407C /* WeatherDataView.swift in Sources */,
 				1B7E1E3D26A237BC006707BB /* WeatherTabView.swift in Sources */,
+				BF6CFEE926DA0351009C29B4 /* Actor+Timeout.swift in Sources */,
 				1B6F5B9F26B625BE003BF5E6 /* UserDefaults+UIImage.swift in Sources */,
 				BF1E012026C49A820082C5AF /* NewsManager.swift in Sources */,
 				1BF9F2222697C7A000260273 /* NetworkMonitor.swift in Sources */,
@@ -442,6 +460,7 @@
 				1BC8827526C2BDC300BEBC31 /* AppleNews.swift in Sources */,
 				1B3DFB9E26B6DD5500C500B0 /* DailyWeather.swift in Sources */,
 				1B7E1E3F26A23A75006707BB /* WeatherView.swift in Sources */,
+				BFC907C026CDCCE5006B1141 /* NewsView.swift in Sources */,
 				1BE0B4AC26A29A5500A726FD /* CustomStackView.swift in Sources */,
 				1BC25D73268BE2C0006AF8F2 /* WeatherManager.swift in Sources */,
 				1BC25D7A268C2451006AF8F2 /* APIError.swift in Sources */,
@@ -460,6 +479,7 @@
 				1BC25D78268C216C006AF8F2 /* Weather.swift in Sources */,
 				1B86F3F026A076F500A08D24 /* UIDevice+SafeArea.swift in Sources */,
 				1BD040B726BFBB9200255DF0 /* Pm2_5Info.swift in Sources */,
+				BFC907C226CE14C5006B1141 /* ArchiveButtonView.swift in Sources */,
 				1BB3117B2699890A00BD4C48 /* LocationFetcher.swift in Sources */,
 				1BE0B4AE26A29B3400A726FD /* CustomConrnerView.swift in Sources */,
 			);

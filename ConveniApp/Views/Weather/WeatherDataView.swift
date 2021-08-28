@@ -59,32 +59,7 @@ struct WeatherDataView: View {
             } contentView: {
                 VStack(alignment: .leading, spacing: 10) {
                     ForEach(appleNewsList) { appleNews in
-                        VStack(spacing: 5) {
-                            if let url = URL(string: appleNews.href) {
-                                Link(appleNews.title, destination: url)
-                                    .foregroundStyle(.yellow, .white)
-                            } else {
-                                Text(appleNews.title)
-                                    .foregroundStyle(.yellow, .white)
-                            }
-                            
-                            HStack(spacing: 10) {
-                                if let authorImage = appleNews.authorImage {
-                                    Image(uiImage: authorImage)
-                                        .symbolVariant(.fill)
-                                        .symbolRenderingMode(.palette)
-                                        .foregroundStyle(.yellow, .white)
-                                }
-                                
-                                Text(appleNews.authorName)
-                                    .font(.system(size: 15))
-                                    .foregroundStyle(.white)
-                                
-                                Text(appleNews.postedTime)
-                                    .font(.system(size: 15))
-                                    .foregroundStyle(.white)
-                            }
-                        }
+                        NewsView(appleNews: appleNews)
                         
                         Divider()
                     }

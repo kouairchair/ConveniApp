@@ -5,7 +5,7 @@
 //  Created by headspinnerd on 2021/07/09.
 //
 
-import Foundation
+import SwiftUI
 
 enum Constants {
     #if DEBUG
@@ -22,9 +22,17 @@ enum Constants {
     static let tenkiJpBaseUrl = "https://tenki.jp"
     static let engadgetsUSUrl = "https://www.engadget.com/"
     static let engadgetsJapanUrl = "https://japanese.engadget.com/"
+    // tenki.jp用の現在地のURL
+    static var currentLocationUrlStr = ""
+    static var weatherTodayTomorrowUrl: String {
+        get {
+            "\(Constants.tenkiJpBaseUrl)\(self.currentLocationUrlStr)" // e.g. https://tenki.jp/forecast/4/18/5410/15103/
+        }
+    }
     static let saveImageSuffix = "-image"
     static let locationIdFukuoka = 1863967
     static let locationIdToronto = 6167865
+    static let archiveButtonWidth: CGFloat = 60
 }
 
 
