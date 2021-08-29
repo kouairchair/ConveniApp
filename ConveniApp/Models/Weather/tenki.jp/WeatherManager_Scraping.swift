@@ -346,10 +346,15 @@ public actor WeatherManager {
     
     private func getPostalCode() async throws -> String {
         // tenki.jp用の現在地のURLを取得する
-        if let postalCode = try await locationFetcher.lookUpCurrentLocation()?.postalCode {
-            UserDefaults.standard.set(Constants.locationIdFukuoka, forKey: "lastPostalCode")
-            return postalCode
+        do {
+            if let postalCode = try await locationFetcher.lookUpCurrentLocation()?.postalCode {
+                UserDefaults.standard.set(Constants.locationIdFukuoka, forKey: "lastPostalCode")
+                return postalCode
+            }
+        } catch {
+            logger.debug("failed to get postalCode  error:\(error)")
         }
+        
         if let lastPostalCode = UserDefaults.standard.object(forKey: "lastPostalCode") as? String {
             return lastPostalCode
         }

@@ -29,6 +29,8 @@ enum Constants {
             "\(Constants.tenkiJpBaseUrl)\(self.currentLocationUrlStr)" // e.g. https://tenki.jp/forecast/4/18/5410/15103/
         }
     }
+    static let sankeiNewsUrl = "https://www.sankei.com/"
+    
     static let saveImageSuffix = "-image"
     static let locationIdFukuoka = 1863967
     static let locationIdToronto = 6167865

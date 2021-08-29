@@ -47,6 +47,8 @@
 		1BF9F2222697C7A000260273 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF9F2212697C79F00260273 /* NetworkMonitor.swift */; };
 		BF1E012026C49A820082C5AF /* NewsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1E011F26C49A820082C5AF /* NewsManager.swift */; };
 		BF6CFEE926DA0351009C29B4 /* Actor+Timeout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6CFEE826DA0351009C29B4 /* Actor+Timeout.swift */; };
+		BF6CFEEB26DC4C38009C29B4 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6CFEEA26DC4C38009C29B4 /* News.swift */; };
+		BF6CFEED26DC4CE5009C29B4 /* TopicalNews.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6CFEEC26DC4CE5009C29B4 /* TopicalNews.swift */; };
 		BFC907C026CDCCE5006B1141 /* NewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC907BF26CDCCE5006B1141 /* NewsView.swift */; };
 		BFC907C226CE14C5006B1141 /* ArchiveButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC907C126CE14C5006B1141 /* ArchiveButtonView.swift */; };
 /* End PBXBuildFile section */
@@ -113,6 +115,8 @@
 		BF1E011F26C49A820082C5AF /* NewsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsManager.swift; sourceTree = "<group>"; };
 		BF5F110C26B765E500E99A65 /* ConveniApp.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = ConveniApp.entitlements; sourceTree = "<group>"; };
 		BF6CFEE826DA0351009C29B4 /* Actor+Timeout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Actor+Timeout.swift"; sourceTree = "<group>"; };
+		BF6CFEEA26DC4C38009C29B4 /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
+		BF6CFEEC26DC4CE5009C29B4 /* TopicalNews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicalNews.swift; sourceTree = "<group>"; };
 		BFC907BF26CDCCE5006B1141 /* NewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsView.swift; sourceTree = "<group>"; };
 		BFC907C126CE14C5006B1141 /* ArchiveButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveButtonView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -292,6 +296,8 @@
 		1BC8827326C2BDB000BEBC31 /* News */ = {
 			isa = PBXGroup;
 			children = (
+				BF6CFEEA26DC4C38009C29B4 /* News.swift */,
+				BF6CFEEC26DC4CE5009C29B4 /* TopicalNews.swift */,
 				1BC8827426C2BDC300BEBC31 /* AppleNews.swift */,
 				BF1E011F26C49A820082C5AF /* NewsManager.swift */,
 			);
@@ -457,6 +463,7 @@
 				1B322E4E26B05B820094F351 /* Weather_Scraping.swift in Sources */,
 				1BB5AB902687503F00CB6C1A /* ConveniAppApp.swift in Sources */,
 				1B3254C2269F243100929F01 /* URLSession+Get.swift in Sources */,
+				BF6CFEED26DC4CE5009C29B4 /* TopicalNews.swift in Sources */,
 				1BC8827526C2BDC300BEBC31 /* AppleNews.swift in Sources */,
 				1B3DFB9E26B6DD5500C500B0 /* DailyWeather.swift in Sources */,
 				1B7E1E3F26A23A75006707BB /* WeatherView.swift in Sources */,
@@ -477,6 +484,7 @@
 				1B86F3ED26A0707D00A08D24 /* TabItem.swift in Sources */,
 				1B59CEFA26B58EE200C50974 /* HourlyWeather.swift in Sources */,
 				1BC25D78268C216C006AF8F2 /* Weather.swift in Sources */,
+				BF6CFEEB26DC4C38009C29B4 /* News.swift in Sources */,
 				1B86F3F026A076F500A08D24 /* UIDevice+SafeArea.swift in Sources */,
 				1BD040B726BFBB9200255DF0 /* Pm2_5Info.swift in Sources */,
 				BFC907C226CE14C5006B1141 /* ArchiveButtonView.swift in Sources */,
