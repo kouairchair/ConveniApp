@@ -11,7 +11,7 @@ struct WeatherDataView: View {
     var topEdge: CGFloat
     @Binding var weather: Weather
     @State var shouldHidePast: Bool = true
-    @Binding var appleNewsList: [AppleNews]
+    @Binding var appleNewsList: [News]
     
     var body: some View {
         VStack(spacing: 8) {

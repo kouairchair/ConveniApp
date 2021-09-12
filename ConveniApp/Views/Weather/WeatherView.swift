@@ -12,7 +12,7 @@ struct WeatherView: View {
     @State var offset: CGFloat = 0
     @State var locality: String = ""
     @State var weather: Weather = Weather()
-    @State var appleNewsList: [AppleNews] = []
+    @State var appleNewsList: [News] = []
     @State var shouldHidePast: Bool = true
     @State var shouldHideMoreInfo: Bool = true
     @State private var alertMessage: AlertMessage?

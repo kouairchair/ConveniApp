@@ -39,7 +39,7 @@
 		1BC25D73268BE2C0006AF8F2 /* WeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC25D72268BE2C0006AF8F2 /* WeatherManager.swift */; };
 		1BC25D78268C216C006AF8F2 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC25D77268C216C006AF8F2 /* Weather.swift */; };
 		1BC25D7A268C2451006AF8F2 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC25D79268C2451006AF8F2 /* APIError.swift */; };
-		1BC8827526C2BDC300BEBC31 /* AppleNews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC8827426C2BDC300BEBC31 /* AppleNews.swift */; };
+		1BC8827526C2BDC300BEBC31 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC8827426C2BDC300BEBC31 /* News.swift */; };
 		1BD040B726BFBB9200255DF0 /* Pm2_5Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD040B626BFBB9200255DF0 /* Pm2_5Info.swift */; };
 		1BD040B926BFBF9500255DF0 /* PM25View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD040B826BFBF9500255DF0 /* PM25View.swift */; };
 		1BE0B4AC26A29A5500A726FD /* CustomStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE0B4AB26A29A5500A726FD /* CustomStackView.swift */; };
@@ -106,7 +106,7 @@
 		1BC25D76268BEA20006AF8F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		1BC25D77268C216C006AF8F2 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		1BC25D79268C2451006AF8F2 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
-		1BC8827426C2BDC300BEBC31 /* AppleNews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleNews.swift; sourceTree = "<group>"; };
+		1BC8827426C2BDC300BEBC31 /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
 		1BD040B626BFBB9200255DF0 /* Pm2_5Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pm2_5Info.swift; sourceTree = "<group>"; };
 		1BD040B826BFBF9500255DF0 /* PM25View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PM25View.swift; sourceTree = "<group>"; };
 		1BE0B4AB26A29A5500A726FD /* CustomStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStackView.swift; sourceTree = "<group>"; };
@@ -114,9 +114,8 @@
 		1BF9F2212697C79F00260273 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		BF1E011F26C49A820082C5AF /* NewsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsManager.swift; sourceTree = "<group>"; };
 		BF5F110C26B765E500E99A65 /* ConveniApp.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = ConveniApp.entitlements; sourceTree = "<group>"; };
+		BF6B855326DC8D9F00981CB1 /* NewsType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsType.swift; sourceTree = "<group>"; };
 		BF6CFEE826DA0351009C29B4 /* Actor+Timeout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Actor+Timeout.swift"; sourceTree = "<group>"; };
-		BF6CFEEA26DC4C38009C29B4 /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
-		BF6CFEEC26DC4CE5009C29B4 /* TopicalNews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicalNews.swift; sourceTree = "<group>"; };
 		BFC907BF26CDCCE5006B1141 /* NewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsView.swift; sourceTree = "<group>"; };
 		BFC907C126CE14C5006B1141 /* ArchiveButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveButtonView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -296,10 +295,9 @@
 		1BC8827326C2BDB000BEBC31 /* News */ = {
 			isa = PBXGroup;
 			children = (
-				BF6CFEEA26DC4C38009C29B4 /* News.swift */,
-				BF6CFEEC26DC4CE5009C29B4 /* TopicalNews.swift */,
-				1BC8827426C2BDC300BEBC31 /* AppleNews.swift */,
+				1BC8827426C2BDC300BEBC31 /* News.swift */,
 				BF1E011F26C49A820082C5AF /* NewsManager.swift */,
+				BF6B855326DC8D9F00981CB1 /* NewsType.swift */,
 			);
 			path = News;
 			sourceTree = "<group>";
@@ -463,8 +461,7 @@
 				1B322E4E26B05B820094F351 /* Weather_Scraping.swift in Sources */,
 				1BB5AB902687503F00CB6C1A /* ConveniAppApp.swift in Sources */,
 				1B3254C2269F243100929F01 /* URLSession+Get.swift in Sources */,
-				BF6CFEED26DC4CE5009C29B4 /* TopicalNews.swift in Sources */,
-				1BC8827526C2BDC300BEBC31 /* AppleNews.swift in Sources */,
+				1BC8827526C2BDC300BEBC31 /* News.swift in Sources */,
 				1B3DFB9E26B6DD5500C500B0 /* DailyWeather.swift in Sources */,
 				1B7E1E3F26A23A75006707BB /* WeatherView.swift in Sources */,
 				BFC907C026CDCCE5006B1141 /* NewsView.swift in Sources */,
@@ -482,9 +479,9 @@
 				1B59674F26C10F0A00E5F4E6 /* PickupWrap.swift in Sources */,
 				1B322E4C26B046980094F351 /* WeatherManager_Scraping.swift in Sources */,
 				1B86F3ED26A0707D00A08D24 /* TabItem.swift in Sources */,
+				BF6B855426DC8D9F00981CB1 /* NewsType.swift in Sources */,
 				1B59CEFA26B58EE200C50974 /* HourlyWeather.swift in Sources */,
 				1BC25D78268C216C006AF8F2 /* Weather.swift in Sources */,
-				BF6CFEEB26DC4C38009C29B4 /* News.swift in Sources */,
 				1B86F3F026A076F500A08D24 /* UIDevice+SafeArea.swift in Sources */,
 				1BD040B726BFBB9200255DF0 /* Pm2_5Info.swift in Sources */,
 				BFC907C226CE14C5006B1141 /* ArchiveButtonView.swift in Sources */,

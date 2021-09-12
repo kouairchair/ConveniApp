@@ -11,13 +11,13 @@ import Kanna
 public actor NewsManager {
     static let shared = NewsManager()
     
-    func fetchNews() async throws -> [AppleNews] {
+    func fetchNews() async throws -> [News] {
         print("fetchNews started")
         if !NetworkMonitor.shared.isReachable {
             throw APIError.offlineError
         }
         
-        var appleNewsList: [AppleNews] = []
+        var newsList: [News] = []
         
         try await withTimeout(3) {
             // U.S Apple News
@@ -26,12 +26,12 @@ public actor NewsManager {
             let appleHtmlDoc = try HTML(html: engadgetAppleData, encoding: String.Encoding.utf8)
             if let engadgetAppleNode = appleHtmlDoc.xpath("//ul[@data-component='LatestStream']").first {
                 let newsArrayObject = engadgetAppleNode.xpath("//li")
-                var appleNewses: [AppleNews] = []
+                var appleNewses: [News] = []
                 newsArrayObject.forEach { obj -> Void in
                     if let titleAndHref = obj.xpath("//a").first,
                        let title = titleAndHref["title"],
                        let href = titleAndHref["href"] {
-                        var appleNews = AppleNews()
+                        var appleNews = News(newsType: .appleNews)
                         appleNews.title = title
                         appleNews.href = Constants.engadgetsUSUrl + href
                         if obj.xpath("//a").count > 2,
@@ -50,7 +50,7 @@ public actor NewsManager {
                         appleNewses.append(appleNews)
                     }
                 }
-                appleNewsList.append(contentsOf: appleNewses)
+                newsList.append(contentsOf: appleNewses)
             }
             
             // Japan Apple News
@@ -59,12 +59,12 @@ public actor NewsManager {
             let appleJpHtmlDoc = try HTML(html: engadgetAppleJapanData, encoding: String.Encoding.utf8)
             if let engadgetAppleJapanNode = appleJpHtmlDoc.xpath("//main//ul").first {
                 let newsArrayObject = engadgetAppleJapanNode.xpath("//li")
-                var appleNewsesJapan: [AppleNews] = []
+                var appleNewsesJapan: [News] = []
                 newsArrayObject.forEach { obj -> Void in
                     if let titleAndHref = obj.xpath("//a").first,
                        let title = titleAndHref["alt"],
                        let href = titleAndHref["href"] {
-                        var appleNews = AppleNews()
+                        var appleNews = News(newsType: .appleNews)
                         appleNews.title = title
                         appleNews.href = Constants.engadgetsJapanUrl + href
                         if obj.xpath("//a").count > 2,
@@ -81,17 +81,32 @@ public actor NewsManager {
                         appleNewsesJapan.append(appleNews)
                     }
                 }
-                appleNewsList.append(contentsOf: appleNewsesJapan)
+                newsList.append(contentsOf: appleNewsesJapan)
             }
             
-            // Sankei News
-            let sankeiNewsData = try await URLSession.shared.getData(urlString: Constants.sankeiNewsUrl)
-            let sankeiHtmlDoc = try HTML(html: sankeiNewsData, encoding: String.Encoding.utf8)
-            if let sankeiMainNode = sankeiHtmlDoc.xpath("//section[@aria-labelledby='main-title']").first {
-                print("")
+            // Yahoo Sankei News
+            let yahooNewsData = try await URLSession.shared.getData(urlString: Constants.yahooSankeiNewsUrl)
+            let yahooHtmlDoc = try HTML(html: yahooNewsData, encoding: String.Encoding.utf8)
+            let aTagObjects = yahooHtmlDoc.xpath("//a[@class='newsFeed_item_link']")
+            var i = 0
+            var yahooNewsList: [News] = []
+            for aTagObj in aTagObjects {
+                if let title = aTagObj.xpath("//div[@class='newsFeed_item_title']").first?.content,
+                   let href = aTagObj["href"],
+                   let dateTime = aTagObj.xpath("//time").first?.content {
+                    var sankeiNews = News(newsType: .sankeiNews)
+                    sankeiNews.title = title
+                    sankeiNews.href = href
+                    sankeiNews.authorName = "産経新聞"
+                    sankeiNews.postedTime = dateTime
+                    sankeiNews.postedMinutesAgo = getPostedMinutesAgo(postedTime: dateTime)
+                    yahooNewsList.append(sankeiNews)
+                }
+                i = i + 1
             }
+            newsList.append(contentsOf: yahooNewsList)
             
-            // Remark: Wants to get these two methods out of this block but when I tried to do that,
+            // Remark: Wants to get these two methods out of this withTimeout block but when I tried to do that,
             //         the following error occurred.
             //         "Actor-isolated instance method 'getPostedMinutesAgo(postedTime:)' can not be referenced from a non-isolated context"
             func getPostedMinutesAgo(postedTime: String) -> Int32 {
@@ -181,6 +196,25 @@ public actor NewsManager {
                         return splitFirstNumber(str: postedTime) * 60 * 24
                     }
                 }
+                
+                pattern = "([1-9]|1[1-2])/([1-9]|[1-2][0-9]|30|31)\\([月|火|水|木|金|土|日]\\) ([1-9]|1[0-9]|2[0-3]):[0-5][0-9]"
+                if isRegexMatched(pattern: pattern, str: postedTime) {
+                    let thisYear = Calendar.current.component(.year, from: Date())
+                    let postedTimeThisYear = "\(thisYear)/\(postedTime)"
+                    formatter.dateFormat = "yyyy/M/d(EEE) H:mm"
+                    formatter.locale = Locale(identifier: "ja_JP")
+                    if let jpDateThisYear = formatter.date(from: postedTimeThisYear) {
+                        let result = Int32(Date().timeIntervalSinceReferenceDate - jpDateThisYear.timeIntervalSinceReferenceDate)
+                        if result < 0 {
+                            let postedTimeLastYear = "\(thisYear - 1)年\(postedTime)"
+                            if let jpDateLastYear = formatter.date(from: postedTimeLastYear) {
+                                return Int32(Date().timeIntervalSinceReferenceDate - jpDateLastYear.timeIntervalSinceReferenceDate)
+                            }
+                        } else {
+                            return result
+                        }
+                    }
+                }
                     
                 return 0
             }
@@ -195,13 +229,13 @@ public actor NewsManager {
             }
         }
         
-        sortAppleNews(appleNewsList: &appleNewsList)
+        sortAppleNews(appleNewsList: &newsList)
         
         print("received appleNewsList")
-        return appleNewsList
+        return newsList
     }
     
-    func sortAppleNews(appleNewsList: inout [AppleNews]) {
+    func sortAppleNews(appleNewsList: inout [News]) {
         appleNewsList.sort {
             return $0.postedMinutesAgo < $1.postedMinutesAgo
         }

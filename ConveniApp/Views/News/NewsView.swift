@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NewsView: View {
-    var appleNews: AppleNews
+    var appleNews: News
     
     @State private var offset: CGFloat = 0
     @State private var oldOffset: CGFloat = 0
