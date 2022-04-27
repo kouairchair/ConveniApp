@@ -10,12 +10,10 @@ import SwiftUI
 struct WeatherView: View {
     var topEdge: CGFloat
     @State var offset: CGFloat = 0
-    @State var locality: String = ""
-    @State var weather: Weather = Weather()
-    @State var appleNewsList: [News] = []
     @State var shouldHidePast: Bool = true
     @State var shouldHideMoreInfo: Bool = true
-    @State private var alertMessage: AlertMessage?
+    @Binding var locality: String
+    @Binding var weather: Weather
     
     var body: some View {
         VStack {
@@ -121,7 +119,7 @@ struct WeatherView: View {
                             }
                         }
                         
-                        WeatherDataView(topEdge: topEdge, weather: $weather, appleNewsList: $appleNewsList)
+                        WeatherDataView(topEdge: topEdge, weather: $weather)
                     }
                     .padding(.top, -20)
                 }
@@ -142,69 +140,6 @@ struct WeatherView: View {
                     }
                 )
             }
-        }
-        .onAppear() {
-            Task.init(priority: .medium) {
-                do {
-                    locality = try await WeatherManager.shared.fetchLocality()
-                } catch {
-                    logger.error("fetchLocality failed:\(error)")
-                    if Constants.isDebug {
-                        self.alertMessage = AlertMessage(message: String(format: LcliConstants.fetchLocationFailed.translate(), [error]))
-                    }
-                }
-                
-                do {
-                    weather = try await WeatherManager.shared.fetchWeather()
-                } catch {
-                    logger.error("fetchWeather failed:\(error)")
-                    if Constants.isDebug {
-                        self.alertMessage = AlertMessage(message: String(format: LcliConstants.fetchWeatherFailed.translate(), [error]))
-                    }
-                }
-                
-                do {
-                    appleNewsList = try await NewsManager.shared.fetchNews()
-                } catch {
-                    logger.error("fetchNews failed:\(error)")
-                    if Constants.isDebug {
-                        self.alertMessage = AlertMessage(message: String(format: LcliConstants.fetchNewsFailed.translate(), [error]))
-                    }
-                }
-            }
-        }
-        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
-            // REMARK: priorityは優先度高い順にhigh,userInitiated,medium,low,utility,background
-            Task.init(priority: .low) {
-                do {
-                    locality = try await WeatherManager.shared.fetchLocality()
-                } catch {
-                    logger.error("fetchLocality failed:\(error)")
-                    if Constants.isDebug {
-                        self.alertMessage = AlertMessage(message: String(format: LcliConstants.fetchLocationFailed.translate(), [error]))
-                    }
-                }
-                
-                do {
-                    weather = try await WeatherManager.shared.fetchWeather()
-                } catch {
-                    logger.error("fetchWeather failed:\(error)")
-                    if Constants.isDebug {
-                        self.alertMessage = AlertMessage(message: String(format: LcliConstants.fetchWeatherFailed.translate(), [error]))
-                    }
-                }
-                
-                do {
-                    appleNewsList = try await NewsManager.shared.fetchNews()
-                } catch {
-                    logger.error("fetchNews failed:\(error)")
-                    if Constants.isDebug {
-                        self.alertMessage = AlertMessage(message: String(format: LcliConstants.fetchNewsFailed.translate(), [error]))
-                    }
-                }
-            }
-        }.alert(item: $alertMessage) { alert in
-            Alert(title: Text(LcliConstants.errorMessage.translate()), message: Text(alert.message), dismissButton: .cancel())
         }
     }
     

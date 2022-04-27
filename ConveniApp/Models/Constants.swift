@@ -35,6 +35,8 @@ enum Constants {
     static let locationIdFukuoka = 1863967
     static let locationIdToronto = 6167865
     static let archiveButtonWidth: CGFloat = 60
+    
+    static let locationRequestApprovedNotification = Notification.Name("locationRequestApprovedNotification")
 }
 
 

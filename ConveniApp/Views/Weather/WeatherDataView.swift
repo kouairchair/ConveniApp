@@ -11,7 +11,6 @@ struct WeatherDataView: View {
     var topEdge: CGFloat
     @Binding var weather: Weather
     @State var shouldHidePast: Bool = true
-    @Binding var appleNewsList: [News]
     
     var body: some View {
         VStack(spacing: 8) {
@@ -45,25 +44,6 @@ struct WeatherDataView: View {
                             }
                         }
                     }
-                }
-            }
-            
-            // TODO: アップルニュースが天気のデータに混じっている。どの画面に出すかも要検討。
-            // TODO: スワイプで既読機能を作る？
-            CustomStackView(topEdge: topEdge) {
-                Label {
-                    Text("Engadget Apple News")
-                } icon: {
-                    Image(systemName: "newspaper")
-                }
-            } contentView: {
-                VStack(alignment: .leading, spacing: 10) {
-                    ForEach(appleNewsList) { appleNews in
-                        NewsView(appleNews: appleNews)
-                        
-                        Divider()
-                    }
-                    .padding(.vertical, 3)
                 }
             }
             
