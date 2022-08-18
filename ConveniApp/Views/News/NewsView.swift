@@ -38,9 +38,11 @@ struct NewsView: View {
                         if let url = URL(string: news.href) {
                             Link(news.title, destination: url)
                                 .foregroundStyle(.yellow, .white)
+                                .frame(maxWidth: .infinity, alignment: .center)
                         } else {
                             Text(news.title)
                                 .foregroundStyle(.yellow, .white)
+                                .frame(maxWidth: .infinity, alignment: .center)
                         }
                         
                         HStack(spacing: 10) {

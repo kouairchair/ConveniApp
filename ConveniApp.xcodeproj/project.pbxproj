@@ -50,6 +50,7 @@
 		BF6CFEE926DA0351009C29B4 /* Actor+Timeout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6CFEE826DA0351009C29B4 /* Actor+Timeout.swift */; };
 		BFC907C026CDCCE5006B1141 /* NewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC907BF26CDCCE5006B1141 /* NewsView.swift */; };
 		BFC907C226CE14C5006B1141 /* ArchiveButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC907C126CE14C5006B1141 /* ArchiveButtonView.swift */; };
+		BFCC931B28AE864E005B0B29 /* YahooNewsParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCC931A28AE864E005B0B29 /* YahooNewsParam.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,6 +118,7 @@
 		BF6CFEE826DA0351009C29B4 /* Actor+Timeout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Actor+Timeout.swift"; sourceTree = "<group>"; };
 		BFC907BF26CDCCE5006B1141 /* NewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsView.swift; sourceTree = "<group>"; };
 		BFC907C126CE14C5006B1141 /* ArchiveButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveButtonView.swift; sourceTree = "<group>"; };
+		BFCC931A28AE864E005B0B29 /* YahooNewsParam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YahooNewsParam.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -297,6 +299,7 @@
 				1BC8827426C2BDC300BEBC31 /* News.swift */,
 				BF1E011F26C49A820082C5AF /* NewsManager.swift */,
 				BF6B855326DC8D9F00981CB1 /* NewsType.swift */,
+				BFCC931A28AE864E005B0B29 /* YahooNewsParam.swift */,
 			);
 			path = News;
 			sourceTree = "<group>";
@@ -462,6 +465,7 @@
 				1B3254C2269F243100929F01 /* URLSession+Get.swift in Sources */,
 				1BC8827526C2BDC300BEBC31 /* News.swift in Sources */,
 				1B3DFB9E26B6DD5500C500B0 /* DailyWeather.swift in Sources */,
+				BFCC931B28AE864E005B0B29 /* YahooNewsParam.swift in Sources */,
 				1B7E1E3F26A23A75006707BB /* WeatherView.swift in Sources */,
 				BFC907C026CDCCE5006B1141 /* NewsView.swift in Sources */,
 				1BE0B4AC26A29A5500A726FD /* CustomStackView.swift in Sources */,
@@ -657,10 +661,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ConveniApp/ConveniApp.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ConveniApp/Preview Content\"";
-				DEVELOPMENT_TEAM = NJAK8X6XT3;
+				DEVELOPMENT_TEAM = N9L2U78Y64;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ConveniApp/Info.plist;
@@ -679,8 +684,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.headspinnerd.Conveni-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG SCRAPING";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -694,10 +699,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ConveniApp/ConveniApp.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ConveniApp/Preview Content\"";
-				DEVELOPMENT_TEAM = NJAK8X6XT3;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ConveniApp/Info.plist;
@@ -716,8 +722,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.headspinnerd.Conveni-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

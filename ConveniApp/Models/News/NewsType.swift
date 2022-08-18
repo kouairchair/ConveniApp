@@ -8,5 +8,5 @@
 import Foundation
 
 enum NewsType {
-    case appleNews, sankeiNews
+    case appleNews, sankeiNews, yahooITNews
 }

@@ -21,7 +21,7 @@ enum Constants {
     static let openWeatherMapImageUrl = "http://openweathermap.org/img/w/%@.png"
     static let tenkiJpBaseUrl = "https://tenki.jp"
     static let engadgetsUSUrl = "https://www.engadget.com/"
-    static let engadgetsJapanUrl = "https://japanese.engadget.com/"
+    // static let engadgetsJapanUrl = "https://japanese.engadget.com/" -> 2022年辺りにサイトが閉鎖したっぽい
     // tenki.jp用の現在地のURL
     static var currentLocationUrlStr = ""
     static var weatherTodayTomorrowUrl: String {
@@ -29,7 +29,10 @@ enum Constants {
             "\(Constants.tenkiJpBaseUrl)\(self.currentLocationUrlStr)" // e.g. https://tenki.jp/forecast/4/18/5410/15103/
         }
     }
-    static let yahooSankeiNewsUrl = "https://news.yahoo.co.jp/media/san"
+    // static let yahooSankeiNewsUrl = "https://news.yahoo.co.jp/media/san" // -> 量が多すぎるので、一旦使わない
+    static let yahooITNewsUrl = "https://news.yahoo.co.jp/topics/it"
+    static let yahooFukuokaBC = "https://news.yahoo.co.jp/media/fbsnews" // 量がある程度多いので、https://news.yahoo.co.jp/media/fbsnews?year=2022&month=8&day=18 のように今日だけに絞る
+    static let yahooCommentRanking = "https://news.yahoo.co.jp/ranking/comment"
     
     static let saveImageSuffix = "-image"
     static let locationIdFukuoka = 1863967

@@ -19,7 +19,7 @@ public actor NewsManager {
         
         var newsList: [News] = []
         
-        try await withTimeout(3) {
+        try await withTimeout(10) {
             // U.S Apple News
             let engadgetAppleUrl = "\(Constants.engadgetsUSUrl)tag/apple"
             let engadgetAppleData  = try await URLSession.shared.getData(urlString: engadgetAppleUrl)
@@ -53,58 +53,49 @@ public actor NewsManager {
                 newsList.append(contentsOf: appleNewses)
             }
             
-            // Japan Apple News
-            let engadgetAppleJapanUrl = "\(Constants.engadgetsJapanUrl)tag/apple"
-            let engadgetAppleJapanData = try await URLSession.shared.getData(urlString: engadgetAppleJapanUrl)
-            let appleJpHtmlDoc = try HTML(html: engadgetAppleJapanData, encoding: String.Encoding.utf8)
-            if let engadgetAppleJapanNode = appleJpHtmlDoc.xpath("//main//ul").first {
-                let newsArrayObject = engadgetAppleJapanNode.xpath("//li")
-                var appleNewsesJapan: [News] = []
-                newsArrayObject.forEach { obj -> Void in
-                    if let titleAndHref = obj.xpath("//a").first,
-                       let title = titleAndHref["alt"],
-                       let href = titleAndHref["href"] {
-                        var appleNews = News(newsType: .appleNews)
-                        appleNews.title = title
-                        appleNews.href = Constants.engadgetsJapanUrl + href
-                        if obj.xpath("//a").count > 2,
-                           let authorImageUrl = obj.xpath("//a")[2].xpath("img").first?["src"],
-                           let authorName = obj.xpath("//a")[2].xpath("img").first?["alt"] {
-                            appleNews.authorName = authorName
-                            let authorImage = UserDefaults.standard.gifImageWithURL(gifUrl: authorImageUrl)
-                            appleNews.authorImage = authorImage
+            // Yahoo Sankei News
+            let yahooNewsParams = [
+                YahooNewsParam(Url: Constants.yahooITNewsUrl, AuthorName: "Yahoo IT News", fetchesOnlyToday: false),
+                YahooNewsParam(Url: Constants.yahooFukuokaBC, AuthorName: "FBS福岡放送", fetchesOnlyToday: true),
+                YahooNewsParam(Url: Constants.yahooCommentRanking, AuthorName: nil, fetchesOnlyToday: false)
+            ]
+            for yahooNewsParam in yahooNewsParams {
+                var url = yahooNewsParam.Url
+                if (yahooNewsParam.fetchesOnlyToday) {
+                    // TODO: ここはDateクラスのextensionを別ファイルに定義する？
+                    let calendar = Calendar.current
+                    let year = calendar.component(.year, from: Date())
+                    let month = calendar.component(.month, from: Date())
+                    let day = calendar.component(.day, from: Date())
+                    url = "\(url)?year=\(year)&month=\(month)&day=\(day)"
+                }
+                let yahooNewsData = try await URLSession.shared.getData(urlString: url)
+                let yahooNewsDoc = try HTML(html: yahooNewsData, encoding: String.Encoding.utf8)
+                let aTagObjects = yahooNewsDoc.xpath("//a[@class='newsFeed_item_link']")
+                var yahooNewsList: [News] = []
+                for aTagObj in aTagObjects {
+                    if let title = aTagObj.xpath("//div[@class='newsFeed_item_title']").first?.content,
+                       let href = aTagObj["href"],
+                       let dateTime = aTagObj.xpath("//time").first?.content {
+                        var yahooNews = News(newsType: .sankeiNews)
+                        yahooNews.title = title
+                        yahooNews.href = href
+                        if let authorName = yahooNewsParam.AuthorName {
+                            yahooNews.authorName = authorName
+                        } else {
+                            if let authorName = aTagObj.xpath("//span[@class='newsFeed_item_media']").first?.content {
+                                yahooNews.authorName = authorName
+                            } else {
+                                yahooNews.authorName = "不明"
+                            }
                         }
-                        if let postedTime = obj.xpath("//span").first?.content {
-                            appleNews.postedTime = postedTime
-                            appleNews.postedMinutesAgo = getPostedMinutesAgo(postedTime: postedTime)
-                        }
-                        appleNewsesJapan.append(appleNews)
+                        yahooNews.postedTime = dateTime
+                        yahooNews.postedMinutesAgo = getPostedMinutesAgo(postedTime: dateTime)
+                        yahooNewsList.append(yahooNews)
                     }
                 }
-                newsList.append(contentsOf: appleNewsesJapan)
+                newsList.append(contentsOf: yahooNewsList)
             }
-            
-            // Yahoo Sankei News
-            let yahooNewsData = try await URLSession.shared.getData(urlString: Constants.yahooSankeiNewsUrl)
-            let yahooHtmlDoc = try HTML(html: yahooNewsData, encoding: String.Encoding.utf8)
-            let aTagObjects = yahooHtmlDoc.xpath("//a[@class='newsFeed_item_link']")
-            var i = 0
-            var yahooNewsList: [News] = []
-            for aTagObj in aTagObjects {
-                if let title = aTagObj.xpath("//div[@class='newsFeed_item_title']").first?.content,
-                   let href = aTagObj["href"],
-                   let dateTime = aTagObj.xpath("//time").first?.content {
-                    var sankeiNews = News(newsType: .sankeiNews)
-                    sankeiNews.title = title
-                    sankeiNews.href = href
-                    sankeiNews.authorName = "産経新聞"
-                    sankeiNews.postedTime = dateTime
-                    sankeiNews.postedMinutesAgo = getPostedMinutesAgo(postedTime: dateTime)
-                    yahooNewsList.append(sankeiNews)
-                }
-                i = i + 1
-            }
-            newsList.append(contentsOf: yahooNewsList)
             
             // Remark: Wants to get these two methods out of this withTimeout block but when I tried to do that,
             //         the following error occurred.

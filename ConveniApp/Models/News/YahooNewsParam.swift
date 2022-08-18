@@ -9,6 +9,6 @@ import Foundation
 
 struct YahooNewsParam {
     var Url: String
-    var AuthorName: String
+    var AuthorName: String?
     var fetchesOnlyToday: Bool
 }

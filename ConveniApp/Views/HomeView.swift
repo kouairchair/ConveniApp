@@ -202,9 +202,9 @@ struct HomeView: View {
                 }
             }
         }
-        .onReceive(NotificationCenter.default.publisher(for: Constants.locationRequestApprovedNotification) { notification in
-
-        }
+//        .onReceive(NotificationCenter.default.publisher(for: Constants.locationRequestApprovedNotification) { notification in
+//
+//        }
         .alert(item: $alertMessage) { alert in
             Alert(title: Text(LcliConstants.errorMessage.translate()), message: Text(alert.message), dismissButton: .cancel())
         }
