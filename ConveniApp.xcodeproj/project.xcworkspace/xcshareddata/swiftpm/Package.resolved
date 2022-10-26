@@ -1,34 +1,32 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "Kanna",
-        "repositoryURL": "https://github.com/tid-kijyun/Kanna",
-        "state": {
-          "branch": null,
-          "revision": "126bdc9600e30b4a8aeb8d14088953c16aebf495",
-          "version": "5.2.6"
-        }
-      },
-      {
-        "package": "swift-log",
-        "repositoryURL": "https://github.com/apple/swift-log.git",
-        "state": {
-          "branch": null,
-          "revision": "5d66f7ba25daf4f94100e7022febf3c75e37a6c7",
-          "version": "1.4.2"
-        }
-      },
-      {
-        "package": "swift-log-oslog",
-        "repositoryURL": "https://github.com/inmotionsoftware/swift-log-oslog.git",
-        "state": {
-          "branch": null,
-          "revision": "df9ce289aa3a27eac33ee89a7e9bb62cbea87a18",
-          "version": "1.0.0"
-        }
+  "pins" : [
+    {
+      "identity" : "kanna",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/tid-kijyun/Kanna",
+      "state" : {
+        "revision" : "f9e4922223dd0d3dfbf02ca70812cf5531fc0593",
+        "version" : "5.2.7"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "swift-log",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-log.git",
+      "state" : {
+        "revision" : "6fe203dc33195667ce1759bf0182975e4653ba1c",
+        "version" : "1.4.4"
+      }
+    },
+    {
+      "identity" : "swift-log-oslog",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/inmotionsoftware/swift-log-oslog.git",
+      "state" : {
+        "revision" : "df9ce289aa3a27eac33ee89a7e9bb62cbea87a18",
+        "version" : "1.0.0"
+      }
+    }
+  ],
+  "version" : 2
 }

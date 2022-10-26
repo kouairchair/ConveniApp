@@ -10,6 +10,9 @@ import SwiftUI
 struct News: Identifiable {
     var id = UUID().uuidString
     
+    // ソートをするためのインデックス
+    var index: Int = 0
+    
     // ニュースタイプ
     var newsType: NewsType
     

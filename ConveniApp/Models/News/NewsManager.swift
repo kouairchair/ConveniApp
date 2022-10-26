@@ -38,7 +38,6 @@ public actor NewsManager {
                            let authorImageUrl = obj.xpath("//a")[2].xpath("img").first?["src"],
                            let postInfo = obj.xpath("//a")[2].content?.split(separator: ","),
                             postInfo.count >= 2 {
-                            
                             let authorName = String(postInfo[0])
                             appleNews.authorName = authorName
                             let postedTime = String(postInfo[1]).trimmingCharacters(in: .whitespacesAndNewlines)
@@ -50,14 +49,15 @@ public actor NewsManager {
                         appleNewses.append(appleNews)
                     }
                 }
+                self.sortNewsWithPostedTime(newsList: &appleNewses)
                 newsList.append(contentsOf: appleNewses)
             }
             
-            // Yahoo Sankei News
+            // Yahoo News
             let yahooNewsParams = [
-                YahooNewsParam(Url: Constants.yahooITNewsUrl, AuthorName: "Yahoo IT News", fetchesOnlyToday: false),
-                YahooNewsParam(Url: Constants.yahooFukuokaBC, AuthorName: "FBS福岡放送", fetchesOnlyToday: true),
-                YahooNewsParam(Url: Constants.yahooCommentRanking, AuthorName: nil, fetchesOnlyToday: false)
+                YahooNewsParam(Url: Constants.yahooITNewsUrl, AuthorName: "Yahoo IT News", newsType: .yahooITNews, fetchesOnlyToday: false),
+                YahooNewsParam(Url: Constants.yahooFukuokaBC, AuthorName: "FBS福岡放送", newsType: .fukuokaBCNews, fetchesOnlyToday: true),
+                YahooNewsParam(Url: Constants.yahooCommentRanking, AuthorName: nil, newsType: .yahooRankingNews, fetchesOnlyToday: false)
             ]
             for yahooNewsParam in yahooNewsParams {
                 var url = yahooNewsParam.Url
@@ -77,7 +77,7 @@ public actor NewsManager {
                     if let title = aTagObj.xpath("//div[@class='newsFeed_item_title']").first?.content,
                        let href = aTagObj["href"],
                        let dateTime = aTagObj.xpath("//time").first?.content {
-                        var yahooNews = News(newsType: .sankeiNews)
+                        var yahooNews = News(newsType: yahooNewsParam.newsType)
                         yahooNews.title = title
                         yahooNews.href = href
                         if let authorName = yahooNewsParam.AuthorName {
@@ -94,6 +94,7 @@ public actor NewsManager {
                         yahooNewsList.append(yahooNews)
                     }
                 }
+                self.sortNewsWithPostedTime(newsList: &yahooNewsList)
                 newsList.append(contentsOf: yahooNewsList)
             }
             
@@ -220,15 +221,31 @@ public actor NewsManager {
             }
         }
         
-        sortAppleNews(appleNewsList: &newsList)
+        sortNews(newsList: &newsList)
         
         print("received appleNewsList")
         return newsList
     }
     
-    func sortAppleNews(appleNewsList: inout [News]) {
-        appleNewsList.sort {
+    func sortNewsWithPostedTime(newsList: inout [News]) {
+        newsList.sort {
             return $0.postedMinutesAgo < $1.postedMinutesAgo
+        }
+        var i = 0
+        newsList = newsList.map {
+            var newNewsList = $0
+            newNewsList.index = i
+            i += 1
+            return newNewsList
+        }
+    }
+    
+    func sortNews(newsList: inout [News]) {
+        newsList.sort {
+            return $0.newsType.getPriority() < $1.newsType.getPriority()
+        }
+        newsList.sort {
+            return $0.index < $1.index
         }
     }
 }
