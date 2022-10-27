@@ -34,6 +34,10 @@ enum Constants {
     static let yahooFukuokaBC = "https://news.yahoo.co.jp/media/fbsnews" // 量がある程度多いので、https://news.yahoo.co.jp/media/fbsnews?year=2022&month=8&day=18 のように今日だけに絞る
     static let yahooCommentRanking = "https://news.yahoo.co.jp/ranking/comment"
     
+    // 開発言語:Java,Swift,Unity,C#、こだわり条件:リモート で検索
+    static let hiProTechUrl = "https://tech.hipro-job.jp"
+    static let hiProTechJobListUrlSuffix = "/job-search?keys=&pg_skill_id%5B2%5D=2&pg_skill_id%5B22%5D=22&pg_skill_id%5B32%5D=32&pg_skill_id%5B39%5D=39&kodawari_id%5B75%5D=75&sort_by=field_job_published_value&page="
+    
     static let saveImageSuffix = "-image"
     static let locationIdFukuoka = 1863967
     static let locationIdToronto = 6167865

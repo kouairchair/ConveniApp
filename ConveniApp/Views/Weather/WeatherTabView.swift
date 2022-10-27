@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// TODO: not necessary class?
 struct WeatherTabView: View {
     
     @State var image: UIImage?
@@ -24,9 +25,9 @@ struct WeatherTabView: View {
             Task.init(priority: .medium) {
                 do {
                     #if SCRAPING
-                    let weatherIcon = UIImage(systemName: "cloud.fill")
+                    let weatherIcon = UIImage(systemName: "cloud.sun.fill")
                     #else
-                    let weatherIcon = try await WeatherManager.shared.fetchWeatherIcon()
+                    let weatherIcon = try await WeatherFetcher.shared.fetchWeatherIcon()
                     #endif
                     if let weatherImage = weatherIcon {
                         image = weatherImage

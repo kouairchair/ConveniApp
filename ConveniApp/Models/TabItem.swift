@@ -8,5 +8,5 @@
 import Foundation
 
 enum TabItem: String {
-    case Weather, Browser, Message, Mail, Calendar, Photo
+    case Weather, Browser, Job, Message, Mail, Calendar
 }

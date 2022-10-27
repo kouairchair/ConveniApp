@@ -9,9 +9,9 @@ import SwiftUI
 import Kanna
 
 #if SCRAPING
-public actor WeatherManager {
+public actor WeatherFetcher {
     let specifiedPlace: Int
-    static let shared = WeatherManager()
+    static let shared = WeatherFetcher()
     
     let locationFetcher = LocationFetcher()
     
@@ -29,7 +29,11 @@ public actor WeatherManager {
         self.locationFetcher.start()
     }
     
-    func fetchLocality() async throws -> String {
+    func fetchLocality() async throws -> String? {
+        if !locationFetcher.isAuthorized() {
+            return nil
+        }
+        
         if let currentLocationLocality = try await locationFetcher.lookUpCurrentLocation()?.locality {
             UserDefaults.standard.set(Constants.locationIdFukuoka, forKey: "lastLocality")
             return currentLocationLocality

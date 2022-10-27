@@ -12,6 +12,7 @@ enum LcliConstants: String {
     case fetchLocationFailed = "Fetch.Location.Failed"
     case fetchWeatherFailed = "Fetch.Weather.Failed"
     case fetchNewsFailed = "Fetch.News.Failed"
+    case fetchJobsFailed = "Fetch.Jobs.Failed"
     
     func translate() -> String {
         return NSLocalizedString(self.rawValue, comment: "")

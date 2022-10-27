@@ -10,3 +10,4 @@
 "Fetch.Location.Failed" = "Unable to fetch location. error:%@";
 "Fetch.Weather.Failed" = "Unable to fetch weather. error:%@";
 "Fetch.News.Failed" = "Unable to fetch news. error:%@";
+"Fetch.Jobs.Failed" = "Unable to fetch jobs. error:%@";

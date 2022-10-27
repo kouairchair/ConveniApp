@@ -10,9 +10,9 @@ import SwiftUI
 
 #if SCRAPING
 #else
-public class WeatherManager {
+public class WeatherFetcher {
     let specifiedPlace: Int
-    static let shared = WeatherManager()
+    static let shared = WeatherFetcher()
     
     let locationFetcher = LocationFetcher()
     

@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1B322E4826B043A40094F351 /* Kanna in Frameworks */ = {isa = PBXBuildFile; productRef = 1B322E4726B043A40094F351 /* Kanna */; };
-		1B322E4C26B046980094F351 /* WeatherManager_Scraping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B322E4B26B046980094F351 /* WeatherManager_Scraping.swift */; };
+		1B322E4C26B046980094F351 /* WeatherFetcher_Scraping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B322E4B26B046980094F351 /* WeatherFetcher_Scraping.swift */; };
 		1B322E4E26B05B820094F351 /* Weather_Scraping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B322E4D26B05B820094F351 /* Weather_Scraping.swift */; };
 		1B3254C2269F243100929F01 /* URLSession+Get.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3254C1269F243100929F01 /* URLSession+Get.swift */; };
 		1B3254C6269FA2FC00929F01 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1B3254C8269FA2FC00929F01 /* Localizable.strings */; };
@@ -36,7 +36,7 @@
 		1BB5AB972687504000CB6C1A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BB5AB962687504000CB6C1A /* Preview Assets.xcassets */; };
 		1BB5ABA12687504000CB6C1A /* ConveniAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB5ABA02687504000CB6C1A /* ConveniAppTests.swift */; };
 		1BB5ABAB2687504000CB6C1A /* ConveniAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB5ABAA2687504000CB6C1A /* ConveniAppUITests.swift */; };
-		1BC25D73268BE2C0006AF8F2 /* WeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC25D72268BE2C0006AF8F2 /* WeatherManager.swift */; };
+		1BC25D73268BE2C0006AF8F2 /* WeatherFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC25D72268BE2C0006AF8F2 /* WeatherFetcher.swift */; };
 		1BC25D78268C216C006AF8F2 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC25D77268C216C006AF8F2 /* Weather.swift */; };
 		1BC25D7A268C2451006AF8F2 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC25D79268C2451006AF8F2 /* APIError.swift */; };
 		1BC8827526C2BDC300BEBC31 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC8827426C2BDC300BEBC31 /* News.swift */; };
@@ -45,7 +45,11 @@
 		1BE0B4AC26A29A5500A726FD /* CustomStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE0B4AB26A29A5500A726FD /* CustomStackView.swift */; };
 		1BE0B4AE26A29B3400A726FD /* CustomConrnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE0B4AD26A29B3400A726FD /* CustomConrnerView.swift */; };
 		1BF9F2222697C7A000260273 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF9F2212697C79F00260273 /* NetworkMonitor.swift */; };
-		BF1E012026C49A820082C5AF /* NewsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1E011F26C49A820082C5AF /* NewsManager.swift */; };
+		BF1E012026C49A820082C5AF /* NewsFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1E011F26C49A820082C5AF /* NewsFetcher.swift */; };
+		BF51A0B7290AC44000602B22 /* JobFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF51A0B6290AC44000602B22 /* JobFetcher.swift */; };
+		BF51A0B9290AC53200602B22 /* Job.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF51A0B8290AC53200602B22 /* Job.swift */; };
+		BF51A0BB290AC57200602B22 /* JobType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF51A0BA290AC57200602B22 /* JobType.swift */; };
+		BF51A0BE290ACD2B00602B22 /* JobView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF51A0BD290ACD2B00602B22 /* JobView.swift */; };
 		BF6B855426DC8D9F00981CB1 /* NewsType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6B855326DC8D9F00981CB1 /* NewsType.swift */; };
 		BF6CFEE926DA0351009C29B4 /* Actor+Timeout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6CFEE826DA0351009C29B4 /* Actor+Timeout.swift */; };
 		BFC907C026CDCCE5006B1141 /* NewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC907BF26CDCCE5006B1141 /* NewsView.swift */; };
@@ -71,7 +75,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1B322E4B26B046980094F351 /* WeatherManager_Scraping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherManager_Scraping.swift; sourceTree = "<group>"; };
+		1B322E4B26B046980094F351 /* WeatherFetcher_Scraping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherFetcher_Scraping.swift; sourceTree = "<group>"; };
 		1B322E4D26B05B820094F351 /* Weather_Scraping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather_Scraping.swift; sourceTree = "<group>"; };
 		1B3254C1269F243100929F01 /* URLSession+Get.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Get.swift"; sourceTree = "<group>"; };
 		1B3254C7269FA2FC00929F01 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -102,7 +106,7 @@
 		1BB5ABA02687504000CB6C1A /* ConveniAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConveniAppTests.swift; sourceTree = "<group>"; };
 		1BB5ABA62687504000CB6C1A /* ConveniAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ConveniAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BB5ABAA2687504000CB6C1A /* ConveniAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConveniAppUITests.swift; sourceTree = "<group>"; };
-		1BC25D72268BE2C0006AF8F2 /* WeatherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherManager.swift; sourceTree = "<group>"; };
+		1BC25D72268BE2C0006AF8F2 /* WeatherFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherFetcher.swift; sourceTree = "<group>"; };
 		1BC25D76268BEA20006AF8F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		1BC25D77268C216C006AF8F2 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		1BC25D79268C2451006AF8F2 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
@@ -112,7 +116,11 @@
 		1BE0B4AB26A29A5500A726FD /* CustomStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStackView.swift; sourceTree = "<group>"; };
 		1BE0B4AD26A29B3400A726FD /* CustomConrnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomConrnerView.swift; sourceTree = "<group>"; };
 		1BF9F2212697C79F00260273 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
-		BF1E011F26C49A820082C5AF /* NewsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsManager.swift; sourceTree = "<group>"; };
+		BF1E011F26C49A820082C5AF /* NewsFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFetcher.swift; sourceTree = "<group>"; };
+		BF51A0B6290AC44000602B22 /* JobFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobFetcher.swift; sourceTree = "<group>"; };
+		BF51A0B8290AC53200602B22 /* Job.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Job.swift; sourceTree = "<group>"; };
+		BF51A0BA290AC57200602B22 /* JobType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobType.swift; sourceTree = "<group>"; };
+		BF51A0BD290ACD2B00602B22 /* JobView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobView.swift; sourceTree = "<group>"; };
 		BF5F110C26B765E500E99A65 /* ConveniApp.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = ConveniApp.entitlements; sourceTree = "<group>"; };
 		BF6B855326DC8D9F00981CB1 /* NewsType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsType.swift; sourceTree = "<group>"; };
 		BF6CFEE826DA0351009C29B4 /* Actor+Timeout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Actor+Timeout.swift"; sourceTree = "<group>"; };
@@ -151,7 +159,7 @@
 		1B322E4926B044600094F351 /* OpenWeather */ = {
 			isa = PBXGroup;
 			children = (
-				1BC25D72268BE2C0006AF8F2 /* WeatherManager.swift */,
+				1BC25D72268BE2C0006AF8F2 /* WeatherFetcher.swift */,
 				1BC25D77268C216C006AF8F2 /* Weather.swift */,
 				1B54DE0826A6FC2D0053407C /* Pollution.swift */,
 			);
@@ -161,7 +169,7 @@
 		1B322E4A26B0447E0094F351 /* tenki.jp */ = {
 			isa = PBXGroup;
 			children = (
-				1B322E4B26B046980094F351 /* WeatherManager_Scraping.swift */,
+				1B322E4B26B046980094F351 /* WeatherFetcher_Scraping.swift */,
 				1B322E4D26B05B820094F351 /* Weather_Scraping.swift */,
 				1B59CEF926B58EE200C50974 /* HourlyWeather.swift */,
 				1B3DFB9D26B6DD5500C500B0 /* DailyWeather.swift */,
@@ -268,6 +276,7 @@
 			isa = PBXGroup;
 			children = (
 				1BA92C9F2697BC1A00EE5467 /* Constants.swift */,
+				BF51A0B5290AC38A00602B22 /* Jobs */,
 				1BC8827326C2BDB000BEBC31 /* News */,
 				1B54DE0A26A6FC3E0053407C /* Weather */,
 				1BC25D79268C2451006AF8F2 /* APIError.swift */,
@@ -289,6 +298,7 @@
 				1B72987B26A2BA9B00234D7A /* BackgroundView.swift */,
 				BFC907BE26CDCCC0006B1141 /* News */,
 				1B72987D26A2BBC100234D7A /* Weather */,
+				BF51A0BC290ACD1900602B22 /* Job */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -297,11 +307,29 @@
 			isa = PBXGroup;
 			children = (
 				1BC8827426C2BDC300BEBC31 /* News.swift */,
-				BF1E011F26C49A820082C5AF /* NewsManager.swift */,
+				BF1E011F26C49A820082C5AF /* NewsFetcher.swift */,
 				BF6B855326DC8D9F00981CB1 /* NewsType.swift */,
 				BFCC931A28AE864E005B0B29 /* YahooNewsParam.swift */,
 			);
 			path = News;
+			sourceTree = "<group>";
+		};
+		BF51A0B5290AC38A00602B22 /* Jobs */ = {
+			isa = PBXGroup;
+			children = (
+				BF51A0B6290AC44000602B22 /* JobFetcher.swift */,
+				BF51A0B8290AC53200602B22 /* Job.swift */,
+				BF51A0BA290AC57200602B22 /* JobType.swift */,
+			);
+			path = Jobs;
+			sourceTree = "<group>";
+		};
+		BF51A0BC290ACD1900602B22 /* Job */ = {
+			isa = PBXGroup;
+			children = (
+				BF51A0BD290ACD2B00602B22 /* JobView.swift */,
+			);
+			path = Job;
 			sourceTree = "<group>";
 		};
 		BFC907BE26CDCCC0006B1141 /* News */ = {
@@ -457,8 +485,9 @@
 				1B54DE0726A6E7E90053407C /* WeatherDataView.swift in Sources */,
 				1B7E1E3D26A237BC006707BB /* WeatherTabView.swift in Sources */,
 				BF6CFEE926DA0351009C29B4 /* Actor+Timeout.swift in Sources */,
+				BF51A0B9290AC53200602B22 /* Job.swift in Sources */,
 				1B6F5B9F26B625BE003BF5E6 /* UserDefaults+UIImage.swift in Sources */,
-				BF1E012026C49A820082C5AF /* NewsManager.swift in Sources */,
+				BF1E012026C49A820082C5AF /* NewsFetcher.swift in Sources */,
 				1BF9F2222697C7A000260273 /* NetworkMonitor.swift in Sources */,
 				1B322E4E26B05B820094F351 /* Weather_Scraping.swift in Sources */,
 				1BB5AB902687503F00CB6C1A /* ConveniAppApp.swift in Sources */,
@@ -469,10 +498,12 @@
 				1B7E1E3F26A23A75006707BB /* WeatherView.swift in Sources */,
 				BFC907C026CDCCE5006B1141 /* NewsView.swift in Sources */,
 				1BE0B4AC26A29A5500A726FD /* CustomStackView.swift in Sources */,
-				1BC25D73268BE2C0006AF8F2 /* WeatherManager.swift in Sources */,
+				BF51A0BE290ACD2B00602B22 /* JobView.swift in Sources */,
+				1BC25D73268BE2C0006AF8F2 /* WeatherFetcher.swift in Sources */,
 				1BC25D7A268C2451006AF8F2 /* APIError.swift in Sources */,
 				1B54DE0926A6FC2D0053407C /* Pollution.swift in Sources */,
 				1B86F3EB26A0699F00A08D24 /* HomeView.swift in Sources */,
+				BF51A0BB290AC57200602B22 /* JobType.swift in Sources */,
 				1B72987C26A2BA9B00234D7A /* BackgroundView.swift in Sources */,
 				1B72987F26A2BBED00234D7A /* ForecastView.swift in Sources */,
 				1BA92CA02697BC1A00EE5467 /* Constants.swift in Sources */,
@@ -480,8 +511,9 @@
 				1BD040B926BFBF9500255DF0 /* PM25View.swift in Sources */,
 				1B3254CB269FA44600929F01 /* LcliConstants.swift in Sources */,
 				1B59674F26C10F0A00E5F4E6 /* PickupWrap.swift in Sources */,
-				1B322E4C26B046980094F351 /* WeatherManager_Scraping.swift in Sources */,
+				1B322E4C26B046980094F351 /* WeatherFetcher_Scraping.swift in Sources */,
 				1B86F3ED26A0707D00A08D24 /* TabItem.swift in Sources */,
+				BF51A0B7290AC44000602B22 /* JobFetcher.swift in Sources */,
 				BF6B855426DC8D9F00981CB1 /* NewsType.swift in Sources */,
 				1B59CEFA26B58EE200C50974 /* HourlyWeather.swift in Sources */,
 				1BC25D78268C216C006AF8F2 /* Weather.swift in Sources */,
@@ -665,7 +697,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ConveniApp/Preview Content\"";
-				DEVELOPMENT_TEAM = N9L2U78Y64;
+				DEVELOPMENT_TEAM = 5KHV63NW5D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ConveniApp/Info.plist;
@@ -684,6 +716,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.coc20170117.ConveniApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG SCRAPING";

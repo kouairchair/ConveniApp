@@ -8,11 +8,11 @@
 import SwiftUI
 import Kanna
 
-public actor NewsManager {
-    static let shared = NewsManager()
+public actor NewsFetcher {
+    static let shared = NewsFetcher()
     
     func fetchNews() async throws -> [News] {
-        print("fetchNews started")
+        logger.debug("fetchNews started")
         if !NetworkMonitor.shared.isReachable {
             throw APIError.offlineError
         }
@@ -22,7 +22,7 @@ public actor NewsManager {
         try await withTimeout(10) {
             // U.S Apple News
             let engadgetAppleUrl = "\(Constants.engadgetsUSUrl)tag/apple"
-            let engadgetAppleData  = try await URLSession.shared.getData(urlString: engadgetAppleUrl)
+            let engadgetAppleData = try await URLSession.shared.getData(urlString: engadgetAppleUrl)
             let appleHtmlDoc = try HTML(html: engadgetAppleData, encoding: String.Encoding.utf8)
             if let engadgetAppleNode = appleHtmlDoc.xpath("//ul[@data-component='LatestStream']").first {
                 let newsArrayObject = engadgetAppleNode.xpath("//li")

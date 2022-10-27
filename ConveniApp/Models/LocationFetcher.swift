@@ -33,6 +33,15 @@ class LocationFetcher: NSObject, CLLocationManagerDelegate {
         }
     }
     
+    func isAuthorized() -> Bool {
+        switch self.manager.authorizationStatus {
+        case .authorizedAlways, .authorizedWhenInUse:
+            return true
+        case .denied, .notDetermined, .restricted, _:
+            return false
+        }
+    }
+    
     func lookUpCurrentLocation() async throws -> CLPlacemark? {
         // Use the last reported location.
         if let lastLocation = self.manager.location {

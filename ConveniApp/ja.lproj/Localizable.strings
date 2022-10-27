@@ -10,3 +10,4 @@
 "Fetch.Location.Failed" = "ロケージョン情報取得に失敗しました。error:%@";
 "Fetch.Weather.Failed" = "天気情報取得に失敗しました。error:%@";
 "Fetch.News.Failed" = "ニュース取得に失敗しました。error:%@";
+"Fetch.Jobs.Failed" = "案件一覧取得に失敗しました。error:%@";

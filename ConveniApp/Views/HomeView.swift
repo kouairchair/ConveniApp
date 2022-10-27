@@ -13,6 +13,7 @@ struct HomeView: View {
     @State var locality: String = ""
     @State var weather: Weather = Weather()
     @State var newsList: [News] = []
+    @State var jobList: [Job] = []
     @State private var alertMessage: AlertMessage?
     var topEdge: CGFloat
     let tabItemWidth: CGFloat = 60
@@ -34,6 +35,9 @@ struct HomeView: View {
                     NewsView(newsList: $newsList)
                         .tag(TabItem.Browser)
 
+                    JobView(jobList: $jobList)
+                        .tag(TabItem.Job)
+                    
                     VStack {
                         Text("Message  Data")
                     }
@@ -48,11 +52,6 @@ struct HomeView: View {
                         Text("Calendar  Data")
                     }
                     .tag(TabItem.Calendar)
-
-                    VStack {
-                        Text("Photo  Data")
-                    }
-                    .tag(TabItem.Photo)
                 }
                 .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
                
@@ -63,7 +62,7 @@ struct HomeView: View {
                     HStack(spacing: 0) {
                         // Weather, Browser, Message...
                         Group {
-                            WeatherTabView()
+                            Image(systemName: "cloud.sun.fill")
                                 .frame(width: tabItemWidth, height: tabItemHeight)
                                 .background(Color("BackgroundColor").opacity(self.currentTab == .Weather ? 1 : 0))
                                 .onTapGesture {
@@ -82,15 +81,16 @@ struct HomeView: View {
                                         self.currentTab = .Browser
                                     }
                                 }
-
+                            
+                            
                             Spacer(minLength: 0)
 
-                            Image(systemName: "person.2")
+                            Image(systemName: "latch.2.case")
                                 .frame(width: tabItemWidth, height: tabItemHeight)
-                                .background(Color("BackgroundColor").opacity(self.currentTab == .Message ? 1 : 0))
+                                .background(Color("BackgroundColor").opacity(self.currentTab == .Job ? 1 : 0))
                                 .onTapGesture {
                                     withAnimation(.default) {
-                                        self.currentTab = .Message
+                                        self.currentTab = .Job
                                     }
                                 }
 
@@ -99,6 +99,17 @@ struct HomeView: View {
                         
                         // Mail, Calendar, Photo...
                         Group {
+                            Image(systemName: "person.2")
+                                .frame(width: tabItemWidth, height: tabItemHeight)
+                                .background(Color("BackgroundColor").opacity(self.currentTab == .Message ? 1 : 0))
+                                .onTapGesture {
+                                    withAnimation(.default) {
+                                        self.currentTab = .Message
+                                    }
+                                }
+                            
+                            Spacer(minLength: 0)
+
                             Image(systemName: "envelope.fill")
                                 .frame(width: tabItemWidth, height: tabItemHeight)
                                 .background(Color("BackgroundColor").opacity(self.currentTab == .Mail ? 1 : 0))
@@ -118,17 +129,6 @@ struct HomeView: View {
                                         self.currentTab = .Calendar
                                     }
                                 }
-
-                            Spacer(minLength: 0)
-
-                            Image(systemName: "photo.fill")
-                                .frame(width: tabItemWidth, height: tabItemHeight)
-                                .background(Color("BackgroundColor").opacity(self.currentTab == .Photo ? 1 : 0))
-                                .onTapGesture {
-                                    withAnimation(.default) {
-                                        self.currentTab = .Photo
-                                    }
-                                }
                         }
                     }
                 }
@@ -144,7 +144,17 @@ struct HomeView: View {
         .onAppear() {
             Task.init(priority: .medium) {
                 do {
-                    locality = try await WeatherManager.shared.fetchLocality()
+                    if let _locality = try await WeatherFetcher.shared.fetchLocality() {
+                        locality = _locality
+                        do {
+                            weather = try await WeatherFetcher.shared.fetchWeather()
+                        } catch {
+                            logger.error("fetchWeather failed:\(error)")
+                            if Constants.isDebug {
+                                self.alertMessage = AlertMessage(message: String(format: LcliConstants.fetchWeatherFailed.translate(), [error]))
+                            }
+                        }
+                    }
                 } catch {
                     logger.error("fetchLocality failed:\(error)")
                     if Constants.isDebug {
@@ -153,20 +163,20 @@ struct HomeView: View {
                 }
                 
                 do {
-                    weather = try await WeatherManager.shared.fetchWeather()
-                } catch {
-                    logger.error("fetchWeather failed:\(error)")
-                    if Constants.isDebug {
-                        self.alertMessage = AlertMessage(message: String(format: LcliConstants.fetchWeatherFailed.translate(), [error]))
-                    }
-                }
-                
-                do {
-                    newsList = try await NewsManager.shared.fetchNews()
+                    newsList = try await NewsFetcher.shared.fetchNews()
                 } catch {
                     logger.error("fetchNews failed:\(error)")
                     if Constants.isDebug {
                         self.alertMessage = AlertMessage(message: String(format: LcliConstants.fetchNewsFailed.translate(), [error]))
+                    }
+                }
+                
+                do {
+                    jobList = try await JobFetcher.shared.fetchJobs()
+                } catch {
+                    logger.error("fetchJobs failed:\(error)")
+                    if Constants.isDebug {
+                        self.alertMessage = AlertMessage(message: String(format: LcliConstants.fetchJobsFailed.translate(), [error]))
                     }
                 }
             }
@@ -175,7 +185,17 @@ struct HomeView: View {
             // REMARK: priorityは優先度高い順にhigh,userInitiated,medium,low,utility,background
             Task.init(priority: .low) {
                 do {
-                    locality = try await WeatherManager.shared.fetchLocality()
+                    if let _locality = try await WeatherFetcher.shared.fetchLocality() {
+                        locality = _locality
+                        do {
+                            weather = try await WeatherFetcher.shared.fetchWeather()
+                        } catch {
+                            logger.error("fetchWeather failed:\(error)")
+                            if Constants.isDebug {
+                                self.alertMessage = AlertMessage(message: String(format: LcliConstants.fetchWeatherFailed.translate(), [error]))
+                            }
+                        }
+                    }
                 } catch {
                     logger.error("fetchLocality failed:\(error)")
                     if Constants.isDebug {
@@ -184,16 +204,7 @@ struct HomeView: View {
                 }
 
                 do {
-                    weather = try await WeatherManager.shared.fetchWeather()
-                } catch {
-                    logger.error("fetchWeather failed:\(error)")
-                    if Constants.isDebug {
-                        self.alertMessage = AlertMessage(message: String(format: LcliConstants.fetchWeatherFailed.translate(), [error]))
-                    }
-                }
-
-                do {
-                    newsList = try await NewsManager.shared.fetchNews()
+                    newsList = try await NewsFetcher.shared.fetchNews()
                 } catch {
                     logger.error("fetchNews failed:\(error)")
                     if Constants.isDebug {
