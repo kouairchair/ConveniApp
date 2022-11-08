@@ -8,13 +8,13 @@
 import Foundation
 
 enum JobType {
-    case hiProTech, other // TODO: need to add more...
+    case hiProTech, codeal
     
     func getPriority() -> Int {
         switch self {
         case .hiProTech:
             return 0
-        case .other:
+        case .codeal:
             return 1
         }
     }

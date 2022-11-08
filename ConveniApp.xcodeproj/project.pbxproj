@@ -52,6 +52,7 @@
 		BF51A0BE290ACD2B00602B22 /* JobView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF51A0BD290ACD2B00602B22 /* JobView.swift */; };
 		BF6B855426DC8D9F00981CB1 /* NewsType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6B855326DC8D9F00981CB1 /* NewsType.swift */; };
 		BF6CFEE926DA0351009C29B4 /* Actor+Timeout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6CFEE826DA0351009C29B4 /* Actor+Timeout.swift */; };
+		BF7E72732912A033003CB035 /* JobWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7E72722912A033003CB035 /* JobWebView.swift */; };
 		BFC907C026CDCCE5006B1141 /* NewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC907BF26CDCCE5006B1141 /* NewsView.swift */; };
 		BFC907C226CE14C5006B1141 /* ArchiveButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC907C126CE14C5006B1141 /* ArchiveButtonView.swift */; };
 		BFCC931B28AE864E005B0B29 /* YahooNewsParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCC931A28AE864E005B0B29 /* YahooNewsParam.swift */; };
@@ -124,6 +125,7 @@
 		BF5F110C26B765E500E99A65 /* ConveniApp.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = ConveniApp.entitlements; sourceTree = "<group>"; };
 		BF6B855326DC8D9F00981CB1 /* NewsType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsType.swift; sourceTree = "<group>"; };
 		BF6CFEE826DA0351009C29B4 /* Actor+Timeout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Actor+Timeout.swift"; sourceTree = "<group>"; };
+		BF7E72722912A033003CB035 /* JobWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobWebView.swift; sourceTree = "<group>"; };
 		BFC907BF26CDCCE5006B1141 /* NewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsView.swift; sourceTree = "<group>"; };
 		BFC907C126CE14C5006B1141 /* ArchiveButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveButtonView.swift; sourceTree = "<group>"; };
 		BFCC931A28AE864E005B0B29 /* YahooNewsParam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YahooNewsParam.swift; sourceTree = "<group>"; };
@@ -328,6 +330,7 @@
 			isa = PBXGroup;
 			children = (
 				BF51A0BD290ACD2B00602B22 /* JobView.swift */,
+				BF7E72722912A033003CB035 /* JobWebView.swift */,
 			);
 			path = Job;
 			sourceTree = "<group>";
@@ -516,6 +519,7 @@
 				BF51A0B7290AC44000602B22 /* JobFetcher.swift in Sources */,
 				BF6B855426DC8D9F00981CB1 /* NewsType.swift in Sources */,
 				1B59CEFA26B58EE200C50974 /* HourlyWeather.swift in Sources */,
+				BF7E72732912A033003CB035 /* JobWebView.swift in Sources */,
 				1BC25D78268C216C006AF8F2 /* Weather.swift in Sources */,
 				1B86F3F026A076F500A08D24 /* UIDevice+SafeArea.swift in Sources */,
 				1BD040B726BFBB9200255DF0 /* Pm2_5Info.swift in Sources */,
